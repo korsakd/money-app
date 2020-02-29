@@ -8,50 +8,12 @@ import {
   StatusBar,
   ActivityIndicator,
   Button,
+  TouchableOpacity,
 } from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-
-const Profile = () => {
-  const [a, setA] = useState(0);
-  return (
-    <View>
-      <Text>{a}</Text>
-      <Button title="Press me" color="#f194ff" onPress={() => setA(a + 1)} />
-    </View>
-  );
-};
-
-// class Photo1 extends Component {
-//   constructor(props) {
-//     super(props);
-
-//     this.state = {
-//       nazavanie: 'Photo1',
-//       a: 0,
-//       cool: true,
-//     };
-//   }
-
-//   calculation = () => {
-//     return 2 + 5;
-//   };
-
-//   render() {
-//     return (
-//       <View>
-//         <Text>{this.calculation()}</Text>
-//         <Text>{this.state.nazavanie}</Text>
-//         <Text>{this.state.a}</Text>
-//         <Button
-//           title="Press me"
-//           color="#f194ff"
-//           onPress={() => this.setState({a: this.state.a + 1})}
-//         />
-//       </View>
-//     );
-//   }
-// }
+import Profile from './src/ProfileCategory';
+import Costs from './src/CostsCategory';
 
 const App = () => {
   return (
@@ -59,12 +21,23 @@ const App = () => {
       <StatusBar barStyle="dark-content" />
       <SafeAreaView>
         <Profile />
+        <Costs />
       </SafeAreaView>
     </>
   );
 };
 
 const styles = StyleSheet.create({
+  iconStyle: {
+    borderColor: 'black',
+    borderWidth: 4,
+    borderRadius: 50,
+    width: 80,
+    height: 80,
+    overflow: 'hidden',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   scrollView: {
     backgroundColor: Colors.lighter,
   },
