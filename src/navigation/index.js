@@ -1,32 +1,40 @@
-import * as React from 'react';
-import {View, Text, Button} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
+import React, {useState, createContext} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import Categories from '../screens/categories';
-
-function HomeScreen({navigation}) {
-  return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Home Screen</Text>
-      <Button
-        onPress={() => navigation.navigate('Categories')}
-        title="Go to categories"
-      />
-    </View>
-  );
-}
+import NewCategory from '../screens/NewCategory';
 
 const Stack = createStackNavigator();
+export const CategoryContext = createContext();
 
 function Navigator() {
+  const [incomeCategory, setIncomeCategory] = useState([
+    {iconName: 'credit-card', name: 'Кошелек'},
+    {iconName: 'bank', name: 'Банковские вложения'},
+  ]);
+  const [costsCategory, setCostsCategory] = useState([
+    {iconName: 'home', name: 'Дом'},
+    {iconName: 'car', name: 'Машина'},
+    {iconName: 'airplane', name: 'Отдых'},
+    {iconName: 'heart', name: 'Здоровье'},
+  ]);
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
+    <CategoryContext.Provider
+      value={{
+        incomeCategory: incomeCategory,
+        addCategory: cat => {
+          setIncomeCategory([...incomeCategory, cat]);
+        },
+        costsCategory: costsCategory,
+        addCostCategory: cat => {
+          setCostsCategory([...costsCategory, cat]);
+        },
+      }}>
+      <Stack.Navigator mode="modal">
         <Stack.Screen name="Categories" component={Categories} />
+        <Stack.Screen name="NewCategory" component={NewCategory} />
       </Stack.Navigator>
-    </NavigationContainer>
+    </CategoryContext.Provider>
   );
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import {SafeAreaView, StatusBar} from 'react-native';
-import Profile from '../../ProfileCategory';
-import Costs from '../../CostsCategory';
+import Profile from '../../Components/ProfileCategory';
+import Costs from '../../Components/CostsCategory';
 
 const Categories = () => {
   return (
