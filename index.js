@@ -7,7 +7,6 @@ import {Provider} from 'react-redux';
 import createStore from './src/redux';
 import {PersistGate} from 'redux-persist/integration/react';
 
-<<<<<<< HEAD
 if (__DEV__) {
   import('./src/config/ReactotronConfig').then(() =>
     console.log('Reactotron Configured'),
@@ -22,8 +21,5 @@ const App = () => (
     </PersistGate>
   </Provider>
 );
-=======
-const App = () => <TabNavigator />;
->>>>>>> master
 
 AppRegistry.registerComponent(appName, () => App);
