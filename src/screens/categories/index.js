@@ -1,6 +1,6 @@
 import React from 'react';
 import {SafeAreaView, StatusBar} from 'react-native';
-import Profile from '../../Components/ProfileCategory';
+import Income from '../../Components/IncomeCategory';
 import Costs from '../../Components/CostsCategory';
 
 const Categories = () => {
@@ -8,7 +8,7 @@ const Categories = () => {
     <>
       <StatusBar barStyle="dark-content" />
       <SafeAreaView>
-        <Profile />
+        <Income />
         <Costs />
       </SafeAreaView>
     </>

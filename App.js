@@ -12,7 +12,11 @@ import {
 } from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
+<<<<<<< HEAD
+import Income from './src/Components/IncomeCategory';
+=======
 import Profile from './src/Components/ProfileCategory';
+>>>>>>> master
 import Costs from './src/Components/CostsCategory';
 
 const App = () => {
@@ -20,7 +24,7 @@ const App = () => {
     <>
       <StatusBar barStyle="dark-content" />
       <SafeAreaView>
-        <Profile />
+        <Income />
         <Costs />
       </SafeAreaView>
     </>

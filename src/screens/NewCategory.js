@@ -1,144 +1,153 @@
-import React, {useState, useContext} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
-  StyleSheet,
   ScrollView,
   TouchableOpacity,
-  Button,
+  TextInput,
+  Alert,
+  StyleSheet,
 } from 'react-native';
-import {TextInput} from 'react-native-gesture-handler';
-import {CategoryContext} from '../navigation/index';
-
-import CategoryIcon from '../Components/CategoryComponent';
+import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import {useNavigation, useRoute} from '@react-navigation/native';
+import {connect} from 'react-redux';
+import {
+  addCategory,
+  replaceCategory,
+} from '../redux/reducers/categoriesReducer';
 
-const NewCategory = () => {
+import CategoryList from '../Components/CategoryList';
+import CategoryIcon from '../Components/CategoryComponent';
+
+const NewCategory = ({add, categoriesIcon, replace}) => {
   const navigation = useNavigation();
   const route = useRoute();
-  const [text, setText] = useState('');
-  const iconNameArray = [
-    'basecamp',
-    'baseball-bat',
-    'basket',
-    'basket-fill',
-    'basket-unfill',
-    'basketball',
-    'battery',
-    'battery-10',
-    'battery-10-bluetooth',
-    'battery-20',
-    'battery-20-bluetooth',
-    'battery-30',
-    'battery-30-bluetooth',
-    'battery-40',
-    'battery-40-bluetooth',
-    'battery-50',
-    'basecamp',
-    'baseball-bat',
-    'basket',
-    'basket-fill',
-    'basket-unfill',
-    'basketball',
-    'battery',
-    'battery-10',
-    'battery-10-bluetooth',
-    'battery-20',
-    'battery-20-bluetooth',
-    'battery-30',
-    'battery-30-bluetooth',
-    'battery-40',
-    'battery-40-bluetooth',
-    'battery-50',
-    'basecamp',
-    'baseball-bat',
-    'basket',
-    'basket-fill',
-    'basket-unfill',
-    'basketball',
-    'battery',
-    'battery-10',
-    'battery-10-bluetooth',
-    'battery-20',
-    'battery-20-bluetooth',
-    'battery-30',
-    'battery-30-bluetooth',
-    'battery-40',
-    'battery-40-bluetooth',
-    'battery-50',
-    'basecamp',
-    'baseball-bat',
-    'basket',
-    'basket-fill',
-    'basket-unfill',
-    'basketball',
-    'battery',
-    'battery-10',
-    'battery-10-bluetooth',
-    'battery-20',
-    'battery-20-bluetooth',
-    'battery-30',
-    'battery-30-bluetooth',
-    'battery-40',
-    'battery-40-bluetooth',
-    'battery-50',
-  ];
-  const [choosenIcon, setChoosenIcon] = useState('');
-  const contextValue = useContext(CategoryContext);
+  const [choosenIcon, setChooseIcon] = useState(
+    route.params.item ? route.params.item.iconName : categoriesIcon.Food[0],
+  );
+  const [text, setText] = useState(
+    route.params.item ? route.params.item.name : '',
+  );
+  const check = () => {
+    if (text === '') {
+      return Alert.alert('Введите текст');
+    }
+    if (text !== '') {
+      add(
+        {
+          iconName: choosenIcon,
+          name: text,
+        },
+        route.params.from,
+      );
+      if (route.params.type === 'Income' || route.params.type === 'Costs') {
+        replace(
+          {
+            iconName: choosenIcon,
+            name: text,
+          },
+          route.params.index,
+          route.params.type,
+        );
+      }
+      navigation.goBack();
+    }
+  };
+  navigation.setOptions({
+    headerRight: () => (
+      <TouchableOpacity
+        style={{marginRight: 15}}
+        onPress={() => {
+          check();
+        }}>
+        <Icon name="check" size={25} color="#fff" />
+      </TouchableOpacity>
+    ),
+  });
+
   return (
-    <>
+    <View style={{backgroundColor: 'white'}}>
       <View>
-        <Text>Введите название категории</Text>
-        <Text>{choosenIcon}</Text>
-        <View style={{flexDirection: 'row'}}>
+        <Text
+          style={{
+            fontSize: 15,
+            marginVertical: 10,
+            marginLeft: 15,
+          }}>
+          Введите название категории
+        </Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}>
+          <CategoryIcon iconName={choosenIcon} />
           <TextInput
             style={{
-              borderWidth: 2,
               flex: 1,
+              marginRight: 10,
+              borderBottomWidth: 1,
+              marginTop: 0,
+              paddingBottom: 0,
+              paddingTop: 0,
             }}
-            value={text}
+            placeholder="Category name"
             onChangeText={setText}
-          />
-          <Button
-            title="add"
-            disabled={text === '' ? true : choosenIcon === '' ? true : false}
-            onPress={() => {
-              route.params.from === 'Profile'
-                ? contextValue.addCategory({iconName: choosenIcon, name: text})
-                : contextValue.addCostCategory({
-                    iconName: choosenIcon,
-                    name: text,
-                  });
-              navigation.goBack();
-            }}
+            value={text}
           />
         </View>
       </View>
-      <View>
-        <Text>Выберите иконку категории</Text>
-        <ScrollView contentContainerStyle={styles.iconWrap}>
-          {iconNameArray.map((element, index) => {
-            return (
-              <TouchableOpacity
-                key={index}
-                onPress={() => setChoosenIcon(element)}>
-                <View style={{marginVertical: 5}}>
-                  <CategoryIcon iconName={element} />
-                </View>
-              </TouchableOpacity>
-            );
-          })}
-        </ScrollView>
-      </View>
-    </>
+      <ScrollView style={{marginBottom: 110}}>
+        {Object.entries(categoriesIcon).map(([key, value]) => {
+          return (
+            <View key={key}>
+              <View style={styles.textContainer}>
+                <Text style={styles.textWrap}>{key}</Text>
+              </View>
+              <CategoryList
+                categoryArray={value}
+                setChooseIcon={setChooseIcon}
+              />
+            </View>
+          );
+        })}
+      </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  iconWrap: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
+  textWrap: {
+    color: '#fff',
+    fontSize: 15,
+    marginVertical: 5,
+    marginLeft: 15,
+  },
+  textContainer: {
+    backgroundColor: '#694fad',
+    marginVertical: 3,
   },
 });
-export default NewCategory;
+
+const mapStateToProps = state => {
+  return {
+    categoriesIcon: state.categoriesReducer.categoriesIcon,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    add: (category, from) => {
+      dispatch(addCategory(category, from));
+    },
+    replace: (element, index, type) => {
+      dispatch(replaceCategory(element, index, type));
+    },
+  };
+};
+
+// eslint-disable-next-line prettier/prettier
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(NewCategory);

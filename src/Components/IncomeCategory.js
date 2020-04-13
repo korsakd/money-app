@@ -1,23 +1,23 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
-import {connect} from 'react-redux';
 
 import AddCategory from './AddButtonComponent';
 import IconItem from './IconItem';
+import {connect} from 'react-redux';
 import {sortCategories} from '../redux/reducers/categoriesReducer';
 import {removeDeletedCategory} from '../redux/reducers/categoriesReducer';
 import {addCategory} from '../redux/reducers/categoriesReducer';
 
-const Costs = ({costsCategory, sort}) => {
+const Income = ({incomeCategory, sort}) => {
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       <IconItem
-        categoryList={costsCategory}
+        categoryList={incomeCategory}
         applySort={data => sort(data)}
-        type="Costs"
+        type="Income"
       />
       <View>
-        <AddCategory from="Costs" />
+        <AddCategory from="Income" />
       </View>
     </View>
   );
@@ -25,15 +25,16 @@ const Costs = ({costsCategory, sort}) => {
 
 const mapStateToProps = state => {
   return {
-    costsCategory: state.categoriesReducer.costs,
-    deletedCategory: state.categoriesReducer.deletedCostsCategory,
+    incomeCategory: state.categoriesReducer.income,
+    deletedCategory: state.categoriesReducer.deletedIncomeCategory,
   };
 };
+
 const mapDispatchToProps = dispatch => {
   return {
-    sort: categories => dispatch(sortCategories(categories, 'Costs')),
-    removeDeleted: index => dispatch(removeDeletedCategory(index, 'Costs')),
-    add: category => dispatch(addCategory(category, 'Costs')),
+    sort: categories => dispatch(sortCategories(categories, 'Income')),
+    removeDeleted: index => dispatch(removeDeletedCategory(index, 'Income')),
+    add: category => dispatch(addCategory(category, 'Income')),
   };
 };
 
@@ -41,4 +42,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Costs);
+)(Income);

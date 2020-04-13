@@ -1,7 +1,7 @@
-import React, {useState, createContext} from 'react';
+import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import Categories from '../screens/categories';
+import CategoriesNav from '../navigation/CatigoriesNavigation';
 import NewCategory from '../screens/NewCategory';
 
 const Stack = createStackNavigator();
@@ -19,22 +19,34 @@ function Navigator() {
     {iconName: 'heart', name: 'Здоровье'},
   ]);
   return (
-    <CategoryContext.Provider
-      value={{
-        incomeCategory: incomeCategory,
-        addCategory: cat => {
-          setIncomeCategory([...incomeCategory, cat]);
-        },
-        costsCategory: costsCategory,
-        addCostCategory: cat => {
-          setCostsCategory([...costsCategory, cat]);
-        },
-      }}>
-      <Stack.Navigator mode="modal">
-        <Stack.Screen name="Categories" component={Categories} />
-        <Stack.Screen name="NewCategory" component={NewCategory} />
-      </Stack.Navigator>
-    </CategoryContext.Provider>
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Categories"
+        component={CategoriesNav}
+        options={{
+          headerStyle: {
+            backgroundColor: '#694fad',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="NewCategory"
+        component={NewCategory}
+        options={{
+          headerStyle: {
+            backgroundColor: '#694fad',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      />
+    </Stack.Navigator>
   );
 }
 

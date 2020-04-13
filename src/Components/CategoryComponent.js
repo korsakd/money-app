@@ -1,40 +1,127 @@
 import React from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import {useRoute} from '@react-navigation/native';
+
+import {removeCategory} from '../redux/reducers/categoriesReducer';
+import {connect} from 'react-redux';
 
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 
-const CategoryIcon = ({iconName, name}) => (
-  <View style={styles.iconeContainer}>
-    <View style={styles.iconStyle}>
-      <Icon name={iconName} size={24} />
-    </View>
-    {name ? (
-      <Text numberOfLines={1} ellipsizeMode={'tail'} style={styles.textItem}>
-        {name}
-      </Text>
-    ) : null}
-  </View>
-);
-
+const CategoryIcon = ({iconName, name, id, drag, remove}) => {
+  const route = useRoute();
+  const showIncome = route.name === 'Income';
+  const showCosts = route.name === 'Costs';
+  if (showIncome || showCosts) {
+    return (
+      <View style={styles.categoryWrap}>
+        <View style={styles.iconeContainer}>
+          <TouchableOpacity
+            style={{marginLeft: 10}}
+            onPress={() => {
+              remove(id, route.name);
+            }}>
+            <Icon name="minus-circle" size={20} color="#d10000" />
+          </TouchableOpacity>
+          <View style={styles.iconStyle}>
+            <Icon name={iconName} size={25} color="#525252" />
+          </View>
+          {name ? (
+            <Text
+              numberOfLines={1}
+              ellipsizeMode={'tail'}
+              style={styles.textItem}>
+              {name}
+            </Text>
+          ) : null}
+          <View style={{marginRight: 15}}>
+            <TouchableOpacity onLongPress={drag}>
+              <Icon name="menu" size={20} />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+    );
+  } else {
+    return (
+      <View style={styles.categoryWrapDefault}>
+        <View style={styles.iconeContainerDefault}>
+          <View style={styles.iconStyleDefault}>
+            <Icon name={iconName} size={25} color="#525252" />
+          </View>
+          {name ? (
+            <Text
+              numberOfLines={1}
+              ellipsizeMode={'tail'}
+              style={styles.textItemDefault}>
+              {name}
+            </Text>
+          ) : null}
+        </View>
+      </View>
+    );
+  }
+};
 const styles = StyleSheet.create({
-  textItem: {
+  categoryWrap: {
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  categoryWrapDefault: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  textItemDefault: {
     textAlign: 'center',
+    flexGrow: 1,
+    width: 50,
+  },
+  textItem: {
+    textAlign: 'left',
+    flexGrow: 1,
+    width: 50,
   },
   iconeContainer: {
-    marginHorizontal: 5,
     alignItems: 'center',
-    width: 70,
+    flexDirection: 'row',
+    paddingVertical: 10,
+    flex: 1,
+  },
+  iconeContainerDefault: {
+    alignItems: 'center',
+    marginVertical: 10,
+    marginHorizontal: 5,
   },
   iconStyle: {
-    borderColor: 'black',
-    borderWidth: 2,
-    borderRadius: 50,
-    width: 50,
-    height: 50,
+    backgroundColor: '#e8e8e8',
+    borderRadius: 12,
+    width: 45,
+    height: 45,
     overflow: 'hidden',
     justifyContent: 'center',
     alignItems: 'center',
+    marginHorizontal: 15,
+  },
+  iconStyleDefault: {
+    backgroundColor: '#e8e8e8',
+    borderRadius: 12,
+    width: 45,
+    height: 45,
+    overflow: 'hidden',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: 15,
   },
 });
 
-export default CategoryIcon;
+const mapDispatchToProps = dispatch => {
+  return {
+    remove: (index, type) => dispatch(removeCategory(index, type)),
+  };
+};
+
+// eslint-disable-next-line prettier/prettier
+export default connect(
+  null,
+  mapDispatchToProps,
+)(CategoryIcon);
