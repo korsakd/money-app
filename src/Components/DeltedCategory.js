@@ -12,7 +12,6 @@ const DeletedCategory = ({
   removeDeleted,
   add,
 }) => {
-  console.tron(deletedCostsCategory.length);
   if (type === 'Income') {
     return (
       <View>

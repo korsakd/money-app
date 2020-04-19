@@ -8,9 +8,9 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import Modal from 'react-native-modal';
-
 import CustomKeyboard from '../Components/Keyboard';
 import CategoryIcon from '../Components/CategoryComponent';
+import {dateDisplay, sortByDate} from '../utils/dateHelpers';
 
 function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
   const [toggleModal, setToggleModal] = useState(false);
@@ -26,59 +26,99 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
   const summValues = (a, c) => Number(a) + Number(c.inputValue);
   const incomeValue = incomeArray.reduce(summValues, 0);
   const costsValue = costsArray.reduce(summValues, 0);
-  const dateDisplay = date => {
-    return `${date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()}.${
-      date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1
-    }.${date.getFullYear()}`;
-  };
+
+  const dates = sortByDate(balance);
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       <View style={styles.balanceWrap}>
+        <View />
         <View>
-          <Text>Доход</Text>
-          <Text>{incomeValue}</Text>
+          <Text style={styles.balanceType}>Доход</Text>
+          <Text style={styles.balanceValue}>{incomeValue}</Text>
         </View>
+        <View
+          style={{
+            borderWidth: StyleSheet.hairlineWidth,
+            height: 30,
+            alignSelf: 'center',
+            borderColor: 'grey',
+          }}
+        />
         <View>
-          <Text>Расходы</Text>
-          <Text>{costsValue}</Text>
+          <Text style={styles.balanceType}>Расходы</Text>
+          <Text style={styles.balanceValue}>{costsValue}</Text>
         </View>
+        <View
+          style={{
+            borderWidth: StyleSheet.hairlineWidth,
+            height: 30,
+            alignSelf: 'center',
+            borderColor: 'grey',
+          }}
+        />
         <View>
-          <Text>Баланс</Text>
-          <Text>{(Number(incomeValue) - Number(costsValue)).toFixed(2)}</Text>
+          <Text style={styles.balanceType}>Баланс</Text>
+          <Text style={styles.balanceValue}>
+            {(Number(incomeValue) - Number(costsValue)).toFixed(2)}
+          </Text>
         </View>
+        <View />
       </View>
       <ScrollView>
-        {balance.map((element, index) => {
+        {dates.map(([key, value]) => {
+          const incomeValueArray = value.filter(
+            element => element.categoryType === 'Income',
+          );
+          const costsValueArray = value.filter(
+            element => element.categoryType === 'Costs',
+          );
+          console.tron(incomeValueArray.inputValue);
+          const incomeValues = incomeValueArray.reduce(summValues, 0);
+          const costsValues = costsValueArray.reduce(summValues, 0);
           return (
-            <TouchableOpacity
-              key={index}
-              onPress={() =>
-                navigation.navigate('Details', {
-                  element,
-                  index,
-                })
-              }>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-around',
-                }}>
+            <View key={key} style={styles.balanceItemWrap}>
+              <View style={styles.balanceItemHeader}>
+                <Text>{dateDisplay(new Date(value[0].date))}</Text>
                 <Text>
-                  {element.categoryType === 'Costs'
-                    ? 'Расходы:'
-                    : element.categoryType === 'Income'
-                    ? 'Доходы:'
-                    : ''}
+                  {Object.keys(incomeValueArray).length === 0
+                    ? null
+                    : `Доход: ${incomeValues}`}
                 </Text>
-                <CategoryIcon iconName={element.categoryIconName} />
-                <Text>{element.categoryName}</Text>
-                <Text>{element.inputValue}</Text>
                 <Text>
-                  {element.date ? dateDisplay(new Date(element.date)) : ''}
+                  {Object.keys(costsValueArray).length === 0
+                    ? null
+                    : `Расход: - ${costsValues}`}
                 </Text>
               </View>
-            </TouchableOpacity>
+              {value.map((element, index) => {
+                return (
+                  <TouchableOpacity
+                    key={index}
+                    onPress={() =>
+                      navigation.navigate('Details', {
+                        element,
+                        index,
+                      })
+                    }>
+                    <View style={styles.balanceItem}>
+                      <CategoryIcon iconName={element.categoryIconName} />
+                      <Text>{element.categoryName}</Text>
+                      <View
+                        style={{
+                          flex: 1,
+                          alignItems: 'flex-end',
+                        }}>
+                        <Text>
+                          {element.categoryType === 'Costs'
+                            ? `-${element.inputValue}`
+                            : element.inputValue}
+                        </Text>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+                );
+              })}
+            </View>
           );
         })}
       </ScrollView>
@@ -113,7 +153,6 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
                   <CategoryIcon
                     iconName={element.iconName}
                     name={element.name}
-                    styles={{width: 50}}
                   />
                 </TouchableOpacity>
               );
@@ -138,7 +177,6 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
                   <CategoryIcon
                     iconName={element.iconName}
                     name={element.name}
-                    styles={{width: 50}}
                   />
                 </TouchableOpacity>
               );
@@ -153,7 +191,6 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
 const styles = StyleSheet.create({
   balanceWrap: {
     marginTop: 15,
-    // borderWidth: StyleSheet.hairlineWidth,
     alignSelf: 'center',
     width: 400,
     height: 70,
@@ -165,21 +202,52 @@ const styles = StyleSheet.create({
       width: 0,
       height: 1,
     },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
 
-    elevation: 3,
+    elevation: 2,
+  },
+  balanceType: {
+    marginTop: 10,
+    fontSize: 15,
+    alignSelf: 'center',
+  },
+  balanceValue: {
+    alignSelf: 'center',
+    marginTop: 5,
+    fontSize: 17,
+    fontWeight: 'bold',
+  },
+  balanceItemWrap: {
+    marginTop: 15,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    alignSelf: 'center',
+    width: 400,
+    borderRadius: 7,
+    justifyContent: 'space-around',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+
+    elevation: 2,
+  },
+  balanceItemHeader: {
+    flexDirection: 'row',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    paddingBottom: 10,
+    justifyContent: 'space-around',
+  },
+  balanceItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   componentWrap: {
     flexDirection: 'row',
-  },
-  buttonWrap: {
-    width: 150,
-    alignItems: 'center',
-    backgroundColor: '#e028fc',
-    padding: 10,
-    margin: 5,
-    borderRadius: 5,
   },
   textWrap: {
     color: '#fff',
@@ -198,7 +266,7 @@ const mapStateToProps = state => {
     costsCategory: state.categoriesReducer.costs,
   };
 };
-// eslint-disable-next-line prettier/prettier
+
 export default connect(
   mapStateToProps,
   null,

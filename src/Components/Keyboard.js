@@ -120,5 +120,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-// eslint-disable-next-line prettier/prettier
-export default connect(null, mapDispatchToProps)(CustomKeyboard);
+export default connect(
+  null,
+  mapDispatchToProps,
+)(CustomKeyboard);
