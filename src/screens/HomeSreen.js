@@ -11,9 +11,12 @@ import Modal from 'react-native-modal';
 import CustomKeyboard from '../Components/Keyboard';
 import CategoryIcon from '../Components/CategoryComponent';
 import {dateDisplay, sortByDate} from '../utils/dateHelpers';
+import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
+import LoginHome from '../Components/LoginHome';
 
 function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
-  const [toggleModal, setToggleModal] = useState(false);
+  const [toggleKeyboardModal, setToggleKeyboardModal] = useState(false);
+  const [toggleLoginModal, setToggleLoginModal] = useState(false);
   const [type, setType] = useState(null);
   const [categoryType, setCategoryType] = useState('');
   const [categoryIcon, setCategoryIcon] = useState('');
@@ -28,13 +31,37 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
   const costsValue = costsArray.reduce(summValues, 0);
 
   const dates = sortByDate(balance);
+  navigation.setOptions({
+    headerRight: () => (
+      <TouchableOpacity
+        style={{marginRight: 15}}
+        onPress={() => {
+          setToggleLoginModal(true);
+        }}>
+        <Icon name="account-outline" size={25} color="#fff" />
+      </TouchableOpacity>
+    ),
+  });
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
+      <Modal
+        isVisible={toggleLoginModal}
+        onBackdropPress={() => setToggleLoginModal(false)}
+        backdropOpacity={0.3}>
+        <View
+          style={{
+            backgroundColor: 'white',
+            borderRadius: 20,
+            paddingVertical: 15,
+          }}>
+          <LoginHome />
+        </View>
+      </Modal>
       <View style={styles.balanceWrap}>
         <View />
         <View>
           <Text style={styles.balanceType}>Доход</Text>
-          <Text style={styles.balanceValue}>{incomeValue}</Text>
+          <Text style={styles.balanceValue}>{incomeValue.toFixed(2)}</Text>
         </View>
         <View
           style={{
@@ -46,7 +73,7 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
         />
         <View>
           <Text style={styles.balanceType}>Расходы</Text>
-          <Text style={styles.balanceValue}>{costsValue}</Text>
+          <Text style={styles.balanceValue}>{costsValue.toFixed(2)}</Text>
         </View>
         <View
           style={{
@@ -72,7 +99,6 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
           const costsValueArray = value.filter(
             element => element.categoryType === 'Costs',
           );
-          console.tron(incomeValueArray.inputValue);
           const incomeValues = incomeValueArray.reduce(summValues, 0);
           const costsValues = costsValueArray.reduce(summValues, 0);
           return (
@@ -82,12 +108,12 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
                 <Text>
                   {Object.keys(incomeValueArray).length === 0
                     ? null
-                    : `Доход: ${incomeValues}`}
+                    : `Доход: ${Number(incomeValues).toFixed(2)}`}
                 </Text>
                 <Text>
                   {Object.keys(costsValueArray).length === 0
                     ? null
-                    : `Расход: - ${costsValues}`}
+                    : `Расход: - ${Number(costsValues).toFixed(2)}`}
                 </Text>
               </View>
               {value.map((element, index) => {
@@ -102,13 +128,13 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
                     }>
                     <View style={styles.balanceItem}>
                       <CategoryIcon iconName={element.categoryIconName} />
-                      <Text>{element.categoryName}</Text>
+                      <Text style={{fontSize: 17}}>{element.categoryName}</Text>
                       <View
                         style={{
                           flex: 1,
                           alignItems: 'flex-end',
                         }}>
-                        <Text>
+                        <Text style={{fontSize: 17}}>
                           {element.categoryType === 'Costs'
                             ? `-${element.inputValue}`
                             : element.inputValue}
@@ -124,13 +150,13 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
       </ScrollView>
       <View>
         <Modal
-          isVisible={toggleModal}
-          onBackdropPress={() => setToggleModal(false)}
+          isVisible={toggleKeyboardModal}
+          onBackdropPress={() => setToggleKeyboardModal(false)}
           backdropOpacity={0.3}
           style={{margin: 0, justifyContent: 'flex-end'}}>
           <CustomKeyboard
             type={type}
-            removeModal={element => setToggleModal(element)}
+            removeModal={element => setToggleKeyboardModal(element)}
             categoryType={categoryType}
             categoryIcon={categoryIcon}
           />
@@ -146,7 +172,7 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
                   key={index}
                   onPress={() => {
                     setType('Costs');
-                    setToggleModal(true);
+                    setToggleKeyboardModal(true);
                     setCategoryType(element.name);
                     setCategoryIcon(element.iconName);
                   }}>
@@ -170,7 +196,7 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
                   key={index}
                   onPress={() => {
                     setType('Income');
-                    setToggleModal(true);
+                    setToggleKeyboardModal(true);
                     setCategoryType(element.name);
                     setCategoryIcon(element.iconName);
                   }}>
@@ -191,6 +217,7 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
 const styles = StyleSheet.create({
   balanceWrap: {
     marginTop: 15,
+    marginBottom: 15,
     alignSelf: 'center',
     width: 400,
     height: 70,
@@ -219,7 +246,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   balanceItemWrap: {
-    marginTop: 15,
+    marginBottom: 15,
     paddingVertical: 10,
     paddingHorizontal: 10,
     alignSelf: 'center',
@@ -245,6 +272,7 @@ const styles = StyleSheet.create({
   balanceItem: {
     flexDirection: 'row',
     alignItems: 'center',
+    borderBottomWidth: StyleSheet.hairlineWidth,
   },
   componentWrap: {
     flexDirection: 'row',
@@ -256,7 +284,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   textContainer: {
-    backgroundColor: '#a35f1b',
+    backgroundColor: '#470736',
   },
 });
 const mapStateToProps = state => {

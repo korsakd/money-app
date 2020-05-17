@@ -15,7 +15,7 @@ const TabNavigator = () => {
       <Tab.Navigator activeColor="#f0edf6" inactiveColor="#bababa">
         <Tab.Screen
           options={{
-            tabBarColor: '#a35f1b',
+            tabBarColor: '#470736',
             tabBarLabel: 'Home',
             tabBarIcon: ({color}) => (
               <Icon name="home-outline" color={color} size={26} />
@@ -40,7 +40,7 @@ const TabNavigator = () => {
           component={Graphs}
           options={{
             tabBarColor: '#445328',
-            tabBarLabel: 'Categories',
+            tabBarLabel: 'Graphs',
             tabBarIcon: ({color}) => (
               <Icon name="chart-arc" color={color} size={26} />
             ),
@@ -51,7 +51,7 @@ const TabNavigator = () => {
           component={Settings}
           options={{
             tabBarColor: '#be935a',
-            tabBarLabel: 'Categories',
+            tabBarLabel: 'Settings',
             tabBarIcon: ({color}) => (
               <Icon name="settings-outline" color={color} size={26} />
             ),

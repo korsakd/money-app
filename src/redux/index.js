@@ -1,6 +1,7 @@
 import {createStore} from 'redux';
 import categoriesReducer from './reducers/categoriesReducer';
 import balanceReducer from './reducers/balanceReducer';
+import userReduсer from './reducers/userReduсer';
 import Reactotron from '../config/ReactotronConfig';
 import {persistStore, persistCombineReducers} from 'redux-persist';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -15,6 +16,7 @@ const store = createStore(
   persistCombineReducers(config, {
     categoriesReducer,
     balanceReducer,
+    userReduсer,
   }),
   Reactotron.createEnhancer(),
 );

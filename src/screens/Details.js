@@ -76,70 +76,92 @@ const Details = ({route, remove, replace}) => {
           />
         </View>
       </Modal>
-      <View style={styles.wrap}>
-        <CategoryIcon iconName={route.params.element.categoryIconName} />
-        <Text>{route.params.element.categoryName}</Text>
-      </View>
-      <View style={styles.wrap}>
-        <Text style={styles.textWrap}>Категория:</Text>
-        <Text>
-          {route.params.element.categoryType === 'Costs' ? 'Расходы' : 'Доходы'}
-        </Text>
-      </View>
-      <View style={styles.wrap}>
-        <Text style={styles.textWrap}>Деньги:</Text>
-        <TouchableOpacity
-          onPress={() => {
-            setTextInputShow(true);
-          }}>
-          {isTextInputShow ? (
-            <TextInput
-              value={number}
-              onChangeText={setNumber}
-              autoFocus={true}
-              onSubmitEditing={() =>
-                replace(
-                  {...route.params.element, inputValue: number},
-                  route.params.index,
-                )
-              }
-            />
-          ) : (
-            <Text>{route.params.element.inputValue}</Text>
-          )}
-        </TouchableOpacity>
-      </View>
-      <View style={styles.wrap}>
-        <Text style={styles.textWrap}>Дата:</Text>
-        <TouchableOpacity onPress={() => setToggleModal(true)}>
-          <Text>{dateDisplay()}</Text>
-        </TouchableOpacity>
+      <View style={styles.detailsWrap}>
+        <View style={styles.detailsCategoryWrap}>
+          <CategoryIcon iconName={route.params.element.categoryIconName} />
+          <Text style={{fontSize: 17}}>
+            {route.params.element.categoryName}
+          </Text>
+        </View>
+        <View style={styles.wrap}>
+          <Text style={styles.textWrap}>Категория:</Text>
+          <Text style={{fontSize: 17}}>
+            {route.params.element.categoryType === 'Costs'
+              ? 'Расходы'
+              : 'Доходы'}
+          </Text>
+        </View>
+        <View style={styles.wrap}>
+          <Text style={styles.textWrap}>Деньги:</Text>
+          <TouchableOpacity
+            onPress={() => {
+              setTextInputShow(true);
+            }}>
+            {isTextInputShow ? (
+              <TextInput
+                style={{fontSize: 17}}
+                keyboardType={'numeric'}
+                value={number}
+                onChangeText={setNumber}
+                autoFocus={true}
+                onSubmitEditing={() =>
+                  replace(
+                    {
+                      ...route.params.element,
+                      inputValue: Number(number).toFixed(2),
+                    },
+                    route.params.index,
+                  )
+                }
+              />
+            ) : (
+              <Text style={{fontSize: 17}}>{Number(number).toFixed(2)}</Text>
+            )}
+          </TouchableOpacity>
+        </View>
+        <View style={styles.wrap}>
+          <Text style={styles.textWrap}>Дата:</Text>
+          <TouchableOpacity onPress={() => setToggleModal(true)}>
+            <Text style={{fontSize: 17}}>{dateDisplay()}</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  detailsWrap: {
+    marginTop: 15,
+    paddingBottom: 15,
+    alignSelf: 'center',
+    width: 400,
+    borderRadius: 7,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+
+    elevation: 2,
+  },
+  detailsCategoryWrap: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
   wrap: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10,
-    marginLeft: 10,
+    marginTop: 15,
+    marginLeft: 19,
   },
   textWrap: {
     marginRight: 10,
-  },
-  buttonWrap: {
-    width: 150,
-    alignItems: 'center',
-    backgroundColor: '#e028fc',
-    padding: 10,
-    margin: 5,
-    borderRadius: 5,
-  },
-  textStyle: {
-    textTransform: 'uppercase',
-    color: '#fff',
+    fontSize: 17,
+    width: 90,
   },
 });
 
@@ -154,7 +176,6 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-// eslint-disable-next-line prettier/prettier
 export default connect(
   null,
   mapDispatchToProps,

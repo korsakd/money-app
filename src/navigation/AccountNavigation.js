@@ -1,12 +1,11 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-
-import HomeScreen from '../screens/HomeSreen';
-import Details from '../screens/Details';
+import LoginScreen from '../screens/LoginScreen';
+import LoadingScreen from '../screens/LoadingScreen';
 
 const Stack = createStackNavigator();
 
-const HomeNavigator = () => {
+const AccountNavigation = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -19,12 +18,12 @@ const HomeNavigator = () => {
             fontWeight: 'bold',
           },
         }}
-        name="Home"
-        component={HomeScreen}
+        name="Login"
+        component={LoginScreen}
       />
       <Stack.Screen
-        name="Details"
-        component={Details}
+        name="Loading"
+        component={LoadingScreen}
         options={{
           headerStyle: {
             backgroundColor: '#470736',
@@ -39,4 +38,4 @@ const HomeNavigator = () => {
   );
 };
 
-export default HomeNavigator;
+export default AccountNavigation;

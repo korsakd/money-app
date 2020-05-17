@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import {addBalance} from '../redux/reducers/balanceReducer';
 import Modal from 'react-native-modal';
 import CalendarPicker from 'react-native-calendar-picker';
+import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 
 const CustomKeyboard = ({
   removeModal,
@@ -49,14 +50,18 @@ const CustomKeyboard = ({
       return setNumber(number.slice(0, -1));
     }
     if (i === 'ok') {
-      removeModal(false);
-      add({
-        categoryIconName: categoryIcon,
-        categoryType: type,
-        categoryName: categoryType,
-        inputValue: Number(number).toFixed(2),
-        date: date,
-      });
+      if (number === '0') {
+        removeModal(false);
+      } else {
+        removeModal(false);
+        add({
+          categoryIconName: categoryIcon,
+          categoryType: type,
+          categoryName: categoryType,
+          inputValue: Number(number).toFixed(2),
+          date: date,
+        });
+      }
       return;
     }
     if (i === dateDisplay()) {
@@ -82,8 +87,18 @@ const CustomKeyboard = ({
           />
         </View>
       </Modal>
-      <View>
-        <Text>{number}</Text>
+      <View
+        style={{
+          height: 30,
+          paddingLeft: 10,
+          justifyContent: 'center',
+        }}>
+        <Text
+          style={{
+            fontSize: 17,
+          }}>
+          {number}
+        </Text>
       </View>
       <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
         {numberArray.map((i, index) => {
@@ -91,20 +106,22 @@ const CustomKeyboard = ({
             <TouchableOpacity
               key={index}
               onPress={() => handlePress(i)}
-              style={{
-                width: '25%',
-                height: 50,
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderWidth: StyleSheet.hairlineWidth,
-              }}>
+              style={i === 'ok' ? styles.applyButton : styles.buttonWrap}>
               {i === dateDisplay() ? (
                 <View>
-                  <Text style={{textAlign: 'center'}}>Today</Text>
+                  <Text style={{textAlign: 'center', fontSize: 17}}>Today</Text>
                   <Text>{i}</Text>
                 </View>
+              ) : i === 'ok' ? (
+                <View>
+                  <Icon name="check-circle-outline" size={30} color="#525252" />
+                </View>
+              ) : i === 'del' ? (
+                <View>
+                  <Icon name="backspace-outline" size={30} color="#525252" />
+                </View>
               ) : (
-                <Text>{i}</Text>
+                <Text style={{fontSize: 17}}>{i}</Text>
               )}
             </TouchableOpacity>
           );
@@ -113,6 +130,24 @@ const CustomKeyboard = ({
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  buttonWrap: {
+    width: '25%',
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: StyleSheet.hairlineWidth,
+  },
+  applyButton: {
+    backgroundColor: '#43cc1f',
+    width: '25%',
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: StyleSheet.hairlineWidth,
+  },
+});
 
 const mapDispatchToProps = dispatch => {
   return {
