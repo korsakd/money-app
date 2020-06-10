@@ -16,6 +16,7 @@ const LoginScreen = ({
   user,
   isLoadingScreen,
   setIsLoadingScreen,
+  fromSettings,
 }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -68,7 +69,7 @@ const LoginScreen = ({
           value={password}
         />
         <TouchableOpacity
-          style={styles.button}
+          style={fromSettings ? styles.settingsButton : styles.button}
           onPress={() => {
             handleLogIn(email, password);
           }}>
@@ -101,6 +102,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
+    marginVertical: 15,
   },
   textInput: {
     height: 40,
@@ -125,6 +127,15 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#470736',
+    flexDirection: 'row',
+    marginTop: 8,
+    paddingVertical: 5,
+    paddingHorizontal: 5,
+    alignItems: 'center',
+    borderRadius: 5,
+  },
+  settingsButton: {
+    backgroundColor: '#be935a',
     flexDirection: 'row',
     marginTop: 8,
     paddingVertical: 5,

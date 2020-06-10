@@ -1,60 +1,50 @@
-import React, {useState} from 'react';
-import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import React from 'react';
+import {View, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
-import ImagePicker from 'react-native-image-picker';
+import {setUser} from '../redux/reducers/userReducer';
 import LoginHome from '../Components/LoginHome';
 
-const Settings = ({user}) => {
-  const [avatar, setAvatar] = useState();
-
-  // return <LoginHome />;
+const Settings = ({user, userState}) => {
   return (
-    <View>
-      <Text>hello</Text>
+    <View style={user ? null : styles.settingsWrap}>
+      <View style={styles.logInContainer}>
+        <LoginHome fromSettings={true} />
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  textWrap: {
+  settingsWrap: {
     flex: 1,
+    justifyContent: 'center',
+  },
+  logInContainer: {
+    marginVertical: 10,
+    marginHorizontal: 5,
+    borderRadius: 20,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+
+    elevation: 2,
   },
 });
 
 const mapStateToProps = state => {
   return {
-    user: state.userReduсer.user,
+    user: state.userReducer.user,
   };
 };
 
+const mapDispatchToProps = dispatch => ({
+  userState: user => dispatch(setUser(user)),
+});
 export default connect(
   mapStateToProps,
-  null,
+  mapDispatchToProps,
 )(Settings);
-
-// <View style={styles.textWrap}>
-//   <View style={{flexDirection: 'row', marginTop: 10, marginLeft: 10}}>
-//     <Image
-//       style={{
-//         width: 100,
-//         height: 100,
-//         backgroundColor: '#e8e8e8',
-//         borderRadius: 20,
-//       }}
-//       source={require('../img/user-picture.png')}
-//     />
-//     <TouchableOpacity
-//       onPress={() => {
-//         ImagePicker.showImagePicker({}, response => {
-//           // console.tron(response);
-//           return setAvatar(response.uri);
-//         });
-//       }}>
-//       <Text>ryjgr</Text>
-//     </TouchableOpacity>
-//     <View style={{backgroundColor: 'red', flex: 1}}>
-//       <Text>{`Имя: ${user.displayName}`}</Text>
-//       <Text>{`E-mail: ${user.email}`}</Text>
-//     </View>
-//   </View>
-// </View>

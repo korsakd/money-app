@@ -7,12 +7,13 @@ import {
   TextInput,
   Keyboard,
 } from 'react-native';
-
+import CustomKeyboard from '../Components/Keyboard';
 import CategoryIcon from '../Components/CategoryComponent';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import {useNavigation} from '@react-navigation/native';
 import {connect} from 'react-redux';
-import {removeBalance, replaceBalance} from '../redux/reducers/balanceReducer';
+import {replaceBalanceDb} from '../services/balanceFunctions';
+import {removeBalanceDb} from '../services/balanceFunctions';
 import Modal from 'react-native-modal';
 import CalendarPicker from 'react-native-calendar-picker';
 
@@ -20,36 +21,21 @@ const Details = ({route, remove, replace}) => {
   const [date, setDate] = useState(new Date(route.params.element.date));
   const [toggleModal, setToggleModal] = useState(false);
   const [number, setNumber] = useState(route.params.element.inputValue);
-  const [isTextInputShow, setTextInputShow] = useState(false);
+  const [toggleKeyboardModal, setToggleKeyboardModal] = useState(false);
   const navigation = useNavigation();
-  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
   const dateDisplay = () => {
     const d = new Date(date);
     return `${d.getDate() < 10 ? `0${d.getDate()}` : d.getDate()}.${
       d.getMonth() + 1 < 10 ? `0${d.getMonth() + 1}` : d.getMonth() + 1
     }.${d.getFullYear()}`;
   };
-  useEffect(() => {
-    const keyboardDidHideListener = Keyboard.addListener(
-      'keyboardDidHide',
-      () => {
-        if (number === '') {
-          return setNumber(route.params.element.inputValue);
-        }
-        setKeyboardVisible(false);
-      },
-    );
 
-    return () => {
-      keyboardDidHideListener.remove();
-    };
-  });
   navigation.setOptions({
     headerRight: () => (
       <TouchableOpacity
         style={{marginRight: 15}}
         onPress={() => {
-          remove(route.params.index);
+          remove(route.params.element.id);
           navigation.goBack();
         }}>
         <Icon name="delete-outline" size={25} color="#fff" />
@@ -68,13 +54,31 @@ const Details = ({route, remove, replace}) => {
             onDateChange={element => {
               setDate(element);
               replace(
-                {...route.params.element, date: element},
+                {
+                  ...route.params.element,
+                  date: `${new Date(element)}`,
+                  inputValue: Number(number).toFixed(2),
+                },
                 route.params.index,
               );
               setToggleModal(false);
             }}
           />
         </View>
+      </Modal>
+      <Modal
+        isVisible={toggleKeyboardModal}
+        onBackdropPress={() => setToggleKeyboardModal(false)}
+        backdropOpacity={0.3}
+        style={{margin: 0, justifyContent: 'flex-end'}}>
+        <CustomKeyboard
+          setDetailNumber={element => setNumber(element)}
+          setDetailDate={element => setDate(element)}
+          type={'Details'}
+          removeModal={element => setToggleKeyboardModal(element)}
+          category={route.params.element}
+          index={route.params.index}
+        />
       </Modal>
       <View style={styles.detailsWrap}>
         <View style={styles.detailsCategoryWrap}>
@@ -93,30 +97,8 @@ const Details = ({route, remove, replace}) => {
         </View>
         <View style={styles.wrap}>
           <Text style={styles.textWrap}>Деньги:</Text>
-          <TouchableOpacity
-            onPress={() => {
-              setTextInputShow(true);
-            }}>
-            {isTextInputShow ? (
-              <TextInput
-                style={{fontSize: 17}}
-                keyboardType={'numeric'}
-                value={number}
-                onChangeText={setNumber}
-                autoFocus={true}
-                onSubmitEditing={() =>
-                  replace(
-                    {
-                      ...route.params.element,
-                      inputValue: Number(number).toFixed(2),
-                    },
-                    route.params.index,
-                  )
-                }
-              />
-            ) : (
-              <Text style={{fontSize: 17}}>{Number(number).toFixed(2)}</Text>
-            )}
+          <TouchableOpacity onPress={() => setToggleKeyboardModal(true)}>
+            <Text style={{fontSize: 17}}>{Number(number).toFixed(2)}</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.wrap}>
@@ -167,11 +149,11 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => {
   return {
-    remove: index => {
-      dispatch(removeBalance(index));
+    remove: id => {
+      dispatch(removeBalanceDb(id));
     },
     replace: (element, index) => {
-      dispatch(replaceBalance(element, index));
+      dispatch(replaceBalanceDb(element, index));
     },
   };
 };

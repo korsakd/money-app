@@ -11,15 +11,13 @@ import {
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {connect} from 'react-redux';
-import {
-  addCategory,
-  replaceCategory,
-} from '../redux/reducers/categoriesReducer';
-
+import {replaceCategoryDb} from '../services/categoriesFunctions';
+import {setCategoryDb} from '../services/categoriesFunctions';
 import CategoryList from '../Components/CategoryList';
 import CategoryIcon from '../Components/CategoryComponent';
+import UUIDGenerator from 'react-native-uuid-generator';
 
-const NewCategory = ({add, categoriesIcon, replace}) => {
+const NewCategory = ({add, categoriesIcon, replace, income, costs}) => {
   const navigation = useNavigation();
   const route = useRoute();
   const [choosenIcon, setChooseIcon] = useState(
@@ -28,15 +26,18 @@ const NewCategory = ({add, categoriesIcon, replace}) => {
   const [text, setText] = useState(
     route.params.item ? route.params.item.name : '',
   );
-  const check = () => {
+  const check = async () => {
     if (text === '') {
       return Alert.alert('Введите текст');
     }
     if (text !== '') {
+      const id = await UUIDGenerator.getRandomUUID();
       add(
         {
           iconName: choosenIcon,
           name: text,
+          id: id,
+          index: route.params.from === 'Income' ? income.length : costs.length,
         },
         route.params.from,
       );
@@ -45,6 +46,7 @@ const NewCategory = ({add, categoriesIcon, replace}) => {
           {
             iconName: choosenIcon,
             name: text,
+            id: route.params.item.id,
           },
           route.params.index,
           route.params.type,
@@ -71,10 +73,18 @@ const NewCategory = ({add, categoriesIcon, replace}) => {
         <Text
           style={{
             fontSize: 15,
-            marginVertical: 10,
+            marginTop: 10,
             marginLeft: 15,
           }}>
           Введите название категории
+        </Text>
+        <Text
+          style={{
+            fontSize: 10,
+            marginBottom: 10,
+            marginLeft: 15,
+          }}>
+          * Не более 20 символов
         </Text>
         <View
           style={{
@@ -94,6 +104,7 @@ const NewCategory = ({add, categoriesIcon, replace}) => {
             placeholder="Category name"
             onChangeText={setText}
             value={text}
+            maxLength={20}
           />
         </View>
       </View>
@@ -131,6 +142,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
+    income: state.categoriesReducer.income,
+    costs: state.categoriesReducer.costs,
     categoriesIcon: state.categoriesReducer.categoriesIcon,
   };
 };
@@ -138,10 +151,10 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     add: (category, from) => {
-      dispatch(addCategory(category, from));
+      dispatch(setCategoryDb(category, from));
     },
     replace: (element, index, type) => {
-      dispatch(replaceCategory(element, index, type));
+      dispatch(replaceCategoryDb(element, index, type));
     },
   };
 };

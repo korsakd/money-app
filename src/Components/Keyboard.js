@@ -1,20 +1,28 @@
 import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-
+import {replaceBalanceDb} from '../services/balanceFunctions';
 import {connect} from 'react-redux';
-import {addBalance} from '../redux/reducers/balanceReducer';
+import {setBalanceDb} from '../services/balanceFunctions';
 import Modal from 'react-native-modal';
 import CalendarPicker from 'react-native-calendar-picker';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
+import UUIDGenerator from 'react-native-uuid-generator';
 
 const CustomKeyboard = ({
   removeModal,
   type,
   categoryType,
   categoryIcon,
+  category,
+  index,
+  setDetailNumber,
+  setDetailDate,
   add,
+  replace,
 }) => {
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(
+    type !== 'Details' ? new Date() : new Date(category.date),
+  );
   const [toggleModal, setToggleModal] = useState(false);
   const [number, setNumber] = useState('0');
   const dateDisplay = () => {
@@ -42,7 +50,7 @@ const CustomKeyboard = ({
     'ok',
   ];
 
-  const handlePress = i => {
+  const handlePress = async i => {
     if (number === '0' && i !== 'ok' && i !== 'del' && i !== dateDisplay()) {
       return setNumber(i);
     }
@@ -53,14 +61,30 @@ const CustomKeyboard = ({
       if (number === '0') {
         removeModal(false);
       } else {
-        removeModal(false);
-        add({
-          categoryIconName: categoryIcon,
-          categoryType: type,
-          categoryName: categoryType,
-          inputValue: Number(number).toFixed(2),
-          date: date,
-        });
+        if (type === 'Details') {
+          removeModal(false);
+          setDetailNumber(number);
+          setDetailDate(date);
+          replace(
+            {
+              ...category,
+              inputValue: Number(number).toFixed(2),
+              date: `${new Date(date)}`,
+            },
+            index,
+          );
+        } else {
+          const id = await UUIDGenerator.getRandomUUID();
+          removeModal(false);
+          add({
+            categoryIconName: categoryIcon,
+            categoryType: type,
+            categoryName: categoryType,
+            inputValue: Number(number).toFixed(2),
+            date: date,
+            id: id,
+          });
+        }
       }
       return;
     }
@@ -151,7 +175,10 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => {
   return {
-    add: balance => dispatch(addBalance(balance)),
+    add: balance => dispatch(setBalanceDb(balance)),
+    replace: (element, index) => {
+      dispatch(replaceBalanceDb(element, index));
+    },
   };
 };
 

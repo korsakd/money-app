@@ -21,9 +21,10 @@ const IconItem = ({categoryList, applySort, type}) => {
               navigation.navigate('NewCategory', {item, index, type});
             }}>
             <CategoryIcon
-              id={index}
+              index={index}
               iconName={item.iconName}
               name={item.name}
+              id={item.id}
               drag={drag}
             />
           </TouchableOpacity>

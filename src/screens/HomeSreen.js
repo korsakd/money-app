@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import {
   View,
   ScrollView,
   Text,
   TouchableOpacity,
   StyleSheet,
+  Animated,
 } from 'react-native';
 import {connect} from 'react-redux';
 import Modal from 'react-native-modal';
@@ -15,11 +16,30 @@ import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import LoginHome from '../Components/LoginHome';
 
 function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
+  const hideAnimIncome = useRef(new Animated.Value(1)).current;
+  const hideAnimCosts = useRef(new Animated.Value(1)).current;
+  const [isHideAnim, setIsHideAnim] = useState(true);
+  const [isHideAnimCosts, setIsHideAnimCosts] = useState(true);
   const [toggleKeyboardModal, setToggleKeyboardModal] = useState(false);
   const [toggleLoginModal, setToggleLoginModal] = useState(false);
   const [type, setType] = useState(null);
   const [categoryType, setCategoryType] = useState('');
   const [categoryIcon, setCategoryIcon] = useState('');
+
+  const hideIn = hideAnim => {
+    Animated.timing(hideAnim, {
+      toValue: 85,
+      duration: 500,
+    }).start();
+  };
+
+  const hideOut = hideAnim => {
+    Animated.timing(hideAnim, {
+      toValue: 1,
+      duration: 500,
+    }).start();
+  };
+
   const incomeArray = balance.filter(
     element => element.categoryType === 'Income',
   );
@@ -52,45 +72,46 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
           style={{
             backgroundColor: 'white',
             borderRadius: 20,
-            paddingVertical: 15,
           }}>
           <LoginHome />
         </View>
       </Modal>
-      <View style={styles.balanceWrap}>
-        <View />
-        <View>
-          <Text style={styles.balanceType}>Доход</Text>
-          <Text style={styles.balanceValue}>{incomeValue.toFixed(2)}</Text>
+      <TouchableOpacity onPress={() => navigation.navigate('Graphs')}>
+        <View style={styles.balanceWrap}>
+          <View />
+          <View>
+            <Text style={styles.balanceType}>Доход</Text>
+            <Text style={styles.balanceValue}>{incomeValue.toFixed(2)}</Text>
+          </View>
+          <View
+            style={{
+              borderWidth: StyleSheet.hairlineWidth,
+              height: 30,
+              alignSelf: 'center',
+              borderColor: 'grey',
+            }}
+          />
+          <View>
+            <Text style={styles.balanceType}>Расходы</Text>
+            <Text style={styles.balanceValue}>{costsValue.toFixed(2)}</Text>
+          </View>
+          <View
+            style={{
+              borderWidth: StyleSheet.hairlineWidth,
+              height: 30,
+              alignSelf: 'center',
+              borderColor: 'grey',
+            }}
+          />
+          <View>
+            <Text style={styles.balanceType}>Баланс</Text>
+            <Text style={styles.balanceValue}>
+              {(Number(incomeValue) - Number(costsValue)).toFixed(2)}
+            </Text>
+          </View>
+          <View />
         </View>
-        <View
-          style={{
-            borderWidth: StyleSheet.hairlineWidth,
-            height: 30,
-            alignSelf: 'center',
-            borderColor: 'grey',
-          }}
-        />
-        <View>
-          <Text style={styles.balanceType}>Расходы</Text>
-          <Text style={styles.balanceValue}>{costsValue.toFixed(2)}</Text>
-        </View>
-        <View
-          style={{
-            borderWidth: StyleSheet.hairlineWidth,
-            height: 30,
-            alignSelf: 'center',
-            borderColor: 'grey',
-          }}
-        />
-        <View>
-          <Text style={styles.balanceType}>Баланс</Text>
-          <Text style={styles.balanceValue}>
-            {(Number(incomeValue) - Number(costsValue)).toFixed(2)}
-          </Text>
-        </View>
-        <View />
-      </View>
+      </TouchableOpacity>
       <ScrollView>
         {dates.map(([key, value]) => {
           const incomeValueArray = value.filter(
@@ -162,52 +183,90 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
           />
         </Modal>
         <View>
-          <View style={styles.textContainer}>
-            <Text style={styles.textWrap}>Расходы</Text>
-          </View>
-          <ScrollView horizontal contentContainerStyle={{flexGrow: 1}}>
-            {costsCategory.map((element, index) => {
-              return (
-                <TouchableOpacity
-                  key={index}
-                  onPress={() => {
-                    setType('Costs');
-                    setToggleKeyboardModal(true);
-                    setCategoryType(element.name);
-                    setCategoryIcon(element.iconName);
-                  }}>
-                  <CategoryIcon
-                    iconName={element.iconName}
-                    name={element.name}
-                  />
-                </TouchableOpacity>
-              );
-            })}
-          </ScrollView>
+          <TouchableOpacity
+            onPress={() => {
+              if (isHideAnimCosts) {
+                setIsHideAnimCosts(false);
+                hideIn(hideAnimCosts);
+              }
+              if (!isHideAnimCosts) {
+                setIsHideAnimCosts(true);
+                hideOut(hideAnimCosts);
+              }
+            }}>
+            <View style={styles.textContainer}>
+              {isHideAnimCosts ? (
+                <Icon name="chevron-up" size={24} color={'white'} />
+              ) : (
+                <Icon name="chevron-down" size={24} color={'white'} />
+              )}
+              <Text style={styles.textWrap}>Расходы</Text>
+            </View>
+          </TouchableOpacity>
+          <Animated.View style={{height: hideAnimCosts}}>
+            <ScrollView horizontal>
+              {costsCategory.map((element, index) => {
+                return (
+                  <TouchableOpacity
+                    key={index}
+                    onPress={() => {
+                      setType('Costs');
+                      setToggleKeyboardModal(true);
+                      setCategoryType(element.name);
+                      setCategoryIcon(element.iconName);
+                    }}>
+                    <CategoryIcon
+                      iconName={element.iconName}
+                      name={element.name}
+                    />
+                  </TouchableOpacity>
+                );
+              })}
+            </ScrollView>
+          </Animated.View>
         </View>
         <View>
-          <View style={styles.textContainer}>
-            <Text style={styles.textWrap}>Доходы</Text>
-          </View>
-          <ScrollView horizontal contentContainerStyle={styles.componentWrap}>
-            {incomeCategory.map((element, index) => {
-              return (
-                <TouchableOpacity
-                  key={index}
-                  onPress={() => {
-                    setType('Income');
-                    setToggleKeyboardModal(true);
-                    setCategoryType(element.name);
-                    setCategoryIcon(element.iconName);
-                  }}>
-                  <CategoryIcon
-                    iconName={element.iconName}
-                    name={element.name}
-                  />
-                </TouchableOpacity>
-              );
-            })}
-          </ScrollView>
+          <TouchableOpacity
+            onPress={() => {
+              if (isHideAnim) {
+                setIsHideAnim(false);
+                hideIn(hideAnimIncome);
+              }
+              if (!isHideAnim) {
+                setIsHideAnim(true);
+                hideOut(hideAnimIncome);
+              }
+            }}>
+            <View style={styles.textContainer}>
+              {isHideAnim ? (
+                <Icon name="chevron-up" size={24} color={'white'} />
+              ) : (
+                <Icon name="chevron-down" size={24} color={'white'} />
+              )}
+              <Text style={styles.textWrap}>Доходы</Text>
+            </View>
+          </TouchableOpacity>
+          <Animated.View style={{height: hideAnimIncome}}>
+            <ScrollView horizontal>
+              {incomeCategory.map((element, index) => {
+                return (
+                  <TouchableOpacity
+                    key={index}
+                    onPress={() => {
+                      setType('Income');
+                      setToggleKeyboardModal(true);
+                      setCategoryType(element.name);
+                      setCategoryIcon(element.iconName);
+                    }}>
+                    <CategoryIcon
+                      iconName={element.iconName}
+                      name={element.name}
+                    />
+                  </TouchableOpacity>
+                );
+              })}
+            </ScrollView>
+          </Animated.View>
         </View>
       </View>
     </View>
@@ -274,9 +333,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
-  componentWrap: {
-    flexDirection: 'row',
-  },
   textWrap: {
     color: '#fff',
     fontSize: 15,
@@ -284,6 +340,8 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   textContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
     backgroundColor: '#470736',
   },
 });

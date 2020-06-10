@@ -11,9 +11,9 @@ import LoadingScreen from './LoadingScreen';
 const SignUpScreen = ({
   handleSignUp,
   error,
-  user,
   isLoadingScreen,
-  setIsLoadingScreen,
+  setIsSignup,
+  fromSettings,
 }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -79,9 +79,18 @@ const SignUpScreen = ({
           onPress={() => {
             handleSignUp(email, password, userName);
           }}
-          style={styles.button}>
+          style={fromSettings ? styles.settingsButton : styles.button}>
           <Text style={styles.textButton}>Регистрация</Text>
         </TouchableOpacity>
+        <View style={styles.logInContainer}>
+          <Text style={styles.logInText}>Уже есть аккаунт?</Text>
+          <TouchableOpacity
+            onPress={() => {
+              setIsSignup(false);
+            }}>
+            <Text style={styles.logInButton}>Войти</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -94,6 +103,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
+    marginVertical: 15,
   },
   textInput: {
     height: 40,
@@ -124,8 +134,28 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 5,
   },
+  settingsButton: {
+    backgroundColor: '#be935a',
+    flexDirection: 'row',
+    marginTop: 8,
+    paddingVertical: 5,
+    paddingHorizontal: 5,
+    alignItems: 'center',
+    borderRadius: 5,
+  },
   textButton: {
     color: '#fff',
+  },
+  logInContainer: {
+    flexDirection: 'row',
+    marginTop: 8,
+  },
+  logInText: {
+    marginRight: 5,
+  },
+  logInButton: {
+    color: '#18ABFF',
+    textDecorationLine: 'underline',
   },
 });
 

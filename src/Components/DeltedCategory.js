@@ -2,7 +2,7 @@ import React from 'react';
 import {View, StyleSheet, TouchableOpacity, Text} from 'react-native';
 import {connect} from 'react-redux';
 import {removeDeletedCategory} from '../redux/reducers/categoriesReducer';
-import {addCategory} from '../redux/reducers/categoriesReducer';
+import {setCategoryDb} from '../services/categoriesFunctions';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 
 const DeletedCategory = ({
@@ -25,7 +25,14 @@ const DeletedCategory = ({
                 <TouchableOpacity
                   style={{marginLeft: 10}}
                   onPress={() => {
-                    add({iconName: element.iconName, name: element.name}, type);
+                    add(
+                      {
+                        iconName: element.iconName,
+                        name: element.name,
+                        id: element.id,
+                      },
+                      type,
+                    );
                     removeDeleted(index, type);
                   }}>
                   <Icon name="plus-circle" size={20} color="green" />
@@ -67,7 +74,14 @@ const DeletedCategory = ({
                 <TouchableOpacity
                   style={{marginLeft: 10}}
                   onPress={() => {
-                    add({iconName: element.iconName, name: element.name}, type);
+                    add(
+                      {
+                        iconName: element.iconName,
+                        name: element.name,
+                        id: element.id,
+                      },
+                      type,
+                    );
                     removeDeleted(index, type);
                   }}>
                   <Icon name="plus-circle" size={20} color="green" />
@@ -145,7 +159,7 @@ const mapDispatchToProps = dispatch => {
   return {
     removeDeleted: (index, type) =>
       dispatch(removeDeletedCategory(index, type)),
-    add: (category, type) => dispatch(addCategory(category, type)),
+    add: (category, type) => dispatch(setCategoryDb(category, type)),
   };
 };
 

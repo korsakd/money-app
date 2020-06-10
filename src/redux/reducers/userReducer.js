@@ -9,7 +9,7 @@ export const setUser = user => ({
   payload: user,
 });
 
-export default function userReduсer(state = initialsate, action) {
+export default function userReducer(state = initialsate, action) {
   switch (action.type) {
     case ON_AUTH_STATE_CHANGED:
       return {

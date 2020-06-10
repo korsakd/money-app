@@ -2,12 +2,12 @@ import React from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import {useRoute} from '@react-navigation/native';
 
-import {removeCategory} from '../redux/reducers/categoriesReducer';
+import {removeCategoryDb} from '../services/categoriesFunctions';
 import {connect} from 'react-redux';
 
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 
-const CategoryIcon = ({iconName, name, id, drag, remove}) => {
+const CategoryIcon = ({iconName, name, index, drag, id, remove}) => {
   const route = useRoute();
   const showIncome = route.name === 'Income';
   const showCosts = route.name === 'Costs';
@@ -18,7 +18,7 @@ const CategoryIcon = ({iconName, name, id, drag, remove}) => {
           <TouchableOpacity
             style={{marginLeft: 10}}
             onPress={() => {
-              remove(id, route.name);
+              remove(index, route.name, id);
             }}>
             <Icon name="minus-circle" size={20} color="#d10000" />
           </TouchableOpacity>
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => {
   return {
-    remove: (index, type) => dispatch(removeCategory(index, type)),
+    remove: (index, type, id) => dispatch(removeCategoryDb(index, type, id)),
   };
 };
 

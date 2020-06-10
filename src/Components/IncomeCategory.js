@@ -1,26 +1,37 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
-
+import {View, ScrollView} from 'react-native';
+import DeletedCategory from './DeltedCategory';
 import AddCategory from './AddButtonComponent';
 import IconItem from './IconItem';
 import {connect} from 'react-redux';
-import {sortCategories} from '../redux/reducers/categoriesReducer';
-import {removeDeletedCategory} from '../redux/reducers/categoriesReducer';
-import {addCategory} from '../redux/reducers/categoriesReducer';
+import {sortCategoryDb} from '../services/categoriesFunctions';
 
-const Income = ({incomeCategory, sort}) => {
-  return (
-    <View style={{flex: 1, backgroundColor: 'white'}}>
-      <IconItem
-        categoryList={incomeCategory}
-        applySort={data => sort(data)}
-        type="Income"
-      />
-      <View>
-        <AddCategory from="Income" />
+const Income = ({incomeCategory, sort, deletedCategory}) => {
+  if (incomeCategory.length === 0) {
+    return (
+      <>
+        <ScrollView>
+          <DeletedCategory type={'Income'} />
+        </ScrollView>
+        <View>
+          <AddCategory from="Income" />
+        </View>
+      </>
+    );
+  } else {
+    return (
+      <View style={{flex: 1, backgroundColor: 'white'}}>
+        <IconItem
+          categoryList={incomeCategory}
+          applySort={data => sort(data)}
+          type="Income"
+        />
+        <View>
+          <AddCategory from="Income" />
+        </View>
       </View>
-    </View>
-  );
+    );
+  }
 };
 
 const mapStateToProps = state => {
@@ -32,9 +43,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    sort: categories => dispatch(sortCategories(categories, 'Income')),
-    removeDeleted: index => dispatch(removeDeletedCategory(index, 'Income')),
-    add: category => dispatch(addCategory(category, 'Income')),
+    sort: categories => dispatch(sortCategoryDb(categories, 'Income')),
   };
 };
 

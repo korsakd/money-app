@@ -1,40 +1,75 @@
 const initialState = {
   income: [
-    {iconName: 'wallet', name: 'Зарплата'},
-    {iconName: 'bank', name: 'Банковские вложения'},
-    {iconName: 'sack-percent', name: 'Премия'},
-    {iconName: 'wallet-giftcard', name: 'Подарки'},
-    {iconName: 'sale', name: 'Продажи'},
-    {iconName: 'cash-refund', name: 'Возвраты'},
-    {iconName: 'chart-line', name: 'Дивиденды'},
-    {iconName: 'coin', name: 'Инвестиции'},
-    {iconName: 'apple-keyboard-command', name: 'Другое'},
+    {iconName: 'wallet', name: 'Зарплата', id: 'Zarplata', index: 0},
+    {
+      iconName: 'bank',
+      name: 'Банковские вложения',
+      id: 'Bank-Vlozhenia',
+      index: 1,
+    },
+    {iconName: 'sack-percent', name: 'Премия', id: 'Premia', index: 2},
+    {iconName: 'wallet-giftcard', name: 'Подарки', id: 'Podarki', index: 3},
+    {iconName: 'sale', name: 'Продажи', id: 'Prodaji', index: 4},
+    {iconName: 'cash-refund', name: 'Возвраты', id: 'Vozvrati', index: 5},
+    {iconName: 'chart-line', name: 'Дивиденды', id: 'Dividendi', index: 6},
+    {iconName: 'coin', name: 'Инвестиции', id: 'Investicii', index: 7},
+    {
+      iconName: 'apple-keyboard-command',
+      name: 'Другое',
+      id: 'Drugoe',
+      index: 8,
+    },
   ],
   costs: [
-    {iconName: 'home', name: 'Дом'},
-    {iconName: 'car', name: 'Машина'},
-    {iconName: 'airplane', name: 'Отдых'},
-    {iconName: 'heart', name: 'Здоровье'},
-    {iconName: 'food', name: 'Продукты'},
-    {iconName: 'water-pump', name: 'Коммунльные услуги'},
-    {iconName: 'bus', name: 'Транспорт'},
-    {iconName: 'shopping', name: 'Шопинг'},
-    {iconName: 'dumbbell', name: 'Спорт'},
-    {iconName: 'cash-register', name: 'Налоги'},
-    {iconName: 'baby-buggy', name: 'Дети'},
-    {iconName: 'paw', name: 'Домашние животные'},
-    {iconName: 'brush', name: 'Красота'},
-    {iconName: 'power', name: 'Электроника'},
-    {iconName: 'hamburger', name: 'Быстрое питание'},
-    {iconName: 'bottle-wine', name: 'Алкоголь'},
-    {iconName: 'carrot', name: 'Овощи'},
-    {iconName: 'cupcake', name: 'Сладости'},
-    {iconName: 'gift-outline', name: 'Подарки'},
-    {iconName: 'book-open-page-variant', name: 'Обучение'},
-    {iconName: 'food-apple', name: 'Фрукты'},
-    {iconName: 'paperclip', name: 'Офис'},
-    {iconName: 'home-currency-usd', name: 'Аренда'},
-    {iconName: 'apple-keyboard-command', name: 'Другое'},
+    {iconName: 'home', name: 'Дом', id: 'Dom', index: 0},
+    {iconName: 'car', name: 'Машина', id: 'Mashina', index: 1},
+    {iconName: 'airplane', name: 'Отдых', id: 'Otdix', index: 2},
+    {iconName: 'heart', name: 'Здоровье', id: 'Zdorovie', index: 3},
+    {iconName: 'food', name: 'Продукты', id: 'Producti', index: 4},
+    {
+      iconName: 'water-pump',
+      name: 'Коммунльные услуги',
+      id: 'Kommynal-Uslugi',
+      index: 5,
+    },
+    {iconName: 'bus', name: 'Транспорт', id: 'Transport', index: 6},
+    {iconName: 'shopping', name: 'Шопинг', id: 'Shoping', index: 7},
+    {iconName: 'dumbbell', name: 'Спорт', id: 'Sport', index: 8},
+    {iconName: 'cash-register', name: 'Налоги', id: 'Nalogi', index: 9},
+    {iconName: 'baby-buggy', name: 'Дети', id: 'Deti', index: 10},
+    {
+      iconName: 'paw',
+      name: 'Домашние животные',
+      id: 'Domash-Zivotnie',
+      index: 11,
+    },
+    {iconName: 'brush', name: 'Красота', id: 'Krasota', index: 12},
+    {iconName: 'power', name: 'Электроника', id: 'Electronica', index: 13},
+    {
+      iconName: 'hamburger',
+      name: 'Быстрое питание',
+      id: 'Bistroe-Pitanie',
+      index: 14,
+    },
+    {iconName: 'bottle-wine', name: 'Алкоголь', id: 'Alcohol', index: 15},
+    {iconName: 'carrot', name: 'Овощи', id: 'Ovoschi', index: 16},
+    {iconName: 'cupcake', name: 'Сладости', id: 'Sladosti', index: 17},
+    {iconName: 'gift-outline', name: 'Подарки', id: 'Podarki', index: 18},
+    {
+      iconName: 'book-open-page-variant',
+      name: 'Обучение',
+      id: 'Obuchenie',
+      index: 19,
+    },
+    {iconName: 'food-apple', name: 'Фрукты', id: 'Fructi', index: 20},
+    {iconName: 'paperclip', name: 'Офис', id: 'Office', index: 21},
+    {iconName: 'home-currency-usd', name: 'Аренда', id: 'Arenda', index: 22},
+    {
+      iconName: 'apple-keyboard-command',
+      name: 'Другое',
+      id: 'Drugoe',
+      index: 23,
+    },
   ],
   deletedIncomeCategory: [],
   deletedCostsCategory: [],
@@ -199,6 +234,8 @@ const REMOVE_CATEGORY = 'REMOVE_CATEGORY';
 const REMOVE_DELETED_CATEGORY = 'REMOVE_DELETED_CATEGORY';
 const SORT_CATEGORIES = 'SORT_CATEGORIES';
 const REPLACE_CATEGORY = 'REPLACE_CATEGORY';
+const CLEAR_CATEGORY = 'CLEAR_CATEGORY';
+const IMPORT_FROM_DATABASE = 'IMPORT_FROM_DATABASE';
 
 export const addCategory = (category, type) => ({
   type: ADD_CATEGORY,
@@ -219,6 +256,13 @@ export const replaceCategory = (element, index, type) => ({
 export const sortCategories = (categories, type) => ({
   type: SORT_CATEGORIES,
   payload: {categories, type},
+});
+export const clearCategory = () => ({
+  type: CLEAR_CATEGORY,
+});
+export const importCategoryFromDb = (category, type) => ({
+  type: IMPORT_FROM_DATABASE,
+  payload: {category, type},
 });
 
 export default function categoriesReducer(state = initialState, action) {
@@ -274,17 +318,25 @@ export default function categoriesReducer(state = initialState, action) {
         categoriesIcon: state.categoriesIcon,
       };
     case SORT_CATEGORIES:
+      const sortedIncome =
+        action.payload.type === 'Income'
+          ? action.payload.categories
+          : state.income;
+      const sortedCosts =
+        action.payload.type === 'Costs'
+          ? action.payload.categories
+          : state.costs;
+
       return {
-        income:
-          action.payload.type === 'Income'
-            ? action.payload.categories
-            : state.income,
-        costs:
-          action.payload.type === 'Costs'
-            ? action.payload.categories
-            : state.costs,
+        income: sortedIncome.map((element, i) => {
+          return {...element, index: i};
+        }),
+        costs: sortedCosts.map((element, i) => {
+          return {...element, index: i};
+        }),
         deletedCostsCategory: [...state.deletedCostsCategory],
         deletedIncomeCategory: [...state.deletedIncomeCategory],
+        categoriesIcon: state.categoriesIcon,
       };
     case REPLACE_CATEGORY:
       action.payload.type === 'Income'
@@ -299,6 +351,39 @@ export default function categoriesReducer(state = initialState, action) {
         deletedIncomeCategory: [...state.deletedIncomeCategory],
         deletedCostsCategory: [...state.deletedCostsCategory],
         categoriesIcon: state.categoriesIcon,
+      };
+    case IMPORT_FROM_DATABASE:
+      const incomeFromDb =
+        action.payload.type === 'Income'
+          ? [...action.payload.category]
+          : state.income;
+      const costsFromDb =
+        action.payload.type === 'Costs'
+          ? [...action.payload.category]
+          : state.costs;
+      const sort = (a, b) => {
+        if (a.index < b.index) {
+          return -1;
+        }
+        if (a.index > b.index) {
+          return 1;
+        }
+        return 0;
+      };
+      return {
+        income: incomeFromDb.sort(sort),
+        costs: costsFromDb.sort(sort),
+        deletedIncomeCategory: state.deletedIncomeCategory,
+        deletedCostsCategory: state.deletedCostsCategory,
+        categoriesIcon: state.categoriesIcon,
+      };
+    case CLEAR_CATEGORY:
+      return {
+        income: initialState.income,
+        costs: initialState.costs,
+        deletedIncomeCategory: initialState.deletedIncomeCategory,
+        deletedCostsCategory: initialState.deletedCostsCategory,
+        categoriesIcon: initialState.categoriesIcon,
       };
     default:
       return state;

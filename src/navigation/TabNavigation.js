@@ -3,8 +3,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import Navigator from './index';
-import Graphs from '../screens/GraphsSreen';
-import Settings from '../screens/SettingsScreen';
+import GraphsNavigation from '../navigation/GraphsNavigation';
+import SettingsNavigation from './SettingsNavigation';
 import HomeNavigator from './HomeNavigation';
 
 const Tab = createMaterialBottomTabNavigator();
@@ -37,7 +37,7 @@ const TabNavigator = () => {
         />
         <Tab.Screen
           name="Graphs"
-          component={Graphs}
+          component={GraphsNavigation}
           options={{
             tabBarColor: '#445328',
             tabBarLabel: 'Graphs',
@@ -48,7 +48,7 @@ const TabNavigator = () => {
         />
         <Tab.Screen
           name="Settings"
-          component={Settings}
+          component={SettingsNavigation}
           options={{
             tabBarColor: '#be935a',
             tabBarLabel: 'Settings',
