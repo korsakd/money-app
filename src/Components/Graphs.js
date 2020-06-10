@@ -50,7 +50,7 @@ const Graphs = ({balance}) => {
             shadowOpacity: 0.2,
             shadowRadius: 1.41,
 
-            elevation: 2,
+            elevation: 1,
           }}>
           {Object.entries(newBalance).map(([key, value]) => {
             let color;

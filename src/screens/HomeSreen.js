@@ -291,7 +291,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 1.41,
 
-    elevation: 2,
+    elevation: 1,
   },
   balanceType: {
     marginTop: 10,
@@ -320,7 +320,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 1.41,
 
-    elevation: 2,
+    elevation: 1,
   },
   balanceItemHeader: {
     flexDirection: 'row',
