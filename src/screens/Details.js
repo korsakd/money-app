@@ -51,6 +51,22 @@ const Details = ({route, remove, replace}) => {
         style={{margin: 5}}>
         <View style={{backgroundColor: 'white', borderRadius: 20}}>
           <CalendarPicker
+            months={[
+              'Январь',
+              'Февраль',
+              'Март',
+              'Апрель',
+              'Май',
+              'Июнь',
+              'Июль',
+              'Август',
+              'Сентябрь',
+              'Октябрь',
+              'Ноябрь',
+              'Декабрь',
+            ]}
+            weekdays={['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']}
+            startFromMonday={true}
             onDateChange={element => {
               setDate(element);
               replace(
