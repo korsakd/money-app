@@ -12,10 +12,7 @@ const SettingsNavigation = () => {
           headerStyle: {
             backgroundColor: '#be935a',
           },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
+          headerTitle: '',
         }}
         name="Settings"
         component={Settings}

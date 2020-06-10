@@ -16,10 +16,7 @@ function Navigator() {
           headerStyle: {
             backgroundColor: '#694fad',
           },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
+          headerTitle: '',
         }}
       />
       <Stack.Screen

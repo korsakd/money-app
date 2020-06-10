@@ -12,10 +12,7 @@ const GraphsNavigation = () => {
           headerStyle: {
             backgroundColor: '#445328',
           },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
+          headerTitle: '',
         }}
         name="Graphs"
         component={GraphsScreen}

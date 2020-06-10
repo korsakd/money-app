@@ -14,10 +14,11 @@ const HomeNavigator = () => {
           headerStyle: {
             backgroundColor: '#470736',
           },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
+          // headerTintColor: '#fff',
+          headerTitle: '',
+          // headerTitleStyle: {
+          //   // color: '#470736',
+          // },
         }}
         name="Home"
         component={HomeScreen}
