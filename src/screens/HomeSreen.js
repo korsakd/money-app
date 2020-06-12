@@ -14,10 +14,13 @@ import CategoryIcon from '../Components/CategoryComponent';
 import {dateDisplay, sortByDate} from '../utils/dateHelpers';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import LoginHome from '../Components/LoginHome';
+import CustomMonthCalendar from '../Components/CustomMonthCalendar';
 
 function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
   const hideAnimIncome = useRef(new Animated.Value(1)).current;
   const hideAnimCosts = useRef(new Animated.Value(1)).current;
+  const hideAnimCalendar = useRef(new Animated.Value(-171)).current;
+  const [isHideAnimCalendar, setIsHideAnimCalendar] = useState(true);
   const [isHideAnim, setIsHideAnim] = useState(true);
   const [isHideAnimCosts, setIsHideAnimCosts] = useState(true);
   const [toggleKeyboardModal, setToggleKeyboardModal] = useState(false);
@@ -25,6 +28,22 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
   const [type, setType] = useState(null);
   const [categoryType, setCategoryType] = useState('');
   const [categoryIcon, setCategoryIcon] = useState('');
+  const [month, setMonth] = useState(new Date().getMonth() + 1);
+  const [year, setYear] = useState(new Date().getFullYear());
+
+  const showMonthCalendar = hideAnim => {
+    Animated.timing(hideAnim, {
+      toValue: 0,
+      duration: 1000,
+    }).start();
+  };
+
+  const hideMonthCalendar = hideAnim => {
+    Animated.timing(hideAnim, {
+      toValue: -171,
+      duration: 1000,
+    }).start();
+  };
 
   const hideIn = hideAnim => {
     Animated.timing(hideAnim, {
@@ -50,7 +69,15 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
   const incomeValue = incomeArray.reduce(summValues, 0);
   const costsValue = costsArray.reduce(summValues, 0);
 
-  const dates = sortByDate(balance);
+  const filterBalanceYear = balance.filter(
+    element => new Date(element.date).getFullYear() === year,
+  );
+  const filterBalanceMonth = filterBalanceYear.filter(
+    element => new Date(element.date).getMonth() + 1 === month,
+  );
+
+  const dates = sortByDate(filterBalanceMonth);
+
   navigation.setOptions({
     headerRight: () => (
       <TouchableOpacity
@@ -61,6 +88,34 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
         <Icon name="account-outline" size={25} color="#fff" />
       </TouchableOpacity>
     ),
+    headerLeft: () => {
+      if (isHideAnimCalendar) {
+        return (
+          <TouchableOpacity
+            style={{marginLeft: 15, flexDirection: 'row'}}
+            onPress={() => {
+              setIsHideAnimCalendar(false);
+              showMonthCalendar(hideAnimCalendar);
+            }}>
+            <Icon name="calendar-month-outline" size={25} color="#fff" />
+            <Icon name="menu-down" size={25} color="#fff" />
+          </TouchableOpacity>
+        );
+      }
+      if (!isHideAnimCalendar) {
+        return (
+          <TouchableOpacity
+            style={{marginLeft: 15, flexDirection: 'row'}}
+            onPress={() => {
+              setIsHideAnimCalendar(true);
+              hideMonthCalendar(hideAnimCalendar);
+            }}>
+            <Icon name="calendar-month-outline" size={25} color="#fff" />
+            <Icon name="menu-up" size={25} color="#fff" />
+          </TouchableOpacity>
+        );
+      }
+    },
   });
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
@@ -76,6 +131,23 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
           <LoginHome />
         </View>
       </Modal>
+      <Animated.View
+        style={{
+          position: 'absolute',
+          zIndex: 10,
+          top: hideAnimCalendar,
+          backgroundColor: 'white',
+        }}>
+        <CustomMonthCalendar
+          month={month}
+          year={year}
+          setMonth={element => setMonth(element)}
+          setYear={element => setYear(element)}
+          hideCalendar={element => hideMonthCalendar(element)}
+          hideAnimCalendar={hideAnimCalendar}
+          setIsHideAnimCalendar={element => setIsHideAnimCalendar(element)}
+        />
+      </Animated.View>
       <TouchableOpacity onPress={() => navigation.navigate('Graphs')}>
         <View style={styles.balanceWrap}>
           <View />
@@ -127,12 +199,12 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
               <View style={styles.balanceItemHeader}>
                 <Text>{dateDisplay(new Date(value[0].date))}</Text>
                 <Text>
-                  {Object.keys(incomeValueArray).length === 0
+                  {incomeValueArray.length === 0
                     ? null
                     : `Доход: ${Number(incomeValues).toFixed(2)}`}
                 </Text>
                 <Text>
-                  {Object.keys(costsValueArray).length === 0
+                  {costsValueArray.length === 0
                     ? null
                     : `Расход: - ${Number(costsValues).toFixed(2)}`}
                 </Text>
