@@ -117,23 +117,21 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
     }).start();
   };
 
-  const incomeArray = balance.filter(
-    element => element.categoryType === 'Income',
-  );
-  const costsArray = balance.filter(
-    element => element.categoryType === 'Costs',
-  );
-  const summValues = (a, c) => Number(a) + Number(c.inputValue);
-  const incomeValue = incomeArray.reduce(summValues, 0);
-  const costsValue = costsArray.reduce(summValues, 0);
-
   const filterBalanceYear = balance.filter(
     element => new Date(element.date).getFullYear() === year,
   );
   const filterBalanceMonth = filterBalanceYear.filter(
     element => new Date(element.date).getMonth() + 1 === month,
   );
-
+  const incomeArray = filterBalanceMonth.filter(
+    element => element.categoryType === 'Income',
+  );
+  const costsArray = filterBalanceMonth.filter(
+    element => element.categoryType === 'Costs',
+  );
+  const summValues = (a, c) => Number(a) + Number(c.inputValue);
+  const incomeValue = incomeArray.reduce(summValues, 0);
+  const costsValue = costsArray.reduce(summValues, 0);
   const dates = sortByDate(filterBalanceMonth);
 
   navigation.setOptions({
