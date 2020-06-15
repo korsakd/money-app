@@ -10,6 +10,7 @@ const GraphsScreen = ({balance}) => {
   const costsBalance = balance.filter(
     element => element.categoryType === 'Costs',
   );
+
   if (Object.keys(balance).length === 0) {
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
