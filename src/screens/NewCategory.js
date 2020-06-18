@@ -26,6 +26,7 @@ const NewCategory = ({add, categoriesIcon, replace, income, costs}) => {
   const [text, setText] = useState(
     route.params.item ? route.params.item.name : '',
   );
+
   const check = async () => {
     if (text === '') {
       return Alert.alert('Введите текст');

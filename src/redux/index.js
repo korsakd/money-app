@@ -1,7 +1,6 @@
 import {createStore, applyMiddleware, compose} from 'redux';
 import categoriesReducer from './reducers/categoriesReducer';
 import balanceReducer from './reducers/balanceReducer';
-import userReducer from './reducers/userReducer';
 import Reactotron from '../config/ReactotronConfig';
 import {persistStore, persistCombineReducers} from 'redux-persist';
 import AsyncStorage from '@react-native-community/async-storage';
