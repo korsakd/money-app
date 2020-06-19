@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import {
   View,
   ScrollView,
@@ -15,6 +15,7 @@ import {dateDisplay, sortByDate} from '../utils/dateHelpers';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import LoginHome from '../Components/LoginHome';
 import CustomMonthCalendar from '../Components/CustomMonthCalendar';
+import SplashScreen from 'react-native-splash-screen';
 
 function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
   const hideAnimIncome = useRef(new Animated.Value(1)).current;
@@ -30,6 +31,10 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
   const [categoryIcon, setCategoryIcon] = useState('');
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [year, setYear] = useState(new Date().getFullYear());
+
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
 
   // const testPush = message => {
   //   PushNotification.localNotification({

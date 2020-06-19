@@ -6,7 +6,6 @@ import {name as appName} from './app.json';
 import {Provider} from 'react-redux';
 import createStore from './src/redux';
 import {PersistGate} from 'redux-persist/integration/react';
-import SplashScreen from 'react-native-splash-screen';
 
 if (__DEV__) {
   import('./src/config/ReactotronConfig').then(() =>
@@ -16,9 +15,6 @@ if (__DEV__) {
 
 const {store, persistor} = createStore();
 const App = () => {
-  useEffect(() => {
-    SplashScreen.hide();
-  }, []);
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
