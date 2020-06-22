@@ -25,32 +25,37 @@ const LoginHome = ({
   const [error, setError] = useState();
   const [isSignup, setIsSignup] = useState(false);
   const [isLoadingScreen, setIsLoadingScreen] = useState(false);
+  const [deviceId, setDeviceId] = useState();
+  var PushNotification = require('react-native-push-notification');
+
+  useEffect(() => {
+    PushNotification.configure({
+      // (optional) Called when Token is generated (iOS and Android)
+      onRegister: function(token) {
+        setDeviceId(token);
+      },
+    });
+  }, [PushNotification]);
 
   function writeUserData(user) {
     incomeCategory.map(element => {
-      return database()
+      database()
         .ref(`users/${user.uid}/income/${element.id}`)
         .set(element);
     });
     costsCategory.map(element => {
-      return database()
+      database()
         .ref(`users/${user.uid}/costs/${element.id}`)
         .set(element);
     });
     balance.map(element => {
-      return database()
+      database()
         .ref(`users/${user.uid}/balance/${element.id}`)
         .set(element);
     });
-    // return database()
-    //   .ref('users/' + user.uid)
-    //   .set({
-    //     income: incomeCategory,
-    //     costs: costsCategory,
-    //     balance: balance.map(i => {
-    //       return {...i, date: `${i.date}`};
-    //     }),
-    //   });
+    database()
+      .ref(`users/${user.uid}/DeviceID`)
+      .set(deviceId);
   }
 
   function getUserData(uid) {
@@ -127,7 +132,9 @@ const LoginHome = ({
 
   function onAuthStateChanged(user) {
     userState(user ? user.toJSON() : null);
-    if (connectedTofirebase) setInitializing(false);
+    if (connectedTofirebase) {
+      setInitializing(false);
+    }
   }
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
@@ -135,7 +142,9 @@ const LoginHome = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (connectedTofirebase) return null;
+  if (connectedTofirebase) {
+    return null;
+  }
 
   if (!user) {
     if (!isSignup) {

@@ -13,6 +13,7 @@ function Navigator() {
         name="Categories"
         component={CategoriesNav}
         options={{
+          headerShown: false,
           headerStyle: {
             backgroundColor: '#694fad',
           },

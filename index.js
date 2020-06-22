@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import * as React from 'react';
+import React, {useEffect} from 'react';
 import {AppRegistry} from 'react-native';
 import TabNavigator from './src/navigation/TabNavigation';
 import {name as appName} from './app.json';
@@ -14,12 +14,14 @@ if (__DEV__) {
 }
 
 const {store, persistor} = createStore();
-const App = () => (
-  <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
-      <TabNavigator />
-    </PersistGate>
-  </Provider>
-);
+const App = () => {
+  return (
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <TabNavigator />
+      </PersistGate>
+    </Provider>
+  );
+};
 
 AppRegistry.registerComponent(appName, () => App);

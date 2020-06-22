@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import {
   View,
   ScrollView,
@@ -15,6 +15,7 @@ import {dateDisplay, sortByDate} from '../utils/dateHelpers';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import LoginHome from '../Components/LoginHome';
 import CustomMonthCalendar from '../Components/CustomMonthCalendar';
+import SplashScreen from 'react-native-splash-screen';
 
 function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
   const hideAnimIncome = useRef(new Animated.Value(1)).current;
@@ -31,63 +32,9 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [year, setYear] = useState(new Date().getFullYear());
 
-  // const testPush = message => {
-  //   PushNotification.localNotification({
-  //     title: message.notification.title, // (optional)
-  //     message: message.notification.body, // (required)
-  //   });
-  // };
-
-  // useEffect(() => {
-  //   // requestUserPermission();
-  //   const unsubscribe = messaging().setBackgroundMessageHandler(
-  //     async remoteMessage => {
-  //       console.tron(remoteMessage);
-  //       // testPush(remoteMessage);
-  //     },
-  //   );
-
-  //   return unsubscribe;
-  // }, []);
-
-  // const getFcmToken = async () => {
-  //   const fcmToken = await messaging().getToken();
-  //   if (fcmToken) {
-  //     console.tron('Your Firebase Token is:', fcmToken);
-  //   } else {
-  //     console.tron('Failed', 'No token received');
-  //   }
-  // };
-  // const requestUserPermission = async () => {
-  //   const authStatus = await messaging().requestPermission();
-  //   const enabled =
-  //     authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-  //     authStatus === messaging.AuthorizationStatus.PROVISIONAL;
-
-  //   if (enabled) {
-  //     getFcmToken();
-  //     console.tron('Authorization status:', authStatus);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   PushNotification.configure({
-  //     onRegister: function(token) {
-  //       console.tron('TOKEN:', token);
-  //     },
-  //     onNotification: function(notification) {
-  //       console.tron('NOTIFICATION:', notification);
-  //     },
-
-  //     permissions: {
-  //       alert: true,
-  //       badge: true,
-  //       sound: true,
-  //     },
-  //     popInitialNotification: true,
-  //     requestPermissions: true,
-  //   });
-  // }, []);
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
 
   const showMonthCalendar = hideAnim => {
     Animated.timing(hideAnim, {
