@@ -36,64 +36,6 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
     SplashScreen.hide();
   }, []);
 
-  // const testPush = message => {
-  //   PushNotification.localNotification({
-  //     title: message.notification.title, // (optional)
-  //     message: message.notification.body, // (required)
-  //   });
-  // };
-
-  // useEffect(() => {
-  //   // requestUserPermission();
-  //   const unsubscribe = messaging().setBackgroundMessageHandler(
-  //     async remoteMessage => {
-  //       console.tron(remoteMessage);
-  //       // testPush(remoteMessage);
-  //     },
-  //   );
-
-  //   return unsubscribe;
-  // }, []);
-
-  // const getFcmToken = async () => {
-  //   const fcmToken = await messaging().getToken();
-  //   if (fcmToken) {
-  //     console.tron('Your Firebase Token is:', fcmToken);
-  //   } else {
-  //     console.tron('Failed', 'No token received');
-  //   }
-  // };
-  // const requestUserPermission = async () => {
-  //   const authStatus = await messaging().requestPermission();
-  //   const enabled =
-  //     authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-  //     authStatus === messaging.AuthorizationStatus.PROVISIONAL;
-
-  //   if (enabled) {
-  //     getFcmToken();
-  //     console.tron('Authorization status:', authStatus);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   PushNotification.configure({
-  //     onRegister: function(token) {
-  //       console.tron('TOKEN:', token);
-  //     },
-  //     onNotification: function(notification) {
-  //       console.tron('NOTIFICATION:', notification);
-  //     },
-
-  //     permissions: {
-  //       alert: true,
-  //       badge: true,
-  //       sound: true,
-  //     },
-  //     popInitialNotification: true,
-  //     requestPermissions: true,
-  //   });
-  // }, []);
-
   const showMonthCalendar = hideAnim => {
     Animated.timing(hideAnim, {
       toValue: 0,
