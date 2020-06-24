@@ -6,6 +6,7 @@ import Navigator from './index';
 import GraphsNavigation from '../navigation/GraphsNavigation';
 import SettingsNavigation from './SettingsNavigation';
 import HomeNavigator from './HomeNavigation';
+import ConversionNavigation from './ConversionNavigation';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -32,6 +33,17 @@ const TabNavigator = () => {
             tabBarLabel: 'Categories',
             tabBarIcon: ({color}) => (
               <Icon name="playlist-edit" color={color} size={26} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Conversion"
+          component={ConversionNavigation}
+          options={{
+            tabBarColor: '#505049',
+            tabBarLabel: 'Conversion',
+            tabBarIcon: ({color}) => (
+              <Icon name="currency-usd" color={color} size={26} />
             ),
           }}
         />
