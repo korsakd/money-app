@@ -75,39 +75,12 @@ class ExchangeRates extends Component {
                     }}
                     source={this.props.icons[element.Cur_Abbreviation]}
                   />
-                  {element.Cur_Abbreviation === 'KZT' ? (
-                    <CurrencyComponent
-                      curAbbreviation={element.Cur_Abbreviation}
-                      curOfficialRate={element.Cur_OfficialRate}
-                      value={1000}
-                      index={index}
-                    />
-                  ) : element.Cur_Abbreviation === 'UAH' ||
-                    element.Cur_Abbreviation === 'RUB' ||
-                    element.Cur_Abbreviation === 'JPY' ? (
-                    <CurrencyComponent
-                      curAbbreviation={element.Cur_Abbreviation}
-                      curOfficialRate={element.Cur_OfficialRate}
-                      value={100}
-                      index={index}
-                    />
-                  ) : element.Cur_Abbreviation === 'PLN' ||
-                    element.Cur_Abbreviation === 'CNY' ||
-                    element.Cur_Abbreviation === 'TRY' ? (
-                    <CurrencyComponent
-                      curAbbreviation={element.Cur_Abbreviation}
-                      curOfficialRate={element.Cur_OfficialRate}
-                      value={10}
-                      index={index}
-                    />
-                  ) : (
-                    <CurrencyComponent
-                      curAbbreviation={element.Cur_Abbreviation}
-                      curOfficialRate={element.Cur_OfficialRate}
-                      value={1}
-                      index={index}
-                    />
-                  )}
+                  <CurrencyComponent
+                    curAbbreviation={element.Cur_Abbreviation}
+                    curOfficialRate={element.Cur_OfficialRate}
+                    value={element.Cur_Scale}
+                    index={index}
+                  />
                 </View>
               );
             })}
