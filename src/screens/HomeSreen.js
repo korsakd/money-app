@@ -217,7 +217,7 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
                   <TouchableOpacity
                     key={index}
                     onPress={() =>
-                      navigation.navigate('Details', {
+                      navigation.navigate('Детали', {
                         element,
                         index,
                       })

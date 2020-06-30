@@ -24,7 +24,7 @@ const LoginScreen = ({
   if (!isLoadingScreen) {
     return (
       <View style={styles.container}>
-        <Text style={styles.textHeader}>Login</Text>
+        <Text style={styles.textHeader}>Вход</Text>
         <Text style={styles.textError}>
           {error === 'auth/invalid-email'
             ? 'Неверный E-mail'

@@ -1,12 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  TextInput,
-  Keyboard,
-} from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import CustomKeyboard from '../Components/Keyboard';
 import CategoryIcon from '../Components/CategoryComponent';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';

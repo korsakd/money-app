@@ -1,5 +1,4 @@
 import React from 'react';
-import {View, Text} from 'react-native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
 import Income from '../Components/IncomeCategory';
@@ -10,8 +9,8 @@ const CategoriesTab = createMaterialTopTabNavigator();
 const CategoriesNav = () => {
   return (
     <CategoriesTab.Navigator swipeEnabled>
-      <CategoriesTab.Screen name="Income" component={Income} />
-      <CategoriesTab.Screen name="Costs" component={Costs} />
+      <CategoriesTab.Screen name="Доходы" component={Income} />
+      <CategoriesTab.Screen name="Рассходы" component={Costs} />
     </CategoriesTab.Navigator>
   );
 };

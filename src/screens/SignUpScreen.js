@@ -22,7 +22,7 @@ const SignUpScreen = ({
   if (!isLoadingScreen) {
     return (
       <View style={styles.container}>
-        <Text style={styles.textHeader}>Sign Up</Text>
+        <Text style={styles.textHeader}>Регистрация</Text>
         <Text style={styles.textError}>
           {error === 'auth/email-already-in-use'
             ? 'Такой E-mail уже существует'

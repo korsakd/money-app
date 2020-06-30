@@ -2,17 +2,15 @@ import React from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import {useRoute} from '@react-navigation/native';
 
-
 import {removeCategoryDb} from '../services/categoriesFunctions';
 import {connect} from 'react-redux';
 
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 
-
 const CategoryIcon = ({iconName, name, index, drag, id, remove}) => {
   const route = useRoute();
-  const showIncome = route.name === 'Income';
-  const showCosts = route.name === 'Costs';
+  const showIncome = route.name === 'Доходы';
+  const showCosts = route.name === 'Рассходы';
   if (showIncome || showCosts) {
     return (
       <View style={styles.categoryWrap}>

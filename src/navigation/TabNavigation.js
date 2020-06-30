@@ -17,7 +17,7 @@ const TabNavigator = () => {
         <Tab.Screen
           options={{
             tabBarColor: '#470736',
-            tabBarLabel: 'Home',
+            tabBarLabel: 'Главная',
             tabBarIcon: ({color}) => (
               <Icon name="home-outline" color={color} size={26} />
             ),
@@ -30,7 +30,7 @@ const TabNavigator = () => {
           component={Navigator}
           options={{
             tabBarColor: '#694fad',
-            tabBarLabel: 'Categories',
+            tabBarLabel: 'Категории',
             tabBarIcon: ({color}) => (
               <Icon name="playlist-edit" color={color} size={26} />
             ),
@@ -41,7 +41,7 @@ const TabNavigator = () => {
           component={ConversionNavigation}
           options={{
             tabBarColor: '#505049',
-            tabBarLabel: 'Conversion',
+            tabBarLabel: 'Конвертер',
             tabBarIcon: ({color}) => (
               <Icon name="currency-usd" color={color} size={26} />
             ),
@@ -52,7 +52,7 @@ const TabNavigator = () => {
           component={GraphsNavigation}
           options={{
             tabBarColor: '#445328',
-            tabBarLabel: 'Graphs',
+            tabBarLabel: 'Графики',
             tabBarIcon: ({color}) => (
               <Icon name="chart-arc" color={color} size={26} />
             ),
@@ -63,7 +63,7 @@ const TabNavigator = () => {
           component={SettingsNavigation}
           options={{
             tabBarColor: '#be935a',
-            tabBarLabel: 'Settings',
+            tabBarLabel: 'Настройки',
             tabBarIcon: ({color}) => (
               <Icon name="settings-outline" color={color} size={26} />
             ),
