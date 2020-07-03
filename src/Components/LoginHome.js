@@ -8,7 +8,7 @@ import database from '@react-native-firebase/database';
 import {connect} from 'react-redux';
 import {setUser} from '../redux/reducers/userReducer';
 import LoadingScreen from '../screens/LoadingScreen';
-import {addBalance} from '../redux/reducers/balanceReducer';
+import {importBalanceFromDb} from '../redux/reducers/balanceReducer';
 import {importCategoryFromDb} from '../redux/reducers/categoriesReducer';
 
 const LoginHome = ({
@@ -51,7 +51,7 @@ const LoginHome = ({
     balance.map(element => {
       database()
         .ref(`users/${user.uid}/balance/${element.id}`)
-        .set(element);
+        .set({...element, date: `${element.date}`});
     });
     database()
       .ref(`users/${user.uid}/DeviceID`)
@@ -81,12 +81,7 @@ const LoginHome = ({
           const balanceDb = dataSnapshot.toJSON().balance;
           const incomeDb = dataSnapshot.toJSON().income;
           const costsDb = dataSnapshot.toJSON().costs;
-          if (balanceDb) {
-            for (const value of Object.values(balanceDb)) {
-              addBalanceFromDb(value);
-              continue;
-            }
-          }
+          addBalanceFromDb(Object.values(balanceDb));
           addCategoryFromDb(Object.values(incomeDb), 'Income');
           addCategoryFromDb(Object.values(costsDb), 'Costs');
         })
@@ -202,7 +197,7 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => ({
   userState: user => dispatch(setUser(user)),
-  addBalanceFromDb: balance => dispatch(addBalance(balance)),
+  addBalanceFromDb: balance => dispatch(importBalanceFromDb(balance)),
   addCategoryFromDb: (category, type) =>
     dispatch(importCategoryFromDb(category, type)),
 });
