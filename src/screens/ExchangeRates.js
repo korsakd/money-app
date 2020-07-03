@@ -57,7 +57,7 @@ class ExchangeRates extends Component {
       <View style={{flex: 1}}>
         <FocusAwareStatusBar backgroundColor="#fff" barStyle="dark-content" />
         <ScrollView>
-          <View>
+          <View style={{marginTop: 10}}>
             <Text
               style={{
                 alignSelf: 'center',

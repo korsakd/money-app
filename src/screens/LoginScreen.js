@@ -80,6 +80,10 @@ const LoginScreen = ({
         <View style={styles.signUpContainer}>
           <Text style={styles.signUpText}>{translate('signUpQuestion')}</Text>
           <TouchableOpacity
+            style={{
+              paddingVertical: 10,
+              paddingRight: 5,
+            }}
             onPress={() => {
               setIsSignup(true);
             }}>
@@ -129,9 +133,9 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: '#470736',
     flexDirection: 'row',
-    marginTop: 8,
-    paddingVertical: 5,
-    paddingHorizontal: 5,
+    marginTop: 15,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
     alignItems: 'center',
     borderRadius: 5,
   },
@@ -145,10 +149,12 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   textButton: {
+    fontSize: 20,
     color: '#fff',
     marginRight: 5,
   },
   signUpContainer: {
+    alignItems: 'center',
     flexDirection: 'row',
     marginTop: 8,
   },

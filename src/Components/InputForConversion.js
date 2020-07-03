@@ -28,7 +28,7 @@ const InputForConversion = ({
     <View
       style={{
         height: 40,
-        marginTop: 10,
+        marginTop: 30,
         backgroundColor: '#505049',
         flexDirection: 'row',
         alignItems: 'center',

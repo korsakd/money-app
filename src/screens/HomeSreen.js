@@ -104,7 +104,10 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
   navigation.setOptions({
     headerRight: () => (
       <TouchableOpacity
-        style={{marginRight: 15}}
+        style={{
+          paddingHorizontal: 20,
+          paddingVertical: 15,
+        }}
         onPress={() => {
           setToggleLoginModal(true);
         }}>
@@ -115,7 +118,7 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
       if (isHideAnimCalendar) {
         return (
           <TouchableOpacity
-            style={{marginLeft: 15, flexDirection: 'row', alignItems: 'center'}}
+            style={{marginLeft: 20, flexDirection: 'row', alignItems: 'center'}}
             onPress={() => {
               setIsHideAnimCalendar(false);
               showMonthCalendar(hideAnimCalendar);
@@ -129,7 +132,7 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
       if (!isHideAnimCalendar) {
         return (
           <TouchableOpacity
-            style={{marginLeft: 15, flexDirection: 'row', alignItems: 'center'}}
+            style={{marginLeft: 20, flexDirection: 'row', alignItems: 'center'}}
             onPress={() => {
               setIsHideAnimCalendar(true);
               hideMonthCalendar(hideAnimCalendar);

@@ -36,11 +36,10 @@ const CurrencyComponent = ({
       <TouchableOpacity
         onPress={() => deleteExchangeRates(index, curAbbreviation)}
         style={{
-          width: 30,
-          height: 30,
           justifyContent: 'center',
           alignItems: 'center',
-          marginRight: 30,
+          paddingHorizontal: 30,
+          paddingVertical: 10,
         }}>
         <Icon name="delete" size={25} color={'#505049'} />
       </TouchableOpacity>

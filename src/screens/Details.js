@@ -30,7 +30,10 @@ const Details = ({route, remove, replace}) => {
   navigation.setOptions({
     headerRight: () => (
       <TouchableOpacity
-        style={{marginRight: 15}}
+        style={{
+          paddingHorizontal: 20,
+          paddingVertical: 15,
+        }}
         onPress={() => {
           remove(route.params.element.id);
           navigation.goBack();

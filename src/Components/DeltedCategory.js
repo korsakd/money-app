@@ -25,7 +25,10 @@ const DeletedCategory = ({
             <View key={index} style={styles.categoryWrap}>
               <View style={styles.iconeContainer}>
                 <TouchableOpacity
-                  style={{marginLeft: 10}}
+                  style={{
+                    paddingHorizontal: 20,
+                    paddingVertical: 10,
+                  }}
                   onPress={() => {
                     add(
                       {
@@ -50,8 +53,12 @@ const DeletedCategory = ({
                     ? element.name
                     : translate(element.name)}
                 </Text>
-                <View style={{marginRight: 15}}>
+                <View>
                   <TouchableOpacity
+                    style={{
+                      paddingHorizontal: 25,
+                      paddingVertical: 10,
+                    }}
                     onPress={() => {
                       removeDeleted(index, type);
                     }}>
@@ -76,7 +83,10 @@ const DeletedCategory = ({
             <View key={index} style={styles.categoryWrap}>
               <View style={styles.iconeContainer}>
                 <TouchableOpacity
-                  style={{marginLeft: 10}}
+                  style={{
+                    paddingHorizontal: 20,
+                    paddingVertical: 10,
+                  }}
                   onPress={() => {
                     add(
                       {
@@ -101,8 +111,12 @@ const DeletedCategory = ({
                     ? element.name
                     : translate(element.name)}
                 </Text>
-                <View style={{marginRight: 15}}>
+                <View>
                   <TouchableOpacity
+                    style={{
+                      paddingHorizontal: 25,
+                      paddingVertical: 10,
+                    }}
                     onPress={() => {
                       removeDeleted(index, type);
                     }}>
@@ -151,7 +165,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     justifyContent: 'center',
     alignItems: 'center',
-    marginHorizontal: 15,
+    marginRight: 15,
   },
 });
 

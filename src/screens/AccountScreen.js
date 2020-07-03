@@ -38,7 +38,9 @@ const AccountScreen = ({
                 clearCategory();
               });
           }}>
-          <Text style={{color: '#fff', marginRight: 5}}>Выйти</Text>
+          <Text style={{color: '#fff', marginRight: 5, fontSize: 20}}>
+            {translate('signOut')}
+          </Text>
           <Icon name="logout" size={24} color="#fff" />
         </TouchableOpacity>
       </View>
@@ -87,7 +89,7 @@ const AccountScreen = ({
                   clearCategory();
                 });
             }}>
-            <Text style={{color: '#fff', marginRight: 5}}>
+            <Text style={{color: '#fff', marginRight: 5, fontSize: 20}}>
               {translate('signOut')}
             </Text>
             <Icon name="logout" size={24} color="#fff" />
@@ -107,9 +109,9 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: '#470736',
     flexDirection: 'row',
-    marginTop: 8,
-    paddingVertical: 5,
-    paddingHorizontal: 5,
+    marginTop: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
     alignItems: 'center',
     borderRadius: 5,
   },

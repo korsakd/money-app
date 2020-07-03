@@ -126,7 +126,7 @@ class CurrencyConversion extends Component {
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
-            marginTop: 10,
+            marginTop: 30,
           }}>
           <Text style={{marginLeft: 10, fontSize: 20, fontWeight: 'bold'}}>
             {!this.state.isReverse
@@ -138,7 +138,10 @@ class CurrencyConversion extends Component {
                 } ${this.state.curAbbreviation}`}
           </Text>
           <TouchableOpacity
-            style={{marginRight: 10}}
+            style={{
+              paddingVertical: 10,
+              paddingHorizontal: 40,
+            }}
             onPress={() => this.reverseFunction()}>
             <Icon name="rotate-3d" size={30} />
           </TouchableOpacity>

@@ -61,7 +61,10 @@ const NewCategory = ({add, categoriesIcon, replace, income, costs}) => {
   navigation.setOptions({
     headerRight: () => (
       <TouchableOpacity
-        style={{marginRight: 15}}
+        style={{
+          paddingHorizontal: 20,
+          paddingVertical: 15,
+        }}
         onPress={() => {
           check();
         }}>

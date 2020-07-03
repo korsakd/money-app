@@ -83,9 +83,13 @@ const SignUpScreen = ({
           style={fromSettings ? styles.settingsButton : styles.button}>
           <Text style={styles.textButton}>{translate('signUp')}</Text>
         </TouchableOpacity>
-        <View style={styles.logInContainer}>
+        <View style={styles.signUpContainer}>
           <Text style={styles.logInText}>{translate('loginQuestion')}</Text>
           <TouchableOpacity
+            style={{
+              paddingVertical: 10,
+              paddingRight: 5,
+            }}
             onPress={() => {
               setIsSignup(false);
             }}>
@@ -129,25 +133,27 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#470736',
-    marginTop: 8,
-    paddingVertical: 5,
-    paddingHorizontal: 5,
+    marginTop: 15,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
     alignItems: 'center',
     borderRadius: 5,
   },
   settingsButton: {
     backgroundColor: '#be935a',
     flexDirection: 'row',
-    marginTop: 8,
-    paddingVertical: 5,
-    paddingHorizontal: 5,
+    marginTop: 15,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
     alignItems: 'center',
     borderRadius: 5,
   },
   textButton: {
+    fontSize: 20,
     color: '#fff',
   },
-  logInContainer: {
+  signUpContainer: {
+    alignItems: 'center',
     flexDirection: 'row',
     marginTop: 8,
   },

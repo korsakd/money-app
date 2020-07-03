@@ -14,7 +14,10 @@ const CategoryIcon = ({iconName, name, index, drag, id, remove, type}) => {
       <View style={styles.categoryWrap}>
         <View style={styles.iconeContainer}>
           <TouchableOpacity
-            style={{marginLeft: 10}}
+            style={{
+              paddingHorizontal: 20,
+              paddingVertical: 10,
+            }}
             onPress={() => {
               remove(index, type, id);
             }}>
@@ -31,8 +34,13 @@ const CategoryIcon = ({iconName, name, index, drag, id, remove, type}) => {
               {regexpMissing.test(translate(name)) ? name : translate(name)}
             </Text>
           ) : null}
-          <View style={{marginRight: 15}}>
-            <TouchableOpacity onLongPress={drag}>
+          <View>
+            <TouchableOpacity
+              onLongPress={drag}
+              style={{
+                paddingHorizontal: 25,
+                paddingVertical: 10,
+              }}>
               <Icon name="menu" size={20} />
             </TouchableOpacity>
           </View>
@@ -88,7 +96,7 @@ const styles = StyleSheet.create({
   iconeContainerDefault: {
     alignItems: 'center',
     marginVertical: 10,
-    marginHorizontal: 5,
+    marginLeft: 5,
   },
   iconStyle: {
     backgroundColor: '#e8e8e8',
@@ -98,7 +106,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     justifyContent: 'center',
     alignItems: 'center',
-    marginHorizontal: 15,
+    marginRight: 15,
   },
   iconStyleDefault: {
     backgroundColor: '#e8e8e8',
