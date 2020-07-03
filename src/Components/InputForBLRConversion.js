@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, TextInput, Image} from 'react-native';
+import {regexpNumber} from '../utils/RegExpFunction';
 
 const InputForBLRConversion = ({
   value,
@@ -9,10 +10,8 @@ const InputForBLRConversion = ({
   setForeignValue,
   defaultForeignValue,
 }) => {
-  const regexp = /^[0-9]*\.?[0-9]*$/;
-
   const onHandleValueChange = e => {
-    if (e === '' || regexp.test(e)) {
+    if (e === '' || regexpNumber.test(e)) {
       setValueBLR(e);
       setForeignValue(`${(e * defaultForeignValue).toFixed(4)}`);
     }
@@ -27,6 +26,7 @@ const InputForBLRConversion = ({
         alignItems: 'center',
       }}>
       <TextInput
+        contextMenuHidden={true}
         selectTextOnFocus={false}
         keyboardType={'number-pad'}
         onChangeText={number => onHandleValueChange(number)}

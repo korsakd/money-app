@@ -16,6 +16,7 @@ import {setCategoryDb} from '../services/categoriesFunctions';
 import CategoryList from '../Components/CategoryList';
 import CategoryIcon from '../Components/CategoryComponent';
 import UUIDGenerator from 'react-native-uuid-generator';
+import translate from '../translate/Translate';
 
 const NewCategory = ({add, categoriesIcon, replace, income, costs}) => {
   const navigation = useNavigation();
@@ -29,7 +30,7 @@ const NewCategory = ({add, categoriesIcon, replace, income, costs}) => {
 
   const check = async () => {
     if (text === '') {
-      return Alert.alert('Введите текст');
+      return Alert.alert(translate('сategoryNameInput'));
     }
     if (text !== '') {
       const id = await UUIDGenerator.getRandomUUID();
@@ -77,7 +78,7 @@ const NewCategory = ({add, categoriesIcon, replace, income, costs}) => {
             marginTop: 10,
             marginLeft: 15,
           }}>
-          Введите название категории
+          {translate('сategoryNameInput')}
         </Text>
         <Text
           style={{
@@ -85,7 +86,7 @@ const NewCategory = ({add, categoriesIcon, replace, income, costs}) => {
             marginBottom: 10,
             marginLeft: 15,
           }}>
-          * Не более 20 символов
+          {translate('nameLimit')}
         </Text>
         <View
           style={{
@@ -102,7 +103,7 @@ const NewCategory = ({add, categoriesIcon, replace, income, costs}) => {
               paddingBottom: 0,
               paddingTop: 0,
             }}
-            placeholder="Category name"
+            placeholder={translate('categoryNamePlaceHolder')}
             onChangeText={setText}
             value={text}
             maxLength={20}
@@ -114,12 +115,14 @@ const NewCategory = ({add, categoriesIcon, replace, income, costs}) => {
           return (
             <View key={key}>
               <View style={styles.textContainer}>
-                <Text style={styles.textWrap}>{key}</Text>
+                <Text style={styles.textWrap}>{translate(key)}</Text>
               </View>
-              <CategoryList
-                categoryArray={value}
-                setChooseIcon={setChooseIcon}
-              />
+              <View style={{marginBottom: 10}}>
+                <CategoryList
+                  categoryArray={value}
+                  setChooseIcon={setChooseIcon}
+                />
+              </View>
             </View>
           );
         })}

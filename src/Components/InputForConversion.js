@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {View, Text, TextInput, TouchableOpacity, Image} from 'react-native';
 import Modal from 'react-native-modal';
 import DefaultCurrencyPicker from '../Components/DefaultCurrencyPicker';
+import {regexpNumber} from '../utils/RegExpFunction';
 
 const InputForConversion = ({
   value,
@@ -16,10 +17,9 @@ const InputForConversion = ({
   setDefaultForeignValue,
 }) => {
   const [isModal, setIsModal] = useState(false);
-  const regexp = /^[0-9]*\.?[0-9]*$/;
 
   const onHandleValueChange = e => {
-    if (e === '' || regexp.test(e)) {
+    if (e === '' || regexpNumber.test(e)) {
       setForeignValue(e);
       setValueBLR(`${(e * defaultValueBLR).toFixed(4)}`);
     }
@@ -34,6 +34,7 @@ const InputForConversion = ({
         alignItems: 'center',
       }}>
       <TextInput
+        contextMenuHidden={true}
         selectTextOnFocus={false}
         keyboardType={'number-pad'}
         onChangeText={number => onHandleValueChange(number)}

@@ -4,6 +4,7 @@ import DraggableFlatList from 'react-native-draggable-flatlist';
 import {useNavigation} from '@react-navigation/native';
 import CategoryIcon from './CategoryComponent';
 import DeletedCategory from './DeltedCategory';
+
 const IconItem = ({categoryList, applySort, type}) => {
   const navigation = useNavigation();
   const [list, setList] = useState(categoryList);
@@ -21,6 +22,7 @@ const IconItem = ({categoryList, applySort, type}) => {
               navigation.navigate('NewCategory', {item, index, type});
             }}>
             <CategoryIcon
+              type={type}
               index={index}
               iconName={item.iconName}
               name={item.name}

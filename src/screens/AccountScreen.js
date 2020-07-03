@@ -5,6 +5,7 @@ import auth from '@react-native-firebase/auth';
 import {connect} from 'react-redux';
 import {clearBalance} from '../redux/reducers/balanceReducer';
 import {clearCategory} from '../redux/reducers/categoriesReducer';
+import translate from '../translate/Translate';
 
 const AccountScreen = ({
   user,
@@ -25,7 +26,7 @@ const AccountScreen = ({
           }}
           source={require('../img/user-picture.png')}
         />
-        <Text>{`Привет ${user.displayName || ''}`}</Text>
+        <Text>{`${translate('hello')} ${user.displayName || ''}`}</Text>
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
@@ -66,7 +67,7 @@ const AccountScreen = ({
             />
           </View>
           <View style={{justifyContent: 'space-around'}}>
-            <Text>Имя:</Text>
+            <Text>{`${translate('name')}`}</Text>
             <Text>E-mail:</Text>
           </View>
           <View style={{justifyContent: 'space-around'}}>
@@ -86,7 +87,9 @@ const AccountScreen = ({
                   clearCategory();
                 });
             }}>
-            <Text style={{color: '#fff', marginRight: 5}}>Выйти</Text>
+            <Text style={{color: '#fff', marginRight: 5}}>
+              {translate('signOut')}
+            </Text>
             <Icon name="logout" size={24} color="#fff" />
           </TouchableOpacity>
         </View>

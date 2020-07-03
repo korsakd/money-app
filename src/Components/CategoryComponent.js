@@ -1,16 +1,14 @@
 import React from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
-import {useRoute} from '@react-navigation/native';
-
 import {removeCategoryDb} from '../services/categoriesFunctions';
 import {connect} from 'react-redux';
-
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
+import translate from '../translate/Translate';
+import {regexpMissing} from '../utils/RegExpFunction';
 
-const CategoryIcon = ({iconName, name, index, drag, id, remove}) => {
-  const route = useRoute();
-  const showIncome = route.name === 'Доходы';
-  const showCosts = route.name === 'Рассходы';
+const CategoryIcon = ({iconName, name, index, drag, id, remove, type}) => {
+  const showIncome = type === 'Income';
+  const showCosts = type === 'Costs';
   if (showIncome || showCosts) {
     return (
       <View style={styles.categoryWrap}>
@@ -18,7 +16,7 @@ const CategoryIcon = ({iconName, name, index, drag, id, remove}) => {
           <TouchableOpacity
             style={{marginLeft: 10}}
             onPress={() => {
-              remove(index, route.name, id);
+              remove(index, type, id);
             }}>
             <Icon name="minus-circle" size={20} color="#d10000" />
           </TouchableOpacity>
@@ -30,7 +28,7 @@ const CategoryIcon = ({iconName, name, index, drag, id, remove}) => {
               numberOfLines={1}
               ellipsizeMode={'tail'}
               style={styles.textItem}>
-              {name}
+              {regexpMissing.test(translate(name)) ? name : translate(name)}
             </Text>
           ) : null}
           <View style={{marginRight: 15}}>
@@ -53,7 +51,7 @@ const CategoryIcon = ({iconName, name, index, drag, id, remove}) => {
               numberOfLines={1}
               ellipsizeMode={'tail'}
               style={styles.textItemDefault}>
-              {name}
+              {regexpMissing.test(translate(name)) ? name : translate(name)}
             </Text>
           ) : null}
         </View>

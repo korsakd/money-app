@@ -95,7 +95,6 @@ class CurrencyConversion extends Component {
     }
   };
   render() {
-    console.tron(this.state.defaultValueBLR);
     return (
       <View
         style={{

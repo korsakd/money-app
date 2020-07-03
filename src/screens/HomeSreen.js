@@ -16,6 +16,8 @@ import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import LoginHome from '../Components/LoginHome';
 import CustomMonthCalendar from '../Components/CustomMonthCalendar';
 import SplashScreen from 'react-native-splash-screen';
+import translate from '../translate/Translate';
+import {regexpMissing} from '../utils/RegExpFunction';
 
 function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
   const hideAnimIncome = useRef(new Animated.Value(1)).current;
@@ -155,7 +157,7 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
         <View style={styles.balanceWrap}>
           <View />
           <View>
-            <Text style={styles.balanceType}>Доход</Text>
+            <Text style={styles.balanceType}>{translate('income')}</Text>
             <Text style={styles.balanceValue}>{incomeValue.toFixed(2)}</Text>
           </View>
           <View
@@ -167,7 +169,7 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
             }}
           />
           <View>
-            <Text style={styles.balanceType}>Расходы</Text>
+            <Text style={styles.balanceType}>{translate('costs')}</Text>
             <Text style={styles.balanceValue}>{costsValue.toFixed(2)}</Text>
           </View>
           <View
@@ -179,7 +181,7 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
             }}
           />
           <View>
-            <Text style={styles.balanceType}>Баланс</Text>
+            <Text style={styles.balanceType}>{translate('balance')}</Text>
             <Text style={styles.balanceValue}>
               {(Number(incomeValue) - Number(costsValue)).toFixed(2)}
             </Text>
@@ -204,12 +206,16 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
                 <Text>
                   {incomeValueArray.length === 0
                     ? null
-                    : `Доход: ${Number(incomeValues).toFixed(2)}`}
+                    : `${translate('income')}: ${Number(incomeValues).toFixed(
+                        2,
+                      )}`}
                 </Text>
                 <Text>
                   {costsValueArray.length === 0
                     ? null
-                    : `Расход: - ${Number(costsValues).toFixed(2)}`}
+                    : `${translate('cost')}: - ${Number(costsValues).toFixed(
+                        2,
+                      )}`}
                 </Text>
               </View>
               {value.map((element, index) => {
@@ -217,14 +223,18 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
                   <TouchableOpacity
                     key={index}
                     onPress={() =>
-                      navigation.navigate('Детали', {
+                      navigation.navigate('Details', {
                         element,
                         index,
                       })
                     }>
                     <View style={styles.balanceItem}>
                       <CategoryIcon iconName={element.categoryIconName} />
-                      <Text style={{fontSize: 17}}>{element.categoryName}</Text>
+                      <Text style={{fontSize: 17}}>
+                        {regexpMissing.test(translate(element.categoryName))
+                          ? element.categoryName
+                          : translate(element.categoryName)}
+                      </Text>
                       <View
                         style={{
                           flex: 1,
@@ -275,7 +285,7 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
               ) : (
                 <Icon name="chevron-down" size={24} color={'white'} />
               )}
-              <Text style={styles.textWrap}>Расходы</Text>
+              <Text style={styles.textWrap}>{translate('costs')}</Text>
             </View>
           </TouchableOpacity>
           <Animated.View style={{height: hideAnimCosts}}>
@@ -318,7 +328,7 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
               ) : (
                 <Icon name="chevron-down" size={24} color={'white'} />
               )}
-              <Text style={styles.textWrap}>Доходы</Text>
+              <Text style={styles.textWrap}>{translate('incomes')}</Text>
             </View>
           </TouchableOpacity>
           <Animated.View style={{height: hideAnimIncome}}>

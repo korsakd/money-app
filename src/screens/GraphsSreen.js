@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import Graphs from '../Components/Graphs';
 import {connect} from 'react-redux';
+import translate from '../translate/Translate';
 
 const GraphsScreen = ({balance}) => {
   const incomeBalance = balance.filter(
@@ -14,8 +15,8 @@ const GraphsScreen = ({balance}) => {
   if (Object.keys(balance).length === 0) {
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <Text>Здесь будут отображены графики</Text>
-        <Text>ваших расходов и доходов.</Text>
+        <Text>{translate('graphWelcomeTop')}</Text>
+        <Text>{translate('graphWelcomeBottom')}</Text>
       </View>
     );
   } else {
@@ -30,7 +31,7 @@ const GraphsScreen = ({balance}) => {
                 fontSize: 15,
                 fontWeight: 'bold',
               }}>
-              Доходы
+              {translate('incomes')}
             </Text>
             <Graphs balance={incomeBalance} />
           </View>
@@ -44,7 +45,7 @@ const GraphsScreen = ({balance}) => {
                 fontSize: 15,
                 fontWeight: 'bold',
               }}>
-              Расходы
+              {translate('costs')}
             </Text>
             <Graphs balance={costsBalance} />
           </View>

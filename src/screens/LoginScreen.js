@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import LoadingScreen from './LoadingScreen';
+import translate from '../translate/Translate';
 
 const LoginScreen = ({
   handleLogIn,
@@ -24,7 +25,7 @@ const LoginScreen = ({
   if (!isLoadingScreen) {
     return (
       <View style={styles.container}>
-        <Text style={styles.textHeader}>Вход</Text>
+        <Text style={styles.textHeader}>{translate('login')}</Text>
         <Text style={styles.textError}>
           {error === 'auth/invalid-email'
             ? 'Неверный E-mail'
@@ -64,7 +65,7 @@ const LoginScreen = ({
           }
           autoFocus={error === 'Введите пароль' ? true : false}
           autoCapitalize="none"
-          placeholder="Password"
+          placeholder={translate('password')}
           onChangeText={pass => setPassword(pass)}
           value={password}
         />
@@ -73,16 +74,16 @@ const LoginScreen = ({
           onPress={() => {
             handleLogIn(email, password);
           }}>
-          <Text style={styles.textButton}>Войти</Text>
+          <Text style={styles.textButton}>{translate('comeIn')}</Text>
           <Icon name="login" size={24} color="#fff" />
         </TouchableOpacity>
         <View style={styles.signUpContainer}>
-          <Text style={styles.signUpText}>Ещё не зарегистрированы?</Text>
+          <Text style={styles.signUpText}>{translate('signUpQuestion')}</Text>
           <TouchableOpacity
             onPress={() => {
               setIsSignup(true);
             }}>
-            <Text style={styles.signUpButton}>Регистрация</Text>
+            <Text style={styles.signUpButton}>{translate('signUp')}</Text>
           </TouchableOpacity>
         </View>
       </View>

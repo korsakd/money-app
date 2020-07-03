@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
+import translate from '../translate/Translate';
 
 const DefaultCurrencyPicker = ({
   defaultCurrency,
@@ -25,7 +26,7 @@ const DefaultCurrencyPicker = ({
   return (
     <View style={{paddingVertical: 20}}>
       <View style={{alignItems: 'center'}}>
-        <Text style={{marginBottom: 10}}>Выберите валюту</Text>
+        <Text style={{marginBottom: 10}}>{translate('chooseCurrency')}</Text>
       </View>
       {filteredCurrencyPicker.map((element, index) => {
         return (

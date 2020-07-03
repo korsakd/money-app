@@ -1,8 +1,8 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-
 import HomeScreen from '../screens/HomeSreen';
 import Details from '../screens/Details';
+import translate from '../translate/Translate';
 
 const Stack = createStackNavigator();
 
@@ -14,19 +14,16 @@ const HomeNavigator = () => {
           headerStyle: {
             backgroundColor: '#470736',
           },
-          // headerTintColor: '#fff',
           headerTitle: '',
-          // headerTitleStyle: {
-          //   // color: '#470736',
-          // },
         }}
         name="Home"
         component={HomeScreen}
       />
       <Stack.Screen
-        name="Детали"
+        name="Details"
         component={Details}
         options={{
+          title: translate('details'),
           headerStyle: {
             backgroundColor: '#470736',
           },

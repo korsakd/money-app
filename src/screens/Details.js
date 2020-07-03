@@ -9,8 +9,12 @@ import {replaceBalanceDb} from '../services/balanceFunctions';
 import {removeBalanceDb} from '../services/balanceFunctions';
 import Modal from 'react-native-modal';
 import CalendarPicker from 'react-native-calendar-picker';
+import translate from '../translate/Translate';
+import {regexpMissing} from '../utils/RegExpFunction';
+import i18n from 'i18n-js';
 
 const Details = ({route, remove, replace}) => {
+  const deviceLocale = i18n.currentLocale();
   const [date, setDate] = useState(new Date(route.params.element.date));
   const [toggleModal, setToggleModal] = useState(false);
   const [number, setNumber] = useState(route.params.element.inputValue);
@@ -44,22 +48,32 @@ const Details = ({route, remove, replace}) => {
         style={{margin: 5}}>
         <View style={{backgroundColor: 'white', borderRadius: 20}}>
           <CalendarPicker
-            months={[
-              'Январь',
-              'Февраль',
-              'Март',
-              'Апрель',
-              'Май',
-              'Июнь',
-              'Июль',
-              'Август',
-              'Сентябрь',
-              'Октябрь',
-              'Ноябрь',
-              'Декабрь',
-            ]}
-            weekdays={['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']}
-            startFromMonday={true}
+            previousTitle={<Icon name="chevron-left" size={30} />}
+            nextTitle={<Icon name="chevron-right" size={30} />}
+            months={
+              deviceLocale !== 'en'
+                ? [
+                    'Январь',
+                    'Февраль',
+                    'Март',
+                    'Апрель',
+                    'Май',
+                    'Июнь',
+                    'Июль',
+                    'Август',
+                    'Сентябрь',
+                    'Октябрь',
+                    'Ноябрь',
+                    'Декабрь',
+                  ]
+                : null
+            }
+            weekdays={
+              deviceLocale !== 'en'
+                ? ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
+                : null
+            }
+            startFromMonday={deviceLocale !== 'en' ? true : false}
             onDateChange={element => {
               setDate(element);
               replace(
@@ -93,25 +107,27 @@ const Details = ({route, remove, replace}) => {
         <View style={styles.detailsCategoryWrap}>
           <CategoryIcon iconName={route.params.element.categoryIconName} />
           <Text style={{fontSize: 17}}>
-            {route.params.element.categoryName}
+            {regexpMissing.test(translate(route.params.element.categoryName))
+              ? route.params.element.categoryName
+              : translate(route.params.element.categoryName)}
           </Text>
         </View>
         <View style={styles.wrap}>
-          <Text style={styles.textWrap}>Категория:</Text>
+          <Text style={styles.textWrap}>{`${translate('category')}:`}</Text>
           <Text style={{fontSize: 17}}>
             {route.params.element.categoryType === 'Costs'
-              ? 'Расходы'
-              : 'Доходы'}
+              ? translate('costs')
+              : translate('incomes')}
           </Text>
         </View>
         <View style={styles.wrap}>
-          <Text style={styles.textWrap}>Деньги:</Text>
+          <Text style={styles.textWrap}>{`${translate('money')}:`}</Text>
           <TouchableOpacity onPress={() => setToggleKeyboardModal(true)}>
             <Text style={{fontSize: 17}}>{Number(number).toFixed(2)}</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.wrap}>
-          <Text style={styles.textWrap}>Дата:</Text>
+          <Text style={styles.textWrap}>{`${translate('date')}:`}</Text>
           <TouchableOpacity onPress={() => setToggleModal(true)}>
             <Text style={{fontSize: 17}}>{dateDisplay()}</Text>
           </TouchableOpacity>

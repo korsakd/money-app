@@ -1,6 +1,8 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text} from 'react-native';
 import {PieChart} from 'react-native-svg-charts';
+import translate from '../translate/Translate';
+import {regexpMissing} from '../utils/RegExpFunction';
 
 const Graphs = ({balance}) => {
   let newBalance = {};
@@ -80,7 +82,9 @@ const Graphs = ({balance}) => {
                       backgroundColor: color,
                     }}
                   />
-                  <Text style={{marginLeft: 10}}>{key}</Text>
+                  <Text style={{marginLeft: 10}}>
+                    {regexpMissing.test(translate(key)) ? key : translate(key)}
+                  </Text>
                 </View>
                 <View
                   style={{
@@ -103,13 +107,5 @@ const Graphs = ({balance}) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  textWrap: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 export default Graphs;

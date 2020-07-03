@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import LoadingScreen from './LoadingScreen';
+import translate from '../translate/Translate';
 
 const SignUpScreen = ({
   handleSignUp,
@@ -22,7 +23,7 @@ const SignUpScreen = ({
   if (!isLoadingScreen) {
     return (
       <View style={styles.container}>
-        <Text style={styles.textHeader}>Регистрация</Text>
+        <Text style={styles.textHeader}>{translate('signUp')}</Text>
         <Text style={styles.textError}>
           {error === 'auth/email-already-in-use'
             ? 'Такой E-mail уже существует'
@@ -52,7 +53,7 @@ const SignUpScreen = ({
         />
         <TextInput
           secureTextEntry
-          placeholder="Password"
+          placeholder={translate('password')}
           autoCapitalize="none"
           style={
             error === 'auth/weak-password'
@@ -65,7 +66,7 @@ const SignUpScreen = ({
           value={password}
         />
         <TextInput
-          placeholder="User name"
+          placeholder={translate('userName')}
           autoCapitalize="none"
           style={
             error === 'Введите имя пользователя'
@@ -80,15 +81,15 @@ const SignUpScreen = ({
             handleSignUp(email, password, userName);
           }}
           style={fromSettings ? styles.settingsButton : styles.button}>
-          <Text style={styles.textButton}>Регистрация</Text>
+          <Text style={styles.textButton}>{translate('signUp')}</Text>
         </TouchableOpacity>
         <View style={styles.logInContainer}>
-          <Text style={styles.logInText}>Уже есть аккаунт?</Text>
+          <Text style={styles.logInText}>{translate('loginQuestion')}</Text>
           <TouchableOpacity
             onPress={() => {
               setIsSignup(false);
             }}>
-            <Text style={styles.logInButton}>Войти</Text>
+            <Text style={styles.logInButton}>{translate('comeIn')}</Text>
           </TouchableOpacity>
         </View>
       </View>

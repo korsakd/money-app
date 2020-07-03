@@ -18,6 +18,7 @@ import {
 import {addExchangeRates} from '../services/exchangeRatesFunctions';
 import CurrencyPicker from '../Components/CurrencyPicker';
 import Modal from 'react-native-modal';
+import translate from '../translate/Translate';
 
 class ExchangeRates extends Component {
   constructor(props) {
@@ -61,7 +62,9 @@ class ExchangeRates extends Component {
                 marginTop: 10,
                 marginBottom: 10,
                 fontSize: 20,
-              }}>{`Курсы валют НБ РБ на ${dateDisplay(this.state.date)}`}</Text>
+              }}>{`${translate('exchangeRatesOfNbRbOn')} ${dateDisplay(
+              this.state.date,
+            )}`}</Text>
             {this.props.filteredExchageRates.map((element, index) => {
               return (
                 <View
@@ -99,7 +102,7 @@ class ExchangeRates extends Component {
             }}>
             <Icon name="plus-circle-outline" color={'#505049'} size={25} />
             <Text style={{marginLeft: 5, color: '#505049'}}>
-              Добавить валюту
+              {translate('addCurrency')}
             </Text>
           </TouchableOpacity>
         </View>

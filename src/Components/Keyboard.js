@@ -7,6 +7,8 @@ import Modal from 'react-native-modal';
 import CalendarPicker from 'react-native-calendar-picker';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import UUIDGenerator from 'react-native-uuid-generator';
+import translate from '../translate/Translate';
+import i18n from 'i18n-js';
 
 const CustomKeyboard = ({
   removeModal,
@@ -20,6 +22,7 @@ const CustomKeyboard = ({
   add,
   replace,
 }) => {
+  const deviceLocale = i18n.currentLocale();
   const [date, setDate] = useState(
     type !== 'Details' ? new Date() : new Date(category.date),
   );
@@ -104,22 +107,32 @@ const CustomKeyboard = ({
         style={{margin: 5}}>
         <View style={{backgroundColor: 'white', borderRadius: 20}}>
           <CalendarPicker
-            months={[
-              'Январь',
-              'Февраль',
-              'Март',
-              'Апрель',
-              'Май',
-              'Июнь',
-              'Июль',
-              'Август',
-              'Сентябрь',
-              'Октябрь',
-              'Ноябрь',
-              'Декабрь',
-            ]}
-            weekdays={['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']}
-            startFromMonday={true}
+            previousTitle={<Icon name="chevron-left" size={30} />}
+            nextTitle={<Icon name="chevron-right" size={30} />}
+            months={
+              deviceLocale !== 'en'
+                ? [
+                    'Январь',
+                    'Февраль',
+                    'Март',
+                    'Апрель',
+                    'Май',
+                    'Июнь',
+                    'Июль',
+                    'Август',
+                    'Сентябрь',
+                    'Октябрь',
+                    'Ноябрь',
+                    'Декабрь',
+                  ]
+                : null
+            }
+            weekdays={
+              deviceLocale !== 'en'
+                ? ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
+                : null
+            }
+            startFromMonday={deviceLocale !== 'en' ? true : false}
             onDateChange={element => {
               setDate(element);
               setToggleModal(false);
@@ -149,7 +162,9 @@ const CustomKeyboard = ({
               style={i === 'ok' ? styles.applyButton : styles.buttonWrap}>
               {i === dateDisplay() ? (
                 <View>
-                  <Text style={{textAlign: 'center', fontSize: 17}}>Today</Text>
+                  <Text style={{textAlign: 'center', fontSize: 17}}>
+                    {translate('today')}
+                  </Text>
                   <Text>{i}</Text>
                 </View>
               ) : i === 'ok' ? (
