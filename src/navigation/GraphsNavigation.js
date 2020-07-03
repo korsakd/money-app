@@ -9,10 +9,7 @@ const GraphsNavigation = () => {
     <Stack.Navigator>
       <Stack.Screen
         options={{
-          headerStyle: {
-            backgroundColor: '#445328',
-          },
-          headerTitle: '',
+          headerShown: false,
         }}
         name="Graphs"
         component={GraphsScreen}

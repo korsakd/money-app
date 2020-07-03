@@ -17,6 +17,7 @@ import CategoryList from '../Components/CategoryList';
 import CategoryIcon from '../Components/CategoryComponent';
 import UUIDGenerator from 'react-native-uuid-generator';
 import translate from '../translate/Translate';
+import FocusAwareStatusBar from '../utils/StatusBarColor';
 
 const NewCategory = ({add, categoriesIcon, replace, income, costs}) => {
   const navigation = useNavigation();
@@ -71,6 +72,7 @@ const NewCategory = ({add, categoriesIcon, replace, income, costs}) => {
 
   return (
     <View style={{backgroundColor: 'white'}}>
+      <FocusAwareStatusBar backgroundColor="#694fad" barStyle="light-content" />
       <View>
         <Text
           style={{

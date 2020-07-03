@@ -19,6 +19,7 @@ import {addExchangeRates} from '../services/exchangeRatesFunctions';
 import CurrencyPicker from '../Components/CurrencyPicker';
 import Modal from 'react-native-modal';
 import translate from '../translate/Translate';
+import FocusAwareStatusBar from '../utils/StatusBarColor';
 
 class ExchangeRates extends Component {
   constructor(props) {
@@ -54,6 +55,7 @@ class ExchangeRates extends Component {
   render() {
     return (
       <View style={{flex: 1}}>
+        <FocusAwareStatusBar backgroundColor="#fff" barStyle="dark-content" />
         <ScrollView>
           <View>
             <Text

@@ -18,6 +18,7 @@ import CustomMonthCalendar from '../Components/CustomMonthCalendar';
 import SplashScreen from 'react-native-splash-screen';
 import translate from '../translate/Translate';
 import {regexpMissing} from '../utils/RegExpFunction';
+import FocusAwareStatusBar from '../utils/StatusBarColor';
 
 function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
   const hideAnimIncome = useRef(new Animated.Value(1)).current;
@@ -124,6 +125,7 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
   });
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
+      <FocusAwareStatusBar backgroundColor="#470736" barStyle="light-content" />
       <Modal
         isVisible={toggleLoginModal}
         onBackdropPress={() => setToggleLoginModal(false)}

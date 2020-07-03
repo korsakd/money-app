@@ -5,11 +5,13 @@ import AddCategory from './AddButtonComponent';
 import IconItem from './IconItem';
 import {connect} from 'react-redux';
 import {sortCategoryDb} from '../services/categoriesFunctions';
+import FocusAwareStatusBar from '../utils/StatusBarColor';
 
-const Income = ({incomeCategory, sort, deletedCategory}) => {
+const Income = ({incomeCategory, sort}) => {
   if (incomeCategory.length === 0) {
     return (
       <>
+        <FocusAwareStatusBar backgroundColor="#fff" barStyle="dark-content" />
         <ScrollView>
           <DeletedCategory type={'Income'} />
         </ScrollView>
@@ -21,6 +23,7 @@ const Income = ({incomeCategory, sort, deletedCategory}) => {
   } else {
     return (
       <View style={{flex: 1, backgroundColor: 'white'}}>
+        <FocusAwareStatusBar backgroundColor="#fff" barStyle="dark-content" />
         <IconItem
           categoryList={incomeCategory}
           applySort={data => sort(data)}

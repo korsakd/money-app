@@ -4,6 +4,7 @@ import InputForConversion from '../Components/InputForConversion';
 import InputForBLRConversion from '../Components/InputForBLRConversion';
 import {connect} from 'react-redux';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
+import FocusAwareStatusBar from '../utils/StatusBarColor';
 
 class CurrencyConversion extends Component {
   constructor(props) {
@@ -100,6 +101,7 @@ class CurrencyConversion extends Component {
         style={{
           flexDirection: !this.state.isReverse ? 'column' : 'column-reverse',
         }}>
+        <FocusAwareStatusBar backgroundColor="#fff" barStyle="dark-content" />
         <InputForConversion
           isReverse={this.state.isReverse}
           defaultValueBLR={this.state.defaultValueBLR}

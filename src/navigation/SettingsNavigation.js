@@ -9,10 +9,7 @@ const SettingsNavigation = () => {
     <Stack.Navigator>
       <Stack.Screen
         options={{
-          headerStyle: {
-            backgroundColor: '#be935a',
-          },
-          headerTitle: '',
+          headerShown: false,
         }}
         name="Settings"
         component={Settings}

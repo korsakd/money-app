@@ -14,10 +14,6 @@ function Navigator() {
         component={CategoriesNav}
         options={{
           headerShown: false,
-          headerStyle: {
-            backgroundColor: '#694fad',
-          },
-          headerTitle: '',
         }}
       />
       <Stack.Screen
