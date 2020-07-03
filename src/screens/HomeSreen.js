@@ -21,6 +21,20 @@ import {regexpMissing} from '../utils/RegExpFunction';
 import FocusAwareStatusBar from '../utils/StatusBarColor';
 
 function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
+  const monthArray = {
+    1: 'january',
+    2: 'february',
+    3: 'march',
+    4: 'april',
+    5: 'may',
+    6: 'june',
+    7: 'july',
+    8: 'august',
+    9: 'september',
+    10: 'october',
+    11: 'november',
+    13: 'december',
+  };
   const hideAnimIncome = useRef(new Animated.Value(1)).current;
   const hideAnimCosts = useRef(new Animated.Value(1)).current;
   const hideAnimCalendar = useRef(new Animated.Value(-171)).current;
@@ -33,6 +47,9 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
   const [categoryType, setCategoryType] = useState('');
   const [categoryIcon, setCategoryIcon] = useState('');
   const [month, setMonth] = useState(new Date().getMonth() + 1);
+  const [monthName, setMonthName] = useState(
+    monthArray[new Date().getMonth() + 1],
+  );
   const [year, setYear] = useState(new Date().getFullYear());
 
   useEffect(() => {
@@ -98,26 +115,28 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
       if (isHideAnimCalendar) {
         return (
           <TouchableOpacity
-            style={{marginLeft: 15, flexDirection: 'row'}}
+            style={{marginLeft: 15, flexDirection: 'row', alignItems: 'center'}}
             onPress={() => {
               setIsHideAnimCalendar(false);
               showMonthCalendar(hideAnimCalendar);
             }}>
             <Icon name="calendar-month-outline" size={25} color="#fff" />
             <Icon name="menu-down" size={25} color="#fff" />
+            <Text style={{color: '#fff'}}>{translate(monthName)}</Text>
           </TouchableOpacity>
         );
       }
       if (!isHideAnimCalendar) {
         return (
           <TouchableOpacity
-            style={{marginLeft: 15, flexDirection: 'row'}}
+            style={{marginLeft: 15, flexDirection: 'row', alignItems: 'center'}}
             onPress={() => {
               setIsHideAnimCalendar(true);
               hideMonthCalendar(hideAnimCalendar);
             }}>
             <Icon name="calendar-month-outline" size={25} color="#fff" />
             <Icon name="menu-up" size={25} color="#fff" />
+            <Text style={{color: '#fff'}}>{translate(monthName)}</Text>
           </TouchableOpacity>
         );
       }
@@ -148,6 +167,7 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
         <CustomMonthCalendar
           month={month}
           year={year}
+          setMonthName={element => setMonthName(element)}
           setMonth={element => setMonth(element)}
           setYear={element => setYear(element)}
           hideCalendar={element => hideMonthCalendar(element)}

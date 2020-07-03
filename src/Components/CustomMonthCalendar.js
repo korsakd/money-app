@@ -7,6 +7,7 @@ import translate from '../translate/Translate';
 const CustomMonthCalendar = ({
   month,
   year,
+  setMonthName,
   setMonth,
   setYear,
   hideCalendar,
@@ -85,6 +86,7 @@ const CustomMonthCalendar = ({
                   setMonth(element.monthNumber);
                   hideCalendar(hideAnimCalendar);
                   setIsHideAnimCalendar(true);
+                  setMonthName(element.monthName);
                 }}>
                 <Text
                   style={{
