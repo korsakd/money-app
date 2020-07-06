@@ -119,8 +119,8 @@ const Details = ({route, remove, replace}) => {
           <Text style={styles.textWrap}>{`${translate('category')}:`}</Text>
           <Text style={{fontSize: 17}}>
             {route.params.element.categoryType === 'Costs'
-              ? translate('costs')
-              : translate('incomes')}
+              ? translate('Costs')
+              : translate('Incomes')}
           </Text>
         </View>
         <View style={styles.wrap}>

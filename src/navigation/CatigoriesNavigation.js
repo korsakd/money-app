@@ -12,14 +12,14 @@ const CategoriesNav = () => {
       <CategoriesTab.Screen
         name="Income"
         options={{
-          title: translate('incomes'),
+          title: translate('Incomes'),
         }}
         component={Income}
       />
       <CategoriesTab.Screen
         name="Costs"
         options={{
-          title: translate('costs'),
+          title: translate('Costs'),
         }}
         component={Costs}
       />

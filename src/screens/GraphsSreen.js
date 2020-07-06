@@ -40,7 +40,7 @@ const GraphsScreen = ({balance}) => {
                 fontSize: 15,
                 fontWeight: 'bold',
               }}>
-              {translate('incomes')}
+              {translate('Incomes')}
             </Text>
             <Graphs balance={incomeBalance} />
           </View>
@@ -54,7 +54,7 @@ const GraphsScreen = ({balance}) => {
                 fontSize: 15,
                 fontWeight: 'bold',
               }}>
-              {translate('costs')}
+              {translate('Costs')}
             </Text>
             <Graphs balance={costsBalance} />
           </View>
