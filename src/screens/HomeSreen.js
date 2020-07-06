@@ -20,7 +20,13 @@ import translate from '../translate/Translate';
 import {regexpMissing} from '../utils/RegExpFunction';
 import FocusAwareStatusBar from '../utils/StatusBarColor';
 
-function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
+function HomeScreen({
+  navigation,
+  balance,
+  incomeCategory,
+  costsCategory,
+  user,
+}) {
   const monthArray = {
     1: 'january',
     2: 'february',
@@ -214,6 +220,16 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
           <View />
         </View>
       </TouchableOpacity>
+      {!user ? (
+        <TouchableOpacity
+          onPress={() => setToggleLoginModal(true)}
+          style={styles.attentionWrap}>
+          <Icon name="alert-decagram-outline" size={20} color="#FF0000" />
+          <Text style={{color: '#FF0000', marginLeft: 5}}>
+            {translate('attention')}
+          </Text>
+        </TouchableOpacity>
+      ) : null}
       <ScrollView>
         {dates.map(([key, value]) => {
           const incomeValueArray = value.filter(
@@ -403,6 +419,24 @@ const styles = StyleSheet.create({
 
     elevation: 1,
   },
+  attentionWrap: {
+    flexDirection: 'row',
+    backgroundColor: '#FA8072',
+    opacity: 0.5,
+    marginBottom: 15,
+    marginHorizontal: 5,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    borderRadius: 7,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    elevation: 1,
+  },
   balanceType: {
     marginTop: 10,
     fontSize: 15,
@@ -460,6 +494,7 @@ const mapStateToProps = state => {
     balance: state.balanceReducer.balance,
     incomeCategory: state.categoriesReducer.income,
     costsCategory: state.categoriesReducer.costs,
+    user: state.userReducer.user,
   };
 };
 

@@ -51,36 +51,56 @@ class CurrencyConversion extends Component {
       this.props.filteredExchageRates !== prevProps.filteredExchageRates
     ) {
       this.setState({
-        iconSource: this.props.icons[this.props.defaultCurrency[0]],
-      });
-      this.setState({curAbbreviation: this.props.defaultCurrency[0]});
-      this.setState({
-        valueBLR: !this.state.isReverse
-          ? `${(
-              this.props.filteredExchageRates[0].Cur_OfficialRate /
-              this.props.filteredExchageRates[0].Cur_Scale
-            ).toFixed(4)}`
-          : '1',
+        iconSource:
+          this.props.filteredExchageRates.length === 0
+            ? null
+            : this.props.icons[this.props.defaultCurrency[0]],
       });
       this.setState({
-        foreignValue: !this.state.isReverse
-          ? '1'
-          : `${(
-              this.props.filteredExchageRates[0].Cur_Scale /
-              this.props.filteredExchageRates[0].Cur_OfficialRate
-            ).toFixed(4)}`,
+        curAbbreviation:
+          this.props.filteredExchageRates.length === 0
+            ? null
+            : this.props.defaultCurrency[0],
       });
       this.setState({
-        defaultValueBLR: `${(
-          this.props.filteredExchageRates[0].Cur_OfficialRate /
-          this.props.filteredExchageRates[0].Cur_Scale
-        ).toFixed(4)}`,
+        valueBLR:
+          this.props.filteredExchageRates.length === 0
+            ? null
+            : !this.state.isReverse
+            ? `${(
+                this.props.filteredExchageRates[0].Cur_OfficialRate /
+                this.props.filteredExchageRates[0].Cur_Scale
+              ).toFixed(4)}`
+            : '1',
       });
       this.setState({
-        defaultForeignValue: `${(
-          this.props.filteredExchageRates[0].Cur_Scale /
-          this.props.filteredExchageRates[0].Cur_OfficialRate
-        ).toFixed(4)}`,
+        foreignValue:
+          this.props.filteredExchageRates.length === 0
+            ? null
+            : !this.state.isReverse
+            ? '1'
+            : `${(
+                this.props.filteredExchageRates[0].Cur_Scale /
+                this.props.filteredExchageRates[0].Cur_OfficialRate
+              ).toFixed(4)}`,
+      });
+      this.setState({
+        defaultValueBLR:
+          this.props.filteredExchageRates.length !== 0
+            ? `${(
+                this.props.filteredExchageRates[0].Cur_OfficialRate /
+                this.props.filteredExchageRates[0].Cur_Scale
+              ).toFixed(4)}`
+            : null,
+      });
+      this.setState({
+        defaultForeignValue:
+          this.props.filteredExchageRates.length !== 0
+            ? `${(
+                this.props.filteredExchageRates[0].Cur_Scale /
+                this.props.filteredExchageRates[0].Cur_OfficialRate
+              ).toFixed(4)}`
+            : null,
       });
     }
   }

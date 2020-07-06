@@ -35,8 +35,7 @@ class ExchangeRates extends Component {
         .then(response => response.json())
         .then(item => {
           this.props.addCurrency(item, new Date());
-        })
-        .catch(error => console.tron(error));
+        });
     }
     if (
       this.props.currentDate &&
