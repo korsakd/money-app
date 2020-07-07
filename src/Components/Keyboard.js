@@ -143,13 +143,14 @@ const CustomKeyboard = ({
       </Modal>
       <View
         style={{
-          height: 30,
-          paddingLeft: 10,
+          height: 50,
           justifyContent: 'center',
+          alignItems: 'center',
+          borderBottomWidth: StyleSheet.hairlineWidth,
         }}>
         <Text
           style={{
-            fontSize: 17,
+            fontSize: 27,
           }}>
           {number}
         </Text>
@@ -163,21 +164,21 @@ const CustomKeyboard = ({
               style={i === 'ok' ? styles.applyButton : styles.buttonWrap}>
               {i === dateDisplay() ? (
                 <View>
-                  <Text style={{textAlign: 'center', fontSize: 17}}>
+                  <Text style={{textAlign: 'center', fontSize: 20}}>
                     {translate('today')}
                   </Text>
                   <Text>{i}</Text>
                 </View>
               ) : i === 'ok' ? (
                 <View>
-                  <Icon name="check-circle-outline" size={30} color="#525252" />
+                  <Icon name="check-circle-outline" size={30} color="#43cc1f" />
                 </View>
               ) : i === 'del' ? (
                 <View>
-                  <Icon name="backspace-outline" size={30} color="#525252" />
+                  <Icon name="backspace-outline" size={30} color="#000" />
                 </View>
               ) : (
-                <Text style={{fontSize: 17}}>{i}</Text>
+                <Text style={{fontSize: 27}}>{i}</Text>
               )}
             </TouchableOpacity>
           );
@@ -190,18 +191,15 @@ const CustomKeyboard = ({
 const styles = StyleSheet.create({
   buttonWrap: {
     width: '25%',
-    height: 50,
+    height: 70,
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: StyleSheet.hairlineWidth,
   },
   applyButton: {
-    backgroundColor: '#43cc1f',
     width: '25%',
-    height: 50,
+    height: 70,
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: StyleSheet.hairlineWidth,
   },
 });
 
