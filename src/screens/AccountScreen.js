@@ -77,7 +77,7 @@ const AccountScreen = ({
             <Text>{user.email}</Text>
           </View>
         </View>
-        <View style={{width: '25%', alignSelf: 'center'}}>
+        <View style={{width: '28%', alignSelf: 'center'}}>
           <TouchableOpacity
             style={styles.settingsButton}
             onPress={() => {
@@ -118,9 +118,9 @@ const styles = StyleSheet.create({
   settingsButton: {
     backgroundColor: '#be935a',
     flexDirection: 'row',
-    marginTop: 8,
-    paddingVertical: 5,
-    paddingHorizontal: 5,
+    marginTop: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 5,

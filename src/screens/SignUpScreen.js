@@ -15,6 +15,7 @@ const SignUpScreen = ({
   isLoadingScreen,
   setIsSignup,
   fromSettings,
+  setError,
 }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -46,6 +47,8 @@ const SignUpScreen = ({
               ? styles.textInputError
               : error === 'Введите E-mail'
               ? styles.textInputError
+              : error === 'Некорректно введен E-mail'
+              ? styles.textInputError
               : styles.textInput
           }
           onChangeText={element => setEmail(element)}
@@ -59,6 +62,8 @@ const SignUpScreen = ({
             error === 'auth/weak-password'
               ? styles.textInputError
               : error === 'Введите пароль'
+              ? styles.textInputError
+              : error === 'Пароль должен быть более 6 символов'
               ? styles.textInputError
               : styles.textInput
           }
@@ -91,6 +96,7 @@ const SignUpScreen = ({
               paddingRight: 5,
             }}
             onPress={() => {
+              setError('');
               setIsSignup(false);
             }}>
             <Text style={styles.logInButton}>{translate('comeIn')}</Text>

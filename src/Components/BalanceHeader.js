@@ -20,7 +20,7 @@ const BalanceHeader = ({
   const incomeValue = incomeArray.reduce(summValues, 0);
   const costsValue = costsArray.reduce(summValues, 0);
   return (
-    <View>
+    <View style={{zIndex: 1}}>
       <TouchableOpacity
         style={styles.balanceWrap}
         onPress={() => navigation.navigate('Graphs')}>
@@ -78,17 +78,11 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: 400,
     height: 70,
-    borderRadius: 7,
     flexDirection: 'row',
     justifyContent: 'space-around',
+    borderColor: '#000',
     shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.2,
-    shadowRadius: 1.41,
-    elevation: 1,
+    elevation: 2,
   },
   attentionWrap: {
     flexDirection: 'row',
@@ -98,15 +92,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     paddingHorizontal: 10,
     paddingVertical: 10,
-    borderRadius: 7,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.2,
-    shadowRadius: 1.41,
-    elevation: 1,
   },
   balanceType: {
     marginTop: 10,

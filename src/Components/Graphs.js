@@ -43,16 +43,9 @@ const Graphs = ({balance}) => {
           style={{
             marginTop: 10,
             marginHorizontal: 10,
-            borderRadius: 7,
+            borderColor: '#000',
             shadowColor: '#000',
-            shadowOffset: {
-              width: 0,
-              height: 1,
-            },
-            shadowOpacity: 0.2,
-            shadowRadius: 1.41,
-
-            elevation: 1,
+            elevation: 2,
           }}>
           {Object.entries(newBalance).map(([key, value]) => {
             let color;

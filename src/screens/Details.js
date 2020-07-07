@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Alert} from 'react-native';
 import CustomKeyboard from '../Components/Keyboard';
 import CategoryIcon from '../Components/CategoryComponent';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
@@ -35,8 +35,25 @@ const Details = ({route, remove, replace}) => {
           paddingVertical: 15,
         }}
         onPress={() => {
-          remove(route.params.element.id);
-          navigation.goBack();
+          Alert.alert(
+            'Вы уверены?',
+            'Запись будет удалена',
+            [
+              {
+                text: 'Cancel',
+                onPress: null,
+                style: 'cancel',
+              },
+              {
+                text: 'OK',
+                onPress: () => {
+                  remove(route.params.element.id);
+                  navigation.goBack();
+                },
+              },
+            ],
+            {cancelable: false},
+          );
         }}>
         <Icon name="delete-outline" size={25} color="#fff" />
       </TouchableOpacity>
@@ -104,6 +121,7 @@ const Details = ({route, remove, replace}) => {
           removeModal={element => setToggleKeyboardModal(element)}
           category={route.params.element}
           index={route.params.index}
+          detailValue={number}
         />
       </Modal>
       <View style={styles.detailsWrap}>
@@ -146,16 +164,9 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
     alignSelf: 'center',
     width: 400,
-    borderRadius: 7,
+    borderColor: '#000',
     shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.2,
-    shadowRadius: 1.41,
-
-    elevation: 1,
+    elevation: 2,
   },
   detailsCategoryWrap: {
     flexDirection: 'row',

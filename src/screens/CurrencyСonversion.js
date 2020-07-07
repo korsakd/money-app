@@ -34,7 +34,7 @@ class CurrencyConversion extends Component {
           : null,
       foreignValue: '1',
       iconSourceBLR: require('../img/Belarus.png'),
-      curAbbreviationBLR: 'BLR',
+      curAbbreviationBLR: 'BYN',
       iconSource:
         this.props.filteredExchageRates.length !== 0
           ? this.props.icons[this.props.defaultCurrency[0]]
@@ -107,12 +107,12 @@ class CurrencyConversion extends Component {
   reverseFunction = () => {
     if (!this.state.isReverse) {
       this.setState({isReverse: true});
-      this.setState({valueBLR: '1'});
-      this.setState({foreignValue: this.state.defaultForeignValue});
+      // this.setState({valueBLR: '1'});
+      // this.setState({foreignValue: this.state.defaultForeignValue});
     } else {
       this.setState({isReverse: false});
-      this.setState({valueBLR: this.state.defaultValueBLR});
-      this.setState({foreignValue: '1'});
+      // this.setState({valueBLR: this.state.defaultValueBLR});
+      // this.setState({foreignValue: '1'});
     }
   };
   render() {
@@ -126,6 +126,7 @@ class CurrencyConversion extends Component {
           isReverse={this.state.isReverse}
           defaultValueBLR={this.state.defaultValueBLR}
           value={this.state.foreignValue}
+          valueBLR={this.state.valueBLR}
           iconSource={this.state.iconSource}
           curAbbreviation={this.state.curAbbreviation}
           setIconSource={element => this.setState({iconSource: element})}

@@ -21,13 +21,14 @@ const CustomKeyboard = ({
   setDetailDate,
   add,
   replace,
+  detailValue,
 }) => {
   const deviceLocale = i18n.currentLocale();
   const [date, setDate] = useState(
     type !== 'Details' ? new Date() : new Date(category.date),
   );
   const [toggleModal, setToggleModal] = useState(false);
-  const [number, setNumber] = useState('0');
+  const [number, setNumber] = useState(type === 'Details' ? detailValue : '0');
   const dateDisplay = () => {
     const d = new Date(date);
     return `${d.getDate() < 10 ? `0${d.getDate()}` : d.getDate()}.${

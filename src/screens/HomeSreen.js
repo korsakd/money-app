@@ -127,7 +127,7 @@ function HomeScreen({navigation, balance, incomeCategory, costsCategory}) {
           position: 'absolute',
           zIndex: 10,
           top: hideAnimCalendar,
-          backgroundColor: 'white',
+          backgroundColor: '#fff',
         }}>
         <CustomMonthCalendar
           month={month}

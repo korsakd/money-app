@@ -4,6 +4,9 @@ import {connect} from 'react-redux';
 import translate from '../translate/Translate';
 
 const DefaultCurrencyPicker = ({
+  value,
+  valueBLR,
+  isReverse,
   defaultCurrency,
   exchangeRates,
   icons,
@@ -36,9 +39,14 @@ const DefaultCurrencyPicker = ({
                 setIconSource(icons[element.Cur_Abbreviation]);
                 setCurAbbreviation(element.Cur_Abbreviation);
                 setValueBLR(
-                  `${(element.Cur_OfficialRate / element.Cur_Scale).toFixed(
-                    4,
-                  )}`,
+                  `${
+                    isReverse
+                      ? valueBLR
+                      : (
+                          value *
+                          (element.Cur_OfficialRate / element.Cur_Scale)
+                        ).toFixed(4)
+                  }`,
                 );
                 setDefaultValueBLR(
                   `${(element.Cur_OfficialRate / element.Cur_Scale).toFixed(
@@ -50,7 +58,16 @@ const DefaultCurrencyPicker = ({
                     4,
                   )}`,
                 );
-                setForeignValue('1');
+                setForeignValue(
+                  `${
+                    !isReverse
+                      ? value
+                      : (
+                          valueBLR *
+                          (element.Cur_Scale / element.Cur_OfficialRate)
+                        ).toFixed(4)
+                  }`,
+                );
                 removeModal(false);
               }}
               style={{

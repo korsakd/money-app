@@ -18,10 +18,10 @@ const LoginScreen = ({
   isLoadingScreen,
   setIsLoadingScreen,
   fromSettings,
+  setError,
 }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   if (!isLoadingScreen) {
     return (
       <View style={styles.container}>
@@ -45,6 +45,8 @@ const LoginScreen = ({
               ? styles.textInputError
               : error ===
                 'Такого пользователя не существует или неверный E-mail'
+              ? styles.textInputError
+              : error === 'Некорректно введен E-mail'
               ? styles.textInputError
               : styles.textInput
           }
@@ -85,6 +87,7 @@ const LoginScreen = ({
               paddingRight: 5,
             }}
             onPress={() => {
+              setError('');
               setIsSignup(true);
             }}>
             <Text style={styles.signUpButton}>{translate('signUp')}</Text>
@@ -142,9 +145,9 @@ const styles = StyleSheet.create({
   settingsButton: {
     backgroundColor: '#be935a',
     flexDirection: 'row',
-    marginTop: 8,
-    paddingVertical: 5,
-    paddingHorizontal: 5,
+    marginTop: 15,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
     alignItems: 'center',
     borderRadius: 5,
   },

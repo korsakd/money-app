@@ -29,16 +29,9 @@ const styles = StyleSheet.create({
   logInContainer: {
     marginVertical: 10,
     marginHorizontal: 5,
-    borderRadius: 20,
+    borderColor: '#000',
     shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.2,
-    shadowRadius: 1.41,
-
-    elevation: 1,
+    elevation: 2,
   },
 });
 

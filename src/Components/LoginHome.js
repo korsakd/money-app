@@ -10,6 +10,7 @@ import {setUser} from '../redux/reducers/userReducer';
 import LoadingScreen from '../screens/LoadingScreen';
 import {importBalanceFromDb} from '../redux/reducers/balanceReducer';
 import {importCategoryFromDb} from '../redux/reducers/categoriesReducer';
+import {regexpEmail} from '../utils/RegExpFunction';
 
 const LoginHome = ({
   user,
@@ -65,12 +66,16 @@ const LoginHome = ({
   }
 
   const handleLogIn = (email, password) => {
+    console.tron(regexpEmail.test(email));
     if (email === '') {
       setError('Введите логин');
     } else if (password === '') {
       setError('Введите пароль');
+    } else if (!regexpEmail.test(email)) {
+      setError('Некорректно введен E-mail');
     } else {
       setIsLoadingScreen(true);
+      setError('');
       auth()
         .signInWithEmailAndPassword(email, password)
         .then(() => {
@@ -99,8 +104,13 @@ const LoginHome = ({
       setError('Введите пароль');
     } else if (userName === '') {
       setError('Введите имя пользователя');
+    } else if (!regexpEmail.test(email)) {
+      setError('Некорректно введен E-mail');
+    } else if (password.length < 6) {
+      setError('Пароль должен быть более 6 символов');
     } else {
       setIsLoadingScreen(true);
+      setError('');
       auth()
         .createUserWithEmailAndPassword(email, password)
         .then(() => {
@@ -146,6 +156,7 @@ const LoginHome = ({
       return (
         <View>
           <LoginScreen
+            setError={element => setError(element)}
             handleLogIn={(email, password) => handleLogIn(email, password)}
             error={error}
             setIsSignup={element => setIsSignup(element)}
@@ -161,6 +172,7 @@ const LoginHome = ({
       return (
         <View>
           <SignUpScreen
+            setError={element => setError(element)}
             handleSignUp={(email, password, userName) =>
               handleSignUp(email, password, userName)
             }

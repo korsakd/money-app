@@ -6,6 +6,8 @@ import {regexpNumber} from '../utils/RegExpFunction';
 
 const InputForConversion = ({
   value,
+  valueBLR,
+  isReverse,
   iconSource,
   curAbbreviation,
   setIconSource,
@@ -84,6 +86,9 @@ const InputForConversion = ({
             borderRadius: 20,
           }}>
           <DefaultCurrencyPicker
+            value={value}
+            valueBLR={valueBLR}
+            isReverse={isReverse}
             removeModal={element => setIsModal(element)}
             setIconSource={element => setIconSource(element)}
             setCurAbbreviation={element => setCurAbbreviation(element)}
