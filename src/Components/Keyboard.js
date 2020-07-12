@@ -7,6 +7,8 @@ import Modal from 'react-native-modal';
 import CalendarPicker from 'react-native-calendar-picker';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import UUIDGenerator from 'react-native-uuid-generator';
+import translate from '../translate/Translate';
+import i18n from 'i18n-js';
 
 const CustomKeyboard = ({
   removeModal,
@@ -19,12 +21,14 @@ const CustomKeyboard = ({
   setDetailDate,
   add,
   replace,
+  detailValue,
 }) => {
+  const deviceLocale = i18n.currentLocale();
   const [date, setDate] = useState(
     type !== 'Details' ? new Date() : new Date(category.date),
   );
   const [toggleModal, setToggleModal] = useState(false);
-  const [number, setNumber] = useState('0');
+  const [number, setNumber] = useState(type === 'Details' ? detailValue : '0');
   const dateDisplay = () => {
     const d = new Date(date);
     return `${d.getDate() < 10 ? `0${d.getDate()}` : d.getDate()}.${
@@ -81,7 +85,7 @@ const CustomKeyboard = ({
             categoryType: type,
             categoryName: categoryType,
             inputValue: Number(number).toFixed(2),
-            date: date,
+            date: `${new Date(date)}`,
             id: id,
           });
         }
@@ -104,22 +108,32 @@ const CustomKeyboard = ({
         style={{margin: 5}}>
         <View style={{backgroundColor: 'white', borderRadius: 20}}>
           <CalendarPicker
-            months={[
-              'Январь',
-              'Февраль',
-              'Март',
-              'Апрель',
-              'Май',
-              'Июнь',
-              'Июль',
-              'Август',
-              'Сентябрь',
-              'Октябрь',
-              'Ноябрь',
-              'Декабрь',
-            ]}
-            weekdays={['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']}
-            startFromMonday={true}
+            previousTitle={<Icon name="chevron-left" size={30} />}
+            nextTitle={<Icon name="chevron-right" size={30} />}
+            months={
+              deviceLocale !== 'en'
+                ? [
+                    'Январь',
+                    'Февраль',
+                    'Март',
+                    'Апрель',
+                    'Май',
+                    'Июнь',
+                    'Июль',
+                    'Август',
+                    'Сентябрь',
+                    'Октябрь',
+                    'Ноябрь',
+                    'Декабрь',
+                  ]
+                : null
+            }
+            weekdays={
+              deviceLocale !== 'en'
+                ? ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
+                : null
+            }
+            startFromMonday={deviceLocale !== 'en' ? true : false}
             onDateChange={element => {
               setDate(element);
               setToggleModal(false);
@@ -129,13 +143,14 @@ const CustomKeyboard = ({
       </Modal>
       <View
         style={{
-          height: 30,
-          paddingLeft: 10,
+          height: 50,
           justifyContent: 'center',
+          alignItems: 'center',
+          borderBottomWidth: StyleSheet.hairlineWidth,
         }}>
         <Text
           style={{
-            fontSize: 17,
+            fontSize: 27,
           }}>
           {number}
         </Text>
@@ -149,19 +164,21 @@ const CustomKeyboard = ({
               style={i === 'ok' ? styles.applyButton : styles.buttonWrap}>
               {i === dateDisplay() ? (
                 <View>
-                  <Text style={{textAlign: 'center', fontSize: 17}}>Today</Text>
+                  <Text style={{textAlign: 'center', fontSize: 20}}>
+                    {translate('today')}
+                  </Text>
                   <Text>{i}</Text>
                 </View>
               ) : i === 'ok' ? (
                 <View>
-                  <Icon name="check-circle-outline" size={30} color="#525252" />
+                  <Icon name="check-circle-outline" size={30} color="#43cc1f" />
                 </View>
               ) : i === 'del' ? (
                 <View>
-                  <Icon name="backspace-outline" size={30} color="#525252" />
+                  <Icon name="backspace-outline" size={30} color="#000" />
                 </View>
               ) : (
-                <Text style={{fontSize: 17}}>{i}</Text>
+                <Text style={{fontSize: 27}}>{i}</Text>
               )}
             </TouchableOpacity>
           );
@@ -174,18 +191,15 @@ const CustomKeyboard = ({
 const styles = StyleSheet.create({
   buttonWrap: {
     width: '25%',
-    height: 50,
+    height: 70,
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: StyleSheet.hairlineWidth,
   },
   applyButton: {
-    backgroundColor: '#43cc1f',
     width: '25%',
-    height: 50,
+    height: 70,
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: StyleSheet.hairlineWidth,
   },
 });
 

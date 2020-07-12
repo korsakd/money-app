@@ -5,6 +5,7 @@ import auth from '@react-native-firebase/auth';
 import {connect} from 'react-redux';
 import {clearBalance} from '../redux/reducers/balanceReducer';
 import {clearCategory} from '../redux/reducers/categoriesReducer';
+import translate from '../translate/Translate';
 
 const AccountScreen = ({
   user,
@@ -23,13 +24,12 @@ const AccountScreen = ({
             backgroundColor: '#e8e8e8',
             borderRadius: 20,
           }}
-          source={require('../img/user-picture.png')}
+          source={{uri: user.photoURL}}
         />
-        <Text>{`Привет ${user.displayName || ''}`}</Text>
+        <Text>{`${translate('hello')} ${user.displayName || ''}`}</Text>
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            setIsLoadingScreen(false);
             auth()
               .signOut()
               .then(() => {
@@ -37,7 +37,9 @@ const AccountScreen = ({
                 clearCategory();
               });
           }}>
-          <Text style={{color: '#fff', marginRight: 5}}>Выйти</Text>
+          <Text style={{color: '#fff', marginRight: 5, fontSize: 20}}>
+            {translate('signOut')}
+          </Text>
           <Icon name="logout" size={24} color="#fff" />
         </TouchableOpacity>
       </View>
@@ -62,11 +64,11 @@ const AccountScreen = ({
                 backgroundColor: '#e8e8e8',
                 borderRadius: 20,
               }}
-              source={require('../img/user-picture.png')}
+              source={{uri: user.photoURL}}
             />
           </View>
           <View style={{justifyContent: 'space-around'}}>
-            <Text>Имя:</Text>
+            <Text>{`${translate('name')}`}</Text>
             <Text>E-mail:</Text>
           </View>
           <View style={{justifyContent: 'space-around'}}>
@@ -74,11 +76,10 @@ const AccountScreen = ({
             <Text>{user.email}</Text>
           </View>
         </View>
-        <View style={{width: '25%', alignSelf: 'center'}}>
+        <View style={{width: '28%', alignSelf: 'center'}}>
           <TouchableOpacity
             style={styles.settingsButton}
             onPress={() => {
-              setIsLoadingScreen(false);
               auth()
                 .signOut()
                 .then(() => {
@@ -86,7 +87,9 @@ const AccountScreen = ({
                   clearCategory();
                 });
             }}>
-            <Text style={{color: '#fff', marginRight: 5}}>Выйти</Text>
+            <Text style={{color: '#fff', marginRight: 5, fontSize: 20}}>
+              {translate('signOut')}
+            </Text>
             <Icon name="logout" size={24} color="#fff" />
           </TouchableOpacity>
         </View>
@@ -104,18 +107,18 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: '#470736',
     flexDirection: 'row',
-    marginTop: 8,
-    paddingVertical: 5,
-    paddingHorizontal: 5,
+    marginTop: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
     alignItems: 'center',
     borderRadius: 5,
   },
   settingsButton: {
     backgroundColor: '#be935a',
     flexDirection: 'row',
-    marginTop: 8,
-    paddingVertical: 5,
-    paddingHorizontal: 5,
+    marginTop: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 5,

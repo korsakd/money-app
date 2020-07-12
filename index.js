@@ -1,11 +1,12 @@
 import 'react-native-gesture-handler';
-import React, {useEffect} from 'react';
+import React from 'react';
 import {AppRegistry} from 'react-native';
 import TabNavigator from './src/navigation/TabNavigation';
 import {name as appName} from './app.json';
 import {Provider} from 'react-redux';
 import createStore from './src/redux';
 import {PersistGate} from 'redux-persist/integration/react';
+import TranslationProvider from './src/translate/TranslationProvider';
 
 if (__DEV__) {
   import('./src/config/ReactotronConfig').then(() =>
@@ -18,7 +19,9 @@ const App = () => {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <TabNavigator />
+        <TranslationProvider>
+          <TabNavigator />
+        </TranslationProvider>
       </PersistGate>
     </Provider>
   );

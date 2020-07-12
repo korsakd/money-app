@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
+import translate from '../translate/Translate';
 
 const AddCategory = ({from}) => {
   const navigation = useNavigation();
@@ -12,7 +13,7 @@ const AddCategory = ({from}) => {
       }}>
       <View style={styles.iconStyle}>
         <Icon name="plus" size={24} />
-        <Text>Add new category</Text>
+        <Text>{translate('addNewCategory')}</Text>
       </View>
     </TouchableOpacity>
   );

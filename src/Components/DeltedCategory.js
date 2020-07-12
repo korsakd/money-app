@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 import {removeDeletedCategory} from '../redux/reducers/categoriesReducer';
 import {setCategoryDb} from '../services/categoriesFunctions';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
+import translate from '../translate/Translate';
+import {regexpMissing} from '../utils/RegExpFunction';
 
 const DeletedCategory = ({
   deletedIncomeCategory,
@@ -16,14 +18,17 @@ const DeletedCategory = ({
     return (
       <View>
         {deletedIncomeCategory.length === 0 ? null : (
-          <Text style={styles.textWrap}>Недавно удаленные</Text>
+          <Text style={styles.textWrap}>{translate('recentlyDdeleted')}</Text>
         )}
         {deletedIncomeCategory.map((element, index) => {
           return (
             <View key={index} style={styles.categoryWrap}>
               <View style={styles.iconeContainer}>
                 <TouchableOpacity
-                  style={{marginLeft: 10}}
+                  style={{
+                    paddingHorizontal: 20,
+                    paddingVertical: 10,
+                  }}
                   onPress={() => {
                     add(
                       {
@@ -44,10 +49,16 @@ const DeletedCategory = ({
                   numberOfLines={1}
                   ellipsizeMode={'tail'}
                   style={styles.textItem}>
-                  {element.name}
+                  {regexpMissing.test(translate(element.name))
+                    ? element.name
+                    : translate(element.name)}
                 </Text>
-                <View style={{marginRight: 15}}>
+                <View>
                   <TouchableOpacity
+                    style={{
+                      paddingHorizontal: 25,
+                      paddingVertical: 10,
+                    }}
                     onPress={() => {
                       removeDeleted(index, type);
                     }}>
@@ -65,14 +76,17 @@ const DeletedCategory = ({
     return (
       <View>
         {deletedCostsCategory.length === 0 ? null : (
-          <Text style={styles.textWrap}>Недавно удаленные</Text>
+          <Text style={styles.textWrap}>{translate('recentlyDdeleted')}</Text>
         )}
         {deletedCostsCategory.map((element, index) => {
           return (
             <View key={index} style={styles.categoryWrap}>
               <View style={styles.iconeContainer}>
                 <TouchableOpacity
-                  style={{marginLeft: 10}}
+                  style={{
+                    paddingHorizontal: 20,
+                    paddingVertical: 10,
+                  }}
                   onPress={() => {
                     add(
                       {
@@ -93,10 +107,16 @@ const DeletedCategory = ({
                   numberOfLines={1}
                   ellipsizeMode={'tail'}
                   style={styles.textItem}>
-                  {element.name}
+                  {regexpMissing.test(translate(element.name))
+                    ? element.name
+                    : translate(element.name)}
                 </Text>
-                <View style={{marginRight: 15}}>
+                <View>
                   <TouchableOpacity
+                    style={{
+                      paddingHorizontal: 25,
+                      paddingVertical: 10,
+                    }}
                     onPress={() => {
                       removeDeleted(index, type);
                     }}>
@@ -145,7 +165,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     justifyContent: 'center',
     alignItems: 'center',
-    marginHorizontal: 15,
+    marginRight: 15,
   },
 });
 

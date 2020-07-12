@@ -1,26 +1,25 @@
 import React from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
-import {useRoute} from '@react-navigation/native';
-
-
 import {removeCategoryDb} from '../services/categoriesFunctions';
 import {connect} from 'react-redux';
-
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
+import translate from '../translate/Translate';
+import {regexpMissing} from '../utils/RegExpFunction';
 
-
-const CategoryIcon = ({iconName, name, index, drag, id, remove}) => {
-  const route = useRoute();
-  const showIncome = route.name === 'Income';
-  const showCosts = route.name === 'Costs';
+const CategoryIcon = ({iconName, name, index, drag, id, remove, type}) => {
+  const showIncome = type === 'Income';
+  const showCosts = type === 'Costs';
   if (showIncome || showCosts) {
     return (
       <View style={styles.categoryWrap}>
         <View style={styles.iconeContainer}>
           <TouchableOpacity
-            style={{marginLeft: 10}}
+            style={{
+              paddingHorizontal: 20,
+              paddingVertical: 10,
+            }}
             onPress={() => {
-              remove(index, route.name, id);
+              remove(index, type, id);
             }}>
             <Icon name="minus-circle" size={20} color="#d10000" />
           </TouchableOpacity>
@@ -32,11 +31,16 @@ const CategoryIcon = ({iconName, name, index, drag, id, remove}) => {
               numberOfLines={1}
               ellipsizeMode={'tail'}
               style={styles.textItem}>
-              {name}
+              {regexpMissing.test(translate(name)) ? name : translate(name)}
             </Text>
           ) : null}
-          <View style={{marginRight: 15}}>
-            <TouchableOpacity onLongPress={drag}>
+          <View>
+            <TouchableOpacity
+              onLongPress={drag}
+              style={{
+                paddingHorizontal: 25,
+                paddingVertical: 10,
+              }}>
               <Icon name="menu" size={20} />
             </TouchableOpacity>
           </View>
@@ -55,7 +59,7 @@ const CategoryIcon = ({iconName, name, index, drag, id, remove}) => {
               numberOfLines={1}
               ellipsizeMode={'tail'}
               style={styles.textItemDefault}>
-              {name}
+              {regexpMissing.test(translate(name)) ? name : translate(name)}
             </Text>
           ) : null}
         </View>
@@ -92,7 +96,7 @@ const styles = StyleSheet.create({
   iconeContainerDefault: {
     alignItems: 'center',
     marginVertical: 10,
-    marginHorizontal: 5,
+    marginLeft: 5,
   },
   iconStyle: {
     backgroundColor: '#e8e8e8',
@@ -102,7 +106,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     justifyContent: 'center',
     alignItems: 'center',
-    marginHorizontal: 15,
+    marginRight: 15,
   },
   iconStyleDefault: {
     backgroundColor: '#e8e8e8',

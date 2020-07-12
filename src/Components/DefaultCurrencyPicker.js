@@ -1,21 +1,25 @@
 import React from 'react';
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
-import {addNewCurrencyFromPicker} from '../redux/reducers/currencyReducer';
 import translate from '../translate/Translate';
 
-const CurrencyPicker = ({
-  currencyPicker,
+const DefaultCurrencyPicker = ({
+  value,
+  valueBLR,
+  isReverse,
+  defaultCurrency,
   exchangeRates,
   icons,
-  addNewCurrency,
   removeModal,
   setIconSource,
   setCurAbbreviation,
-  from,
+  setValueBLR,
+  setDefaultValueBLR,
+  setForeignValue,
+  setDefaultForeignValue,
 }) => {
   const filteredCurrencyPicker = [];
-  for (const item of currencyPicker) {
+  for (const item of defaultCurrency) {
     filteredCurrencyPicker.push(
       ...exchangeRates.filter(
         (element, index) => element.Cur_Abbreviation === item,
@@ -32,14 +36,39 @@ const CurrencyPicker = ({
           <View key={index}>
             <TouchableOpacity
               onPress={() => {
-                if (!from) {
-                  addNewCurrency(element);
-                  removeModal(false);
-                } else {
-                  setIconSource(icons[element.Cur_Abbreviation]);
-                  setCurAbbreviation(element.Cur_Abbreviation);
-                  removeModal(false);
-                }
+                setIconSource(icons[element.Cur_Abbreviation]);
+                setCurAbbreviation(element.Cur_Abbreviation);
+                setValueBLR(
+                  `${
+                    isReverse
+                      ? valueBLR
+                      : (
+                          value *
+                          (element.Cur_OfficialRate / element.Cur_Scale)
+                        ).toFixed(4)
+                  }`,
+                );
+                setDefaultValueBLR(
+                  `${(element.Cur_OfficialRate / element.Cur_Scale).toFixed(
+                    4,
+                  )}`,
+                );
+                setDefaultForeignValue(
+                  `${(element.Cur_Scale / element.Cur_OfficialRate).toFixed(
+                    4,
+                  )}`,
+                );
+                setForeignValue(
+                  `${
+                    !isReverse
+                      ? value
+                      : (
+                          valueBLR *
+                          (element.Cur_Scale / element.Cur_OfficialRate)
+                        ).toFixed(4)
+                  }`,
+                );
+                removeModal(false);
               }}
               style={{
                 flexDirection: 'row',
@@ -65,16 +94,13 @@ const CurrencyPicker = ({
 
 const mapStateToProps = state => {
   return {
-    currencyPicker: state.currencyReducer.currencyPicker,
+    defaultCurrency: state.currencyReducer.defaultCurrency,
     exchangeRates: state.currencyReducer.exchangeRates,
     icons: state.currencyReducer.icons,
   };
 };
-const mapDispatchToProps = dispatch => ({
-  addNewCurrency: currency => dispatch(addNewCurrencyFromPicker(currency)),
-});
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
-)(CurrencyPicker);
+  null,
+)(DefaultCurrencyPicker);

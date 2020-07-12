@@ -5,11 +5,13 @@ import DeletedCategory from './DeltedCategory';
 import AddCategory from './AddButtonComponent';
 import IconItem from './IconItem';
 import {sortCategoryDb} from '../services/categoriesFunctions';
+import FocusAwareStatusBar from '../utils/StatusBarColor';
 
 const Costs = ({costsCategory, sort}) => {
   if (costsCategory.length === 0) {
     return (
       <>
+        <FocusAwareStatusBar backgroundColor="#fff" barStyle="dark-content" />
         <ScrollView>
           <DeletedCategory type={'Costs'} />
         </ScrollView>
@@ -21,6 +23,7 @@ const Costs = ({costsCategory, sort}) => {
   } else {
     return (
       <View style={{flex: 1, backgroundColor: 'white'}}>
+        <FocusAwareStatusBar backgroundColor="#fff" barStyle="dark-content" />
         <IconItem
           categoryList={costsCategory}
           applySort={data => sort(data)}

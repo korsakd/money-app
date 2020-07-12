@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -8,6 +8,10 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import LoadingScreen from './LoadingScreen';
+import translate from '../translate/Translate';
+import FacebookLogin from '../Components/FacebookLogin';
+import TwitterLoginButton from '../Components/TwitterLoginButton';
+import GoogleLoginButton from '../Components/GoogleLoginButton';
 
 const LoginScreen = ({
   handleLogIn,
@@ -17,14 +21,25 @@ const LoginScreen = ({
   isLoadingScreen,
   setIsLoadingScreen,
   fromSettings,
+  setError,
 }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [deviceId, setDeviceId] = useState();
+  var PushNotification = require('react-native-push-notification');
+
+  useEffect(() => {
+    PushNotification.configure({
+      onRegister: function(token) {
+        setDeviceId(token);
+      },
+    });
+  }, [PushNotification]);
 
   if (!isLoadingScreen) {
     return (
       <View style={styles.container}>
-        <Text style={styles.textHeader}>Login</Text>
+        <Text style={styles.textHeader}>{translate('login')}</Text>
         <Text style={styles.textError}>
           {error === 'auth/invalid-email'
             ? 'Неверный E-mail'
@@ -45,6 +60,8 @@ const LoginScreen = ({
               : error ===
                 'Такого пользователя не существует или неверный E-mail'
               ? styles.textInputError
+              : error === 'Некорректно введен E-mail'
+              ? styles.textInputError
               : styles.textInput
           }
           autoCapitalize="none"
@@ -64,7 +81,7 @@ const LoginScreen = ({
           }
           autoFocus={error === 'Введите пароль' ? true : false}
           autoCapitalize="none"
-          placeholder="Password"
+          placeholder={translate('password')}
           onChangeText={pass => setPassword(pass)}
           value={password}
         />
@@ -73,16 +90,36 @@ const LoginScreen = ({
           onPress={() => {
             handleLogIn(email, password);
           }}>
-          <Text style={styles.textButton}>Войти</Text>
+          <Text style={styles.textButton}>{translate('comeIn')}</Text>
           <Icon name="login" size={24} color="#fff" />
         </TouchableOpacity>
+        <FacebookLogin
+          setIsLoadingScreen={element => setIsLoadingScreen(element)}
+          deviceId={deviceId}
+          setError={element => setError(element)}
+        />
+        <TwitterLoginButton
+          setIsLoadingScreen={element => setIsLoadingScreen(element)}
+          deviceId={deviceId}
+          setError={element => setError(element)}
+        />
+        <GoogleLoginButton
+          setIsLoadingScreen={element => setIsLoadingScreen(element)}
+          deviceId={deviceId}
+          setError={element => setError(element)}
+        />
         <View style={styles.signUpContainer}>
-          <Text style={styles.signUpText}>Ещё не зарегистрированы?</Text>
+          <Text style={styles.signUpText}>{translate('signUpQuestion')}</Text>
           <TouchableOpacity
+            style={{
+              paddingVertical: 10,
+              paddingRight: 5,
+            }}
             onPress={() => {
+              setError('');
               setIsSignup(true);
             }}>
-            <Text style={styles.signUpButton}>Регистрация</Text>
+            <Text style={styles.signUpButton}>{translate('signUp')}</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -128,26 +165,29 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: '#470736',
     flexDirection: 'row',
-    marginTop: 8,
-    paddingVertical: 5,
-    paddingHorizontal: 5,
+    justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 5,
+    marginTop: 15,
+    width: 250,
+    height: 45,
+    borderRadius: 7,
   },
   settingsButton: {
     backgroundColor: '#be935a',
     flexDirection: 'row',
-    marginTop: 8,
-    paddingVertical: 5,
-    paddingHorizontal: 5,
+    marginTop: 15,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
     alignItems: 'center',
     borderRadius: 5,
   },
   textButton: {
+    fontSize: 20,
     color: '#fff',
     marginRight: 5,
   },
   signUpContainer: {
+    alignItems: 'center',
     flexDirection: 'row',
     marginTop: 8,
   },

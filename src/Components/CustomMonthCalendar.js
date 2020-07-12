@@ -1,11 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
+import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
+import translate from '../translate/Translate';
 
 const CustomMonthCalendar = ({
   month,
   year,
+  setMonthName,
   setMonth,
   setYear,
   hideCalendar,
@@ -13,18 +15,18 @@ const CustomMonthCalendar = ({
   setIsHideAnimCalendar,
 }) => {
   const monthArray = [
-    {monthNumber: 1, monthName: 'Янв'},
-    {monthNumber: 2, monthName: 'Фев'},
-    {monthNumber: 3, monthName: 'Мар'},
-    {monthNumber: 4, monthName: 'Апр'},
-    {monthNumber: 5, monthName: 'Май'},
-    {monthNumber: 6, monthName: 'Июн'},
-    {monthNumber: 7, monthName: 'Июл'},
-    {monthNumber: 8, monthName: 'Авг'},
-    {monthNumber: 9, monthName: 'Сен'},
-    {monthNumber: 10, monthName: 'Окт'},
-    {monthNumber: 11, monthName: 'Ноя'},
-    {monthNumber: 12, monthName: 'Дек'},
+    {monthNumber: 1, monthName: 'january'},
+    {monthNumber: 2, monthName: 'february'},
+    {monthNumber: 3, monthName: 'march'},
+    {monthNumber: 4, monthName: 'april'},
+    {monthNumber: 5, monthName: 'may'},
+    {monthNumber: 6, monthName: 'june'},
+    {monthNumber: 7, monthName: 'july'},
+    {monthNumber: 8, monthName: 'august'},
+    {monthNumber: 9, monthName: 'september'},
+    {monthNumber: 10, monthName: 'october'},
+    {monthNumber: 11, monthName: 'november'},
+    {monthNumber: 12, monthName: 'december'},
   ];
 
   return (
@@ -84,6 +86,7 @@ const CustomMonthCalendar = ({
                   setMonth(element.monthNumber);
                   hideCalendar(hideAnimCalendar);
                   setIsHideAnimCalendar(true);
+                  setMonthName(element.monthName);
                 }}>
                 <Text
                   style={{
@@ -96,7 +99,7 @@ const CustomMonthCalendar = ({
                     paddingTop: 10,
                     borderRadius: 5,
                   }}>
-                  {element.monthName}
+                  {translate(element.monthName)}
                 </Text>
               </TouchableOpacity>
             </View>

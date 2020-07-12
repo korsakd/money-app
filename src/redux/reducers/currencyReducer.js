@@ -17,6 +17,7 @@ const initialState = {
     KZT: require('../../img/Kazakhstan.png'),
     TRY: require('../../img/Turkey.png'),
     GBP: require('../../img/United-Kingdom.png'),
+    BLR: require('../../img/Belarus.png'),
   },
   lastUpdatedDate: null,
 };

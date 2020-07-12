@@ -8,8 +8,10 @@ import database from '@react-native-firebase/database';
 import {connect} from 'react-redux';
 import {setUser} from '../redux/reducers/userReducer';
 import LoadingScreen from '../screens/LoadingScreen';
-import {addBalance} from '../redux/reducers/balanceReducer';
+import {importBalanceFromDb} from '../redux/reducers/balanceReducer';
 import {importCategoryFromDb} from '../redux/reducers/categoriesReducer';
+import {regexpEmail} from '../utils/RegExpFunction';
+import {writeUserData, importUserDataFromDB} from '../utils/LoginFunctions';
 
 const LoginHome = ({
   user,
@@ -37,27 +39,6 @@ const LoginHome = ({
     });
   }, [PushNotification]);
 
-  function writeUserData(user) {
-    incomeCategory.map(element => {
-      database()
-        .ref(`users/${user.uid}/income/${element.id}`)
-        .set(element);
-    });
-    costsCategory.map(element => {
-      database()
-        .ref(`users/${user.uid}/costs/${element.id}`)
-        .set(element);
-    });
-    balance.map(element => {
-      database()
-        .ref(`users/${user.uid}/balance/${element.id}`)
-        .set(element);
-    });
-    database()
-      .ref(`users/${user.uid}/DeviceID`)
-      .set(deviceId);
-  }
-
   function getUserData(uid) {
     return database()
       .ref('users/' + uid)
@@ -69,8 +50,11 @@ const LoginHome = ({
       setError('Введите логин');
     } else if (password === '') {
       setError('Введите пароль');
+    } else if (!regexpEmail.test(email)) {
+      setError('Некорректно введен E-mail');
     } else {
       setIsLoadingScreen(true);
+      setError('');
       auth()
         .signInWithEmailAndPassword(email, password)
         .then(() => {
@@ -78,17 +62,11 @@ const LoginHome = ({
           return getUserData(currentUser.uid);
         })
         .then(dataSnapshot => {
-          const balanceDb = dataSnapshot.toJSON().balance;
-          const incomeDb = dataSnapshot.toJSON().income;
-          const costsDb = dataSnapshot.toJSON().costs;
-          if (balanceDb) {
-            for (const value of Object.values(balanceDb)) {
-              addBalanceFromDb(value);
-              continue;
-            }
-          }
-          addCategoryFromDb(Object.values(incomeDb), 'Income');
-          addCategoryFromDb(Object.values(costsDb), 'Costs');
+          importUserDataFromDB(
+            dataSnapshot,
+            addBalanceFromDb,
+            addCategoryFromDb,
+          );
         })
         .catch(function(errorCode) {
           setIsLoadingScreen(false);
@@ -104,8 +82,13 @@ const LoginHome = ({
       setError('Введите пароль');
     } else if (userName === '') {
       setError('Введите имя пользователя');
+    } else if (!regexpEmail.test(email)) {
+      setError('Некорректно введен E-mail');
+    } else if (password.length < 6) {
+      setError('Пароль должен быть более 6 символов');
     } else {
       setIsLoadingScreen(true);
+      setError('');
       auth()
         .createUserWithEmailAndPassword(email, password)
         .then(() => {
@@ -116,7 +99,14 @@ const LoginHome = ({
         })
         .then(() => {
           const currentUser = auth().currentUser;
-          return writeUserData(currentUser.toJSON());
+          return writeUserData(
+            currentUser.toJSON(),
+            incomeCategory,
+            costsCategory,
+            balance,
+            database,
+            deviceId,
+          );
         })
         .then(() => {
           const currentUser = auth().currentUser;
@@ -151,6 +141,7 @@ const LoginHome = ({
       return (
         <View>
           <LoginScreen
+            setError={element => setError(element)}
             handleLogIn={(email, password) => handleLogIn(email, password)}
             error={error}
             setIsSignup={element => setIsSignup(element)}
@@ -166,6 +157,7 @@ const LoginHome = ({
       return (
         <View>
           <SignUpScreen
+            setError={element => setError(element)}
             handleSignUp={(email, password, userName) =>
               handleSignUp(email, password, userName)
             }
@@ -202,7 +194,7 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => ({
   userState: user => dispatch(setUser(user)),
-  addBalanceFromDb: balance => dispatch(addBalance(balance)),
+  addBalanceFromDb: balance => dispatch(importBalanceFromDb(balance)),
   addCategoryFromDb: (category, type) =>
     dispatch(importCategoryFromDb(category, type)),
 });

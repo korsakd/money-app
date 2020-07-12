@@ -2,6 +2,8 @@ import React from 'react';
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import Graphs from '../Components/Graphs';
 import {connect} from 'react-redux';
+import translate from '../translate/Translate';
+import FocusAwareStatusBar from '../utils/StatusBarColor';
 
 const GraphsScreen = ({balance}) => {
   const incomeBalance = balance.filter(
@@ -13,14 +15,22 @@ const GraphsScreen = ({balance}) => {
 
   if (Object.keys(balance).length === 0) {
     return (
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <Text>Здесь будут отображены графики</Text>
-        <Text>ваших расходов и доходов.</Text>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: '#fff',
+        }}>
+        <FocusAwareStatusBar backgroundColor="#fff" barStyle="dark-content" />
+        <Text>{translate('graphWelcomeTop')}</Text>
+        <Text>{translate('graphWelcomeBottom')}</Text>
       </View>
     );
   } else {
     return (
-      <ScrollView>
+      <ScrollView style={{backgroundColor: '#fff'}}>
+        <FocusAwareStatusBar backgroundColor="#fff" barStyle="dark-content" />
         {incomeBalance.length === 0 ? null : (
           <View style={{marginVertical: 10}}>
             <Text
@@ -30,7 +40,7 @@ const GraphsScreen = ({balance}) => {
                 fontSize: 15,
                 fontWeight: 'bold',
               }}>
-              Доходы
+              {translate('Incomes')}
             </Text>
             <Graphs balance={incomeBalance} />
           </View>
@@ -44,7 +54,7 @@ const GraphsScreen = ({balance}) => {
                 fontSize: 15,
                 fontWeight: 'bold',
               }}>
-              Расходы
+              {translate('Costs')}
             </Text>
             <Graphs balance={costsBalance} />
           </View>

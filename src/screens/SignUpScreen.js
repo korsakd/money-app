@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import LoadingScreen from './LoadingScreen';
+import translate from '../translate/Translate';
 
 const SignUpScreen = ({
   handleSignUp,
@@ -14,6 +15,7 @@ const SignUpScreen = ({
   isLoadingScreen,
   setIsSignup,
   fromSettings,
+  setError,
 }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -22,7 +24,7 @@ const SignUpScreen = ({
   if (!isLoadingScreen) {
     return (
       <View style={styles.container}>
-        <Text style={styles.textHeader}>Sign Up</Text>
+        <Text style={styles.textHeader}>{translate('signUp')}</Text>
         <Text style={styles.textError}>
           {error === 'auth/email-already-in-use'
             ? 'Такой E-mail уже существует'
@@ -45,6 +47,8 @@ const SignUpScreen = ({
               ? styles.textInputError
               : error === 'Введите E-mail'
               ? styles.textInputError
+              : error === 'Некорректно введен E-mail'
+              ? styles.textInputError
               : styles.textInput
           }
           onChangeText={element => setEmail(element)}
@@ -52,12 +56,14 @@ const SignUpScreen = ({
         />
         <TextInput
           secureTextEntry
-          placeholder="Password"
+          placeholder={translate('password')}
           autoCapitalize="none"
           style={
             error === 'auth/weak-password'
               ? styles.textInputError
               : error === 'Введите пароль'
+              ? styles.textInputError
+              : error === 'Пароль должен быть более 6 символов'
               ? styles.textInputError
               : styles.textInput
           }
@@ -65,7 +71,7 @@ const SignUpScreen = ({
           value={password}
         />
         <TextInput
-          placeholder="User name"
+          placeholder={translate('userName')}
           autoCapitalize="none"
           style={
             error === 'Введите имя пользователя'
@@ -80,15 +86,20 @@ const SignUpScreen = ({
             handleSignUp(email, password, userName);
           }}
           style={fromSettings ? styles.settingsButton : styles.button}>
-          <Text style={styles.textButton}>Регистрация</Text>
+          <Text style={styles.textButton}>{translate('signUp')}</Text>
         </TouchableOpacity>
-        <View style={styles.logInContainer}>
-          <Text style={styles.logInText}>Уже есть аккаунт?</Text>
+        <View style={styles.signUpContainer}>
+          <Text style={styles.logInText}>{translate('loginQuestion')}</Text>
           <TouchableOpacity
+            style={{
+              paddingVertical: 10,
+              paddingRight: 5,
+            }}
             onPress={() => {
+              setError('');
               setIsSignup(false);
             }}>
-            <Text style={styles.logInButton}>Войти</Text>
+            <Text style={styles.logInButton}>{translate('comeIn')}</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -128,25 +139,27 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#470736',
-    marginTop: 8,
-    paddingVertical: 5,
-    paddingHorizontal: 5,
+    marginTop: 15,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
     alignItems: 'center',
     borderRadius: 5,
   },
   settingsButton: {
     backgroundColor: '#be935a',
     flexDirection: 'row',
-    marginTop: 8,
-    paddingVertical: 5,
-    paddingHorizontal: 5,
+    marginTop: 15,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
     alignItems: 'center',
     borderRadius: 5,
   },
   textButton: {
+    fontSize: 20,
     color: '#fff',
   },
-  logInContainer: {
+  signUpContainer: {
+    alignItems: 'center',
     flexDirection: 'row',
     marginTop: 8,
   },
