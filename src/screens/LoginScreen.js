@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -9,6 +9,9 @@ import {
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import LoadingScreen from './LoadingScreen';
 import translate from '../translate/Translate';
+import FacebookLogin from '../Components/FacebookLogin';
+import TwitterLoginButton from '../Components/TwitterLoginButton';
+import GoogleLoginButton from '../Components/GoogleLoginButton';
 
 const LoginScreen = ({
   handleLogIn,
@@ -22,6 +25,17 @@ const LoginScreen = ({
 }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [deviceId, setDeviceId] = useState();
+  var PushNotification = require('react-native-push-notification');
+
+  useEffect(() => {
+    PushNotification.configure({
+      onRegister: function(token) {
+        setDeviceId(token);
+      },
+    });
+  }, [PushNotification]);
+
   if (!isLoadingScreen) {
     return (
       <View style={styles.container}>
@@ -79,6 +93,21 @@ const LoginScreen = ({
           <Text style={styles.textButton}>{translate('comeIn')}</Text>
           <Icon name="login" size={24} color="#fff" />
         </TouchableOpacity>
+        <FacebookLogin
+          setIsLoadingScreen={element => setIsLoadingScreen(element)}
+          deviceId={deviceId}
+          setError={element => setError(element)}
+        />
+        <TwitterLoginButton
+          setIsLoadingScreen={element => setIsLoadingScreen(element)}
+          deviceId={deviceId}
+          setError={element => setError(element)}
+        />
+        <GoogleLoginButton
+          setIsLoadingScreen={element => setIsLoadingScreen(element)}
+          deviceId={deviceId}
+          setError={element => setError(element)}
+        />
         <View style={styles.signUpContainer}>
           <Text style={styles.signUpText}>{translate('signUpQuestion')}</Text>
           <TouchableOpacity
@@ -136,11 +165,12 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: '#470736',
     flexDirection: 'row',
-    marginTop: 15,
-    paddingVertical: 10,
-    paddingHorizontal: 10,
+    justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 5,
+    marginTop: 15,
+    width: 250,
+    height: 45,
+    borderRadius: 7,
   },
   settingsButton: {
     backgroundColor: '#be935a',

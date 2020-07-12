@@ -24,13 +24,12 @@ const AccountScreen = ({
             backgroundColor: '#e8e8e8',
             borderRadius: 20,
           }}
-          source={require('../img/user-picture.png')}
+          source={{uri: user.photoURL}}
         />
         <Text>{`${translate('hello')} ${user.displayName || ''}`}</Text>
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            setIsLoadingScreen(false);
             auth()
               .signOut()
               .then(() => {
@@ -65,7 +64,7 @@ const AccountScreen = ({
                 backgroundColor: '#e8e8e8',
                 borderRadius: 20,
               }}
-              source={require('../img/user-picture.png')}
+              source={{uri: user.photoURL}}
             />
           </View>
           <View style={{justifyContent: 'space-around'}}>
@@ -81,7 +80,6 @@ const AccountScreen = ({
           <TouchableOpacity
             style={styles.settingsButton}
             onPress={() => {
-              setIsLoadingScreen(false);
               auth()
                 .signOut()
                 .then(() => {

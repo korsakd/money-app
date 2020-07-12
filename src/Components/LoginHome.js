@@ -11,6 +11,7 @@ import LoadingScreen from '../screens/LoadingScreen';
 import {importBalanceFromDb} from '../redux/reducers/balanceReducer';
 import {importCategoryFromDb} from '../redux/reducers/categoriesReducer';
 import {regexpEmail} from '../utils/RegExpFunction';
+import {writeUserData, importUserDataFromDB} from '../utils/LoginFunctions';
 
 const LoginHome = ({
   user,
@@ -38,27 +39,6 @@ const LoginHome = ({
     });
   }, [PushNotification]);
 
-  function writeUserData(user) {
-    incomeCategory.map(element => {
-      database()
-        .ref(`users/${user.uid}/income/${element.id}`)
-        .set(element);
-    });
-    costsCategory.map(element => {
-      database()
-        .ref(`users/${user.uid}/costs/${element.id}`)
-        .set(element);
-    });
-    balance.map(element => {
-      database()
-        .ref(`users/${user.uid}/balance/${element.id}`)
-        .set({...element, date: `${element.date}`});
-    });
-    database()
-      .ref(`users/${user.uid}/DeviceID`)
-      .set(deviceId);
-  }
-
   function getUserData(uid) {
     return database()
       .ref('users/' + uid)
@@ -66,7 +46,6 @@ const LoginHome = ({
   }
 
   const handleLogIn = (email, password) => {
-    console.tron(regexpEmail.test(email));
     if (email === '') {
       setError('Введите логин');
     } else if (password === '') {
@@ -83,12 +62,11 @@ const LoginHome = ({
           return getUserData(currentUser.uid);
         })
         .then(dataSnapshot => {
-          const balanceDb = dataSnapshot.toJSON().balance;
-          const incomeDb = dataSnapshot.toJSON().income;
-          const costsDb = dataSnapshot.toJSON().costs;
-          addBalanceFromDb(Object.values(balanceDb));
-          addCategoryFromDb(Object.values(incomeDb), 'Income');
-          addCategoryFromDb(Object.values(costsDb), 'Costs');
+          importUserDataFromDB(
+            dataSnapshot,
+            addBalanceFromDb,
+            addCategoryFromDb,
+          );
         })
         .catch(function(errorCode) {
           setIsLoadingScreen(false);
@@ -121,7 +99,14 @@ const LoginHome = ({
         })
         .then(() => {
           const currentUser = auth().currentUser;
-          return writeUserData(currentUser.toJSON());
+          return writeUserData(
+            currentUser.toJSON(),
+            incomeCategory,
+            costsCategory,
+            balance,
+            database,
+            deviceId,
+          );
         })
         .then(() => {
           const currentUser = auth().currentUser;

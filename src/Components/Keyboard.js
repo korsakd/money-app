@@ -85,7 +85,7 @@ const CustomKeyboard = ({
             categoryType: type,
             categoryName: categoryType,
             inputValue: Number(number).toFixed(2),
-            date: date,
+            date: `${new Date(date)}`,
             id: id,
           });
         }
