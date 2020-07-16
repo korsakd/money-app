@@ -7,16 +7,15 @@ import {connect} from 'react-redux';
 import {importBalanceFromDb} from '../redux/reducers/balanceReducer';
 import {importCategoryFromDb} from '../redux/reducers/categoriesReducer';
 import {writeUserData, importUserDataFromDB} from '../utils/LoginFunctions';
+import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 
 const FacebookLogin = ({
-  setIsLoadingScreen,
   addBalanceFromDb,
   addCategoryFromDb,
   balance,
   incomeCategory,
   costsCategory,
   deviceId,
-  setError,
 }) => {
   const login = async () => {
     LoginManager.logInWithPermissions(['public_profile', 'email'])
@@ -27,7 +26,6 @@ const FacebookLogin = ({
       })
       .then(data => {
         if (data) {
-          setIsLoadingScreen(true);
           const credential = auth.FacebookAuthProvider.credential(
             data.accessToken,
           );
@@ -61,10 +59,6 @@ const FacebookLogin = ({
             deviceId,
           );
         }
-      })
-      .catch(error => {
-        setIsLoadingScreen(false);
-        setError(error);
       });
   };
   return (
@@ -72,14 +66,24 @@ const FacebookLogin = ({
       <TouchableOpacity
         style={{
           backgroundColor: '#4267B2',
-          width: 250,
-          height: 45,
+          width: 370,
+          height: 60,
           borderRadius: 7,
+          flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'center',
         }}
         onPress={() => login()}>
-        <Text style={{color: '#fff', fontSize: 20}}>Login with Facebook</Text>
+        <Icon name="facebook" size={30} color="#fff" />
+        <Text
+          style={{
+            marginLeft: 10,
+            color: '#fff',
+            fontSize: 20,
+            textTransform: 'uppercase',
+          }}>
+          Login with Facebook
+        </Text>
       </TouchableOpacity>
     </View>
   );

@@ -105,9 +105,6 @@ const SignUpScreen = ({
       </View>
     );
   }
-  if (isLoadingScreen) {
-    return <LoadingScreen />;
-  }
 };
 
 const styles = StyleSheet.create({
@@ -131,7 +128,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   textHeader: {
-    fontSize: 20,
+    fontSize: 25,
     fontWeight: 'bold',
   },
   textError: {
@@ -140,8 +137,9 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: '#470736',
     marginTop: 15,
-    paddingVertical: 10,
-    paddingHorizontal: 10,
+    width: 370,
+    height: 60,
+    justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 5,
   },
@@ -149,14 +147,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#be935a',
     flexDirection: 'row',
     marginTop: 15,
-    paddingVertical: 10,
-    paddingHorizontal: 10,
+    width: 370,
+    height: 60,
+    justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 5,
   },
   textButton: {
     fontSize: 20,
     color: '#fff',
+    textTransform: 'uppercase',
   },
   signUpContainer: {
     alignItems: 'center',
@@ -165,10 +165,12 @@ const styles = StyleSheet.create({
   },
   logInText: {
     marginRight: 5,
+    fontSize: 17,
   },
   logInButton: {
     color: '#18ABFF',
     textDecorationLine: 'underline',
+    fontSize: 17,
   },
 });
 

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -9,9 +9,6 @@ import {
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import LoadingScreen from './LoadingScreen';
 import translate from '../translate/Translate';
-import FacebookLogin from '../Components/FacebookLogin';
-import TwitterLoginButton from '../Components/TwitterLoginButton';
-import GoogleLoginButton from '../Components/GoogleLoginButton';
 
 const LoginScreen = ({
   handleLogIn,
@@ -25,16 +22,6 @@ const LoginScreen = ({
 }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [deviceId, setDeviceId] = useState();
-  var PushNotification = require('react-native-push-notification');
-
-  useEffect(() => {
-    PushNotification.configure({
-      onRegister: function(token) {
-        setDeviceId(token);
-      },
-    });
-  }, [PushNotification]);
 
   if (!isLoadingScreen) {
     return (
@@ -93,21 +80,6 @@ const LoginScreen = ({
           <Text style={styles.textButton}>{translate('comeIn')}</Text>
           <Icon name="login" size={24} color="#fff" />
         </TouchableOpacity>
-        <FacebookLogin
-          setIsLoadingScreen={element => setIsLoadingScreen(element)}
-          deviceId={deviceId}
-          setError={element => setError(element)}
-        />
-        <TwitterLoginButton
-          setIsLoadingScreen={element => setIsLoadingScreen(element)}
-          deviceId={deviceId}
-          setError={element => setError(element)}
-        />
-        <GoogleLoginButton
-          setIsLoadingScreen={element => setIsLoadingScreen(element)}
-          deviceId={deviceId}
-          setError={element => setError(element)}
-        />
         <View style={styles.signUpContainer}>
           <Text style={styles.signUpText}>{translate('signUpQuestion')}</Text>
           <TouchableOpacity
@@ -125,21 +97,12 @@ const LoginScreen = ({
       </View>
     );
   }
-  if (isLoadingScreen) {
-    if (!user) {
-      return <LoadingScreen />;
-    }
-    if (user && user.displayName) {
-      setIsLoadingScreen(false);
-    }
-  }
 };
 
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 15,
   },
   textInput: {
     height: 40,
@@ -156,7 +119,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   textHeader: {
-    fontSize: 20,
+    fontSize: 25,
     fontWeight: 'bold',
   },
   textError: {
@@ -168,23 +131,25 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 15,
-    width: 250,
-    height: 45,
+    width: 370,
+    height: 60,
     borderRadius: 7,
   },
   settingsButton: {
     backgroundColor: '#be935a',
     flexDirection: 'row',
     marginTop: 15,
-    paddingVertical: 10,
-    paddingHorizontal: 10,
+    width: 370,
+    height: 60,
+    justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 5,
+    borderRadius: 7,
   },
   textButton: {
     fontSize: 20,
     color: '#fff',
     marginRight: 5,
+    textTransform: 'uppercase',
   },
   signUpContainer: {
     alignItems: 'center',
@@ -193,10 +158,12 @@ const styles = StyleSheet.create({
   },
   signUpText: {
     marginRight: 5,
+    fontSize: 17,
   },
   signUpButton: {
     color: '#18ABFF',
     textDecorationLine: 'underline',
+    fontSize: 17,
   },
 });
 

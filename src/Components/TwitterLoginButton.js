@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import {importBalanceFromDb} from '../redux/reducers/balanceReducer';
 import {importCategoryFromDb} from '../redux/reducers/categoriesReducer';
 import {writeUserData, importUserDataFromDB} from '../utils/LoginFunctions';
+import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 
 const {RNTwitterSignIn} = NativeModules;
 const Constants = {
@@ -14,14 +15,13 @@ const Constants = {
 };
 
 const TwitterLoginButton = ({
-  setIsLoadingScreen,
+  userState,
   addBalanceFromDb,
   addCategoryFromDb,
   balance,
   incomeCategory,
   costsCategory,
   deviceId,
-  setError,
 }) => {
   const twitterSignIn = () => {
     RNTwitterSignIn.init(
@@ -31,7 +31,6 @@ const TwitterLoginButton = ({
     RNTwitterSignIn.logIn()
       .then(loginData => {
         if (loginData) {
-          setIsLoadingScreen(true);
           const credential = auth.TwitterAuthProvider.credential(
             loginData.authToken,
             loginData.authTokenSecret,
@@ -66,10 +65,6 @@ const TwitterLoginButton = ({
             deviceId,
           );
         }
-      })
-      .catch(error => {
-        setIsLoadingScreen(false);
-        setError(error);
       });
   };
   return (
@@ -77,14 +72,24 @@ const TwitterLoginButton = ({
       <TouchableOpacity
         style={{
           backgroundColor: '#1DA1F2',
-          width: 250,
-          height: 45,
+          width: 370,
+          height: 60,
           borderRadius: 7,
+          flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'center',
         }}
         onPress={() => twitterSignIn()}>
-        <Text style={{color: '#fff', fontSize: 20}}>Login with Twitter</Text>
+        <Icon name="twitter" size={30} color="#fff" />
+        <Text
+          style={{
+            marginLeft: 10,
+            color: '#fff',
+            fontSize: 20,
+            textTransform: 'uppercase',
+          }}>
+          Login with Twitter
+        </Text>
       </TouchableOpacity>
     </View>
   );

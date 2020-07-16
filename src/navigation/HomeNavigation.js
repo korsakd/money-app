@@ -3,13 +3,16 @@ import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from '../screens/HomeSreen';
 import Details from '../screens/Details';
 import translate from '../translate/Translate';
+import LoginList from '../Components/LoginList';
+import LoginHome from '../Components/LoginHome';
 
-const Stack = createStackNavigator();
+const MainStack = createStackNavigator();
+const RootStack = createStackNavigator();
 
 const HomeNavigator = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen
+    <MainStack.Navigator>
+      <MainStack.Screen
         options={{
           headerStyle: {
             backgroundColor: '#470736',
@@ -19,7 +22,7 @@ const HomeNavigator = () => {
         name="Home"
         component={HomeScreen}
       />
-      <Stack.Screen
+      <MainStack.Screen
         name="Details"
         component={Details}
         options={{
@@ -33,8 +36,43 @@ const HomeNavigator = () => {
           },
         }}
       />
-    </Stack.Navigator>
+    </MainStack.Navigator>
   );
 };
 
-export default HomeNavigator;
+const RootStackNavigation = () => {
+  return (
+    <RootStack.Navigator mode="modal">
+      <RootStack.Screen
+        name="Main"
+        component={HomeNavigator}
+        options={{headerShown: false}}
+      />
+      <RootStack.Screen
+        name="LoginList"
+        component={LoginList}
+        initialParams={{fromSettings: false}}
+        options={{
+          headerStyle: {
+            backgroundColor: '#470736',
+          },
+          headerTitle: '',
+          headerTintColor: '#fff',
+        }}
+      />
+      <RootStack.Screen
+        name="LoginHome"
+        component={LoginHome}
+        initialParams={{fromSettings: false}}
+        options={{
+          headerStyle: {
+            backgroundColor: '#470736',
+          },
+          headerTitle: '',
+          headerTintColor: '#fff',
+        }}
+      />
+    </RootStack.Navigator>
+  );
+};
+export default RootStackNavigation;

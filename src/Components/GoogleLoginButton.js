@@ -7,6 +7,7 @@ import {connect} from 'react-redux';
 import {importBalanceFromDb} from '../redux/reducers/balanceReducer';
 import {importCategoryFromDb} from '../redux/reducers/categoriesReducer';
 import {writeUserData, importUserDataFromDB} from '../utils/LoginFunctions';
+import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 
 GoogleSignin.configure({
   webClientId:
@@ -21,7 +22,6 @@ const GoogleLoginButton = ({
   incomeCategory,
   costsCategory,
   deviceId,
-  setError,
 }) => {
   const googleLogin = () => {
     GoogleSignin.signIn()
@@ -59,10 +59,6 @@ const GoogleLoginButton = ({
             deviceId,
           );
         }
-      })
-      .catch(error => {
-        setIsLoadingScreen(false);
-        setError(error);
       });
   };
   return (
@@ -70,14 +66,24 @@ const GoogleLoginButton = ({
       <TouchableOpacity
         style={{
           backgroundColor: '#DB4437',
-          width: 250,
-          height: 45,
+          width: 370,
+          height: 60,
           borderRadius: 7,
+          flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'center',
         }}
         onPress={() => googleLogin()}>
-        <Text style={{color: '#fff', fontSize: 20}}>Login with Google</Text>
+        <Icon name="google" size={30} color="#fff" />
+        <Text
+          style={{
+            marginLeft: 10,
+            color: '#fff',
+            fontSize: 20,
+            textTransform: 'uppercase',
+          }}>
+          Login with Google
+        </Text>
       </TouchableOpacity>
     </View>
   );

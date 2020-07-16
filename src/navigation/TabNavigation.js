@@ -4,8 +4,8 @@ import {createMaterialBottomTabNavigator} from '@react-navigation/material-botto
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import Navigator from './index';
 import GraphsNavigation from '../navigation/GraphsNavigation';
-import SettingsNavigation from './SettingsNavigation';
-import HomeNavigator from './HomeNavigation';
+import RootNavigator from './SettingsNavigation';
+import RootStackNavigation from './HomeNavigation';
 import ConversionNavigation from './ConversionNavigation';
 import translate from '../translate/Translate';
 
@@ -24,7 +24,7 @@ const TabNavigator = () => {
             ),
           }}
           name="Home"
-          component={HomeNavigator}
+          component={RootStackNavigation}
         />
         <Tab.Screen
           name="Categories"
@@ -61,7 +61,7 @@ const TabNavigator = () => {
         />
         <Tab.Screen
           name="Settings"
-          component={SettingsNavigation}
+          component={RootNavigator}
           options={{
             tabBarColor: '#be935a',
             tabBarLabel: translate('settings'),

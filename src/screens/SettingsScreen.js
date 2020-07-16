@@ -1,39 +1,19 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, Text} from 'react-native';
 import {connect} from 'react-redux';
 import {setUser} from '../redux/reducers/userReducer';
-import LoginHome from '../Components/LoginHome';
 import FocusAwareStatusBar from '../utils/StatusBarColor';
 
 const Settings = ({user}) => {
   return (
-    <View style={user ? styles.settingsUserWrap : styles.settingsWrap}>
+    <View style={{flex: 1}}>
       <FocusAwareStatusBar backgroundColor="#fff" barStyle="dark-content" />
-      <View style={styles.logInContainer}>
-        <LoginHome fromSettings={true} />
-      </View>
+      {/* <LoginList fromSetting={true} />
+      <LoginHome fromSettings={true} /> */}
+      <Text>123</Text>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  settingsUserWrap: {
-    backgroundColor: '#fff',
-    flex: 1,
-  },
-  settingsWrap: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: '#fff',
-  },
-  logInContainer: {
-    marginVertical: 10,
-    marginHorizontal: 5,
-    borderColor: '#000',
-    shadowColor: '#000',
-    elevation: 2,
-  },
-});
 
 const mapStateToProps = state => {
   return {

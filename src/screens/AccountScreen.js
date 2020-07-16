@@ -6,10 +6,11 @@ import {connect} from 'react-redux';
 import {clearBalance} from '../redux/reducers/balanceReducer';
 import {clearCategory} from '../redux/reducers/categoriesReducer';
 import translate from '../translate/Translate';
+import FocusAwareStatusBar from '../utils/StatusBarColor';
 
 const AccountScreen = ({
+  navigation,
   user,
-  setIsLoadingScreen,
   fromSettings,
   clearBalance,
   clearCategory,
@@ -17,6 +18,10 @@ const AccountScreen = ({
   if (!fromSettings) {
     return (
       <View style={styles.container}>
+        <FocusAwareStatusBar
+          backgroundColor="#470736"
+          barStyle="light-content"
+        />
         <Image
           style={{
             width: 70,
@@ -30,6 +35,7 @@ const AccountScreen = ({
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
+            navigation.navigate('LoginList');
             auth()
               .signOut()
               .then(() => {
@@ -100,6 +106,7 @@ const AccountScreen = ({
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 15,

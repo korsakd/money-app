@@ -12,33 +12,25 @@ import {importBalanceFromDb} from '../redux/reducers/balanceReducer';
 import {importCategoryFromDb} from '../redux/reducers/categoriesReducer';
 import {regexpEmail} from '../utils/RegExpFunction';
 import {writeUserData, importUserDataFromDB} from '../utils/LoginFunctions';
+import FocusAwareStatusBar from '../utils/StatusBarColor';
+import {HeaderBackButton} from '@react-navigation/stack';
 
 const LoginHome = ({
+  navigation,
   user,
   userState,
-  fromSettings,
   balance,
   incomeCategory,
   costsCategory,
   addBalanceFromDb,
   addCategoryFromDb,
+  route,
 }) => {
+  console.tron(route);
   const [connectedTofirebase, setInitializing] = useState(true);
   const [error, setError] = useState();
   const [isSignup, setIsSignup] = useState(false);
   const [isLoadingScreen, setIsLoadingScreen] = useState(false);
-  const [deviceId, setDeviceId] = useState();
-  var PushNotification = require('react-native-push-notification');
-
-  useEffect(() => {
-    PushNotification.configure({
-      // (optional) Called when Token is generated (iOS and Android)
-      onRegister: function(token) {
-        setDeviceId(token);
-      },
-    });
-  }, [PushNotification]);
-
   function getUserData(uid) {
     return database()
       .ref('users/' + uid)
@@ -105,7 +97,7 @@ const LoginHome = ({
             costsCategory,
             balance,
             database,
-            deviceId,
+            route.params.deviceId,
           );
         })
         .then(() => {
@@ -137,48 +129,97 @@ const LoginHome = ({
   }
 
   if (!user) {
-    if (!isSignup) {
-      return (
-        <View>
-          <LoginScreen
-            setError={element => setError(element)}
-            handleLogIn={(email, password) => handleLogIn(email, password)}
-            error={error}
-            setIsSignup={element => setIsSignup(element)}
-            user={user}
-            isLoadingScreen={isLoadingScreen}
-            setIsLoadingScreen={element => setIsLoadingScreen(element)}
-            fromSettings={fromSettings}
+    if (!isLoadingScreen) {
+      navigation.setOptions({
+        headerLeft: props => (
+          <HeaderBackButton
+            {...props}
+            onPress={() => {
+              navigation.navigate('LoginList');
+            }}
           />
-        </View>
-      );
-    }
-    if (isSignup) {
-      return (
-        <View>
-          <SignUpScreen
-            setError={element => setError(element)}
-            handleSignUp={(email, password, userName) =>
-              handleSignUp(email, password, userName)
-            }
-            error={error}
-            isLoadingScreen={isLoadingScreen}
-            setIsSignup={element => setIsSignup(element)}
-            fromSettings={fromSettings}
-          />
-        </View>
-      );
+        ),
+      });
+      if (!isSignup) {
+        return (
+          <View style={{flex: 1, justifyContent: 'center'}}>
+            {!route.params.fromSettings ? (
+              <FocusAwareStatusBar
+                backgroundColor="#470736"
+                barStyle="light-content"
+              />
+            ) : (
+              <FocusAwareStatusBar
+                backgroundColor="#be935a"
+                barStyle="light-content"
+              />
+            )}
+            <LoginScreen
+              setError={element => setError(element)}
+              handleLogIn={(email, password) => handleLogIn(email, password)}
+              error={error}
+              setIsSignup={element => setIsSignup(element)}
+              user={user}
+              isLoadingScreen={isLoadingScreen}
+              setIsLoadingScreen={element => setIsLoadingScreen(element)}
+              fromSettings={route.params.fromSettings}
+            />
+          </View>
+        );
+      }
+      if (isSignup) {
+        return (
+          <View style={{flex: 1, justifyContent: 'center'}}>
+            {!route.params.fromSettings ? (
+              <FocusAwareStatusBar
+                backgroundColor="#470736"
+                barStyle="light-content"
+              />
+            ) : (
+              <FocusAwareStatusBar
+                backgroundColor="#be935a"
+                barStyle="light-content"
+              />
+            )}
+            <SignUpScreen
+              setError={element => setError(element)}
+              handleSignUp={(email, password, userName) =>
+                handleSignUp(email, password, userName)
+              }
+              error={error}
+              isLoadingScreen={isLoadingScreen}
+              setIsSignup={element => setIsSignup(element)}
+              fromSettings={route.params.fromSettings}
+            />
+          </View>
+        );
+      }
     }
   }
-  if (user && user.displayName === null) {
-    return <LoadingScreen />;
+  if (isLoadingScreen) {
+    return (
+      <View style={{flex: 1, justifyContent: 'center'}}>
+        <LoadingScreen />
+      </View>
+    );
   }
   if (user && user.displayName) {
+    navigation.setOptions({
+      headerLeft: props => (
+        <HeaderBackButton
+          {...props}
+          onPress={() => {
+            navigation.navigate('Main');
+          }}
+        />
+      ),
+    });
     return (
       <AccountScreen
+        navigation={navigation}
         user={user}
         setIsLoadingScreen={element => setIsLoadingScreen(element)}
-        fromSettings={fromSettings}
+        fromSettings={route.params.fromSettings}
       />
     );
   }

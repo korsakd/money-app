@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 const BalanceHeader = ({
   navigation,
   filterBalanceMonth,
-  setToggleLoginModal,
+  setLoginModal,
   user,
 }) => {
   const incomeArray = filterBalanceMonth.filter(
@@ -59,7 +59,7 @@ const BalanceHeader = ({
       </TouchableOpacity>
       {!user ? (
         <TouchableOpacity
-          onPress={() => setToggleLoginModal(true)}
+          onPress={() => setLoginModal(true)}
           style={styles.attentionWrap}>
           <Icon name="alert-decagram-outline" size={20} color="#FF0000" />
           <Text style={{color: '#FF0000', marginLeft: 5}}>
