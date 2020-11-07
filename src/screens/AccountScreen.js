@@ -19,7 +19,7 @@ const AccountScreen = ({
     return (
       <View style={styles.container}>
         <FocusAwareStatusBar
-          backgroundColor="#470736"
+          backgroundColor="#1c2b59"
           barStyle="light-content"
         />
         <Image
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     marginVertical: 15,
   },
   button: {
-    backgroundColor: '#470736',
+    backgroundColor: '#1c2b59',
     flexDirection: 'row',
     marginTop: 10,
     paddingVertical: 10,

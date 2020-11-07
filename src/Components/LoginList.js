@@ -40,7 +40,7 @@ const LoginList = ({
     if (user) {
       userState(user.toJSON());
       if (!route.params.fromSettings) {
-        navigation.navigate('LoginHome');
+        navigation.navigate('AuthNavigation');
         setIsLoadingScreen(false);
       } else {
         navigation.navigate('Main');
@@ -219,20 +219,20 @@ const LoginList = ({
           <FocusAwareStatusBar backgroundColor="#fff" barStyle="dark-content" />
         ) : (
           <FocusAwareStatusBar
-            backgroundColor="#470736"
+            backgroundColor="#1c2b59"
             barStyle="light-content"
           />
         )}
         <TouchableOpacity
           style={{
-            backgroundColor: route.params.fromSettings ? '#be935a' : '#470736',
+            backgroundColor: route.params.fromSettings ? '#be935a' : '#1c2b59',
             width: 370,
             height: 60,
             borderRadius: 7,
             alignItems: 'center',
             justifyContent: 'center',
           }}
-          onPress={() => navigation.navigate('LoginHome', {deviceId})}>
+          onPress={() => navigation.navigate('AuthNavigation', {deviceId})}>
           <Text
             style={{color: '#fff', fontSize: 20, textTransform: 'uppercase'}}>
             Login with E-mail and password

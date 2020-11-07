@@ -10,7 +10,7 @@ const LoadingScreen = ({fromSettings}) => {
         <FocusAwareStatusBar backgroundColor="#fff" barStyle="dark-content" />
       ) : (
         <FocusAwareStatusBar
-          backgroundColor="#470736"
+          backgroundColor="#1c2b59"
           barStyle="light-content"
         />
       )}
@@ -19,7 +19,7 @@ const LoadingScreen = ({fromSettings}) => {
       </Text>
       <ActivityIndicator
         size="large"
-        color={fromSettings ? '#be935a' : '#470736'}
+        color={fromSettings ? '#be935a' : '#1c2b59'}
       />
     </View>
   );

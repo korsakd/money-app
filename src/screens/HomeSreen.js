@@ -77,7 +77,7 @@ function HomeScreen({
           if (!user) {
             navigation.navigate('LoginList');
           } else {
-            navigation.navigate('LoginHome');
+            navigation.navigate('AuthNavigation');
           }
         }}>
         <Icon name="account-outline" size={25} color="#fff" />
@@ -116,7 +116,7 @@ function HomeScreen({
   });
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
-      <FocusAwareStatusBar backgroundColor="#470736" barStyle="light-content" />
+      <FocusAwareStatusBar backgroundColor="#1c2b59" barStyle="light-content" />
       <Animated.View
         style={{
           position: 'absolute',

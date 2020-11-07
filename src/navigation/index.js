@@ -22,7 +22,7 @@ function Navigator() {
         options={{
           title: translate('newCategory'),
           headerStyle: {
-            backgroundColor: '#694fad',
+            backgroundColor: '#1c2b59',
           },
           headerTintColor: '#fff',
           headerTitleStyle: {

@@ -24,7 +24,7 @@ const CategoryIcon = ({iconName, name, index, drag, id, remove, type}) => {
             <Icon name="minus-circle" size={20} color="#d10000" />
           </TouchableOpacity>
           <View style={styles.iconStyle}>
-            <Icon name={iconName} size={25} color="#525252" />
+            <Icon name={iconName} size={25} color="#1c2b59" />
           </View>
           {name ? (
             <Text
@@ -52,7 +52,7 @@ const CategoryIcon = ({iconName, name, index, drag, id, remove, type}) => {
       <View style={styles.categoryWrapDefault}>
         <View style={styles.iconeContainerDefault}>
           <View style={styles.iconStyleDefault}>
-            <Icon name={iconName} size={25} color="#525252" />
+            <Icon name={iconName} size={25} color="#1c2b59" />
           </View>
           {name ? (
             <Text
@@ -99,7 +99,9 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   iconStyle: {
-    backgroundColor: '#e8e8e8',
+    // backgroundColor: '#e8e8e8',
+    borderColor: '#1c2b59',
+    borderWidth: 3,
     borderRadius: 12,
     width: 45,
     height: 45,
@@ -109,7 +111,9 @@ const styles = StyleSheet.create({
     marginRight: 15,
   },
   iconStyleDefault: {
-    backgroundColor: '#e8e8e8',
+    // backgroundColor: '#e8e8e8',
+    borderColor: '#1c2b59',
+    borderWidth: 3,
     borderRadius: 12,
     width: 45,
     height: 45,

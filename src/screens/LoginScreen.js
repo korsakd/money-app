@@ -7,16 +7,13 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
-import LoadingScreen from './LoadingScreen';
 import translate from '../translate/Translate';
 
 const LoginScreen = ({
+  navigation,
   handleLogIn,
-  setIsSignup,
   error,
-  user,
   isLoadingScreen,
-  setIsLoadingScreen,
   fromSettings,
   setError,
 }) => {
@@ -89,7 +86,7 @@ const LoginScreen = ({
             }}
             onPress={() => {
               setError('');
-              setIsSignup(true);
+              navigation.navigate('EmailScreen');
             }}>
             <Text style={styles.signUpButton}>{translate('signUp')}</Text>
           </TouchableOpacity>
@@ -126,7 +123,7 @@ const styles = StyleSheet.create({
     color: 'red',
   },
   button: {
-    backgroundColor: '#470736',
+    backgroundColor: '#1c2b59',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',

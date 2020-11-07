@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
   textContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#470736',
+    backgroundColor: '#1c2b59',
   },
 });
 

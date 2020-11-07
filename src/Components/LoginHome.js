@@ -26,10 +26,8 @@ const LoginHome = ({
   addCategoryFromDb,
   route,
 }) => {
-  console.tron(route);
   const [connectedTofirebase, setInitializing] = useState(true);
   const [error, setError] = useState();
-  const [isSignup, setIsSignup] = useState(false);
   const [isLoadingScreen, setIsLoadingScreen] = useState(false);
   function getUserData(uid) {
     return database()
@@ -140,60 +138,31 @@ const LoginHome = ({
           />
         ),
       });
-      if (!isSignup) {
-        return (
-          <View style={{flex: 1, justifyContent: 'center'}}>
-            {!route.params.fromSettings ? (
-              <FocusAwareStatusBar
-                backgroundColor="#470736"
-                barStyle="light-content"
-              />
-            ) : (
-              <FocusAwareStatusBar
-                backgroundColor="#be935a"
-                barStyle="light-content"
-              />
-            )}
-            <LoginScreen
-              setError={element => setError(element)}
-              handleLogIn={(email, password) => handleLogIn(email, password)}
-              error={error}
-              setIsSignup={element => setIsSignup(element)}
-              user={user}
-              isLoadingScreen={isLoadingScreen}
-              setIsLoadingScreen={element => setIsLoadingScreen(element)}
-              fromSettings={route.params.fromSettings}
+      return (
+        <View style={{flex: 1, justifyContent: 'center'}}>
+          {!route.params.fromSettings ? (
+            <FocusAwareStatusBar
+              backgroundColor="#1c2b59"
+              barStyle="light-content"
             />
-          </View>
-        );
-      }
-      if (isSignup) {
-        return (
-          <View style={{flex: 1, justifyContent: 'center'}}>
-            {!route.params.fromSettings ? (
-              <FocusAwareStatusBar
-                backgroundColor="#470736"
-                barStyle="light-content"
-              />
-            ) : (
-              <FocusAwareStatusBar
-                backgroundColor="#be935a"
-                barStyle="light-content"
-              />
-            )}
-            <SignUpScreen
-              setError={element => setError(element)}
-              handleSignUp={(email, password, userName) =>
-                handleSignUp(email, password, userName)
-              }
-              error={error}
-              isLoadingScreen={isLoadingScreen}
-              setIsSignup={element => setIsSignup(element)}
-              fromSettings={route.params.fromSettings}
+          ) : (
+            <FocusAwareStatusBar
+              backgroundColor="#be935a"
+              barStyle="light-content"
             />
-          </View>
-        );
-      }
+          )}
+          <LoginScreen
+            setError={element => setError(element)}
+            handleLogIn={(email, password) => handleLogIn(email, password)}
+            error={error}
+            navigation={navigation}
+            user={user}
+            isLoadingScreen={isLoadingScreen}
+            setIsLoadingScreen={element => setIsLoadingScreen(element)}
+            fromSettings={route.params.fromSettings}
+          />
+        </View>
+      );
     }
   }
   if (isLoadingScreen) {

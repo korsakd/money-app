@@ -5,6 +5,7 @@ import Details from '../screens/Details';
 import translate from '../translate/Translate';
 import LoginList from '../Components/LoginList';
 import LoginHome from '../Components/LoginHome';
+import AuthNavigation from './AuthNavigation';
 
 const MainStack = createStackNavigator();
 const RootStack = createStackNavigator();
@@ -15,7 +16,7 @@ const HomeNavigator = () => {
       <MainStack.Screen
         options={{
           headerStyle: {
-            backgroundColor: '#470736',
+            backgroundColor: '#1c2b59',
           },
           headerTitle: '',
         }}
@@ -28,7 +29,7 @@ const HomeNavigator = () => {
         options={{
           title: translate('details'),
           headerStyle: {
-            backgroundColor: '#470736',
+            backgroundColor: '#1c2b59',
           },
           headerTintColor: '#fff',
           headerTitleStyle: {
@@ -54,19 +55,31 @@ const RootStackNavigation = () => {
         initialParams={{fromSettings: false}}
         options={{
           headerStyle: {
-            backgroundColor: '#470736',
+            backgroundColor: '#1c2b59',
           },
           headerTitle: '',
           headerTintColor: '#fff',
         }}
       />
-      <RootStack.Screen
+      {/* <RootStack.Screen
         name="LoginHome"
         component={LoginHome}
         initialParams={{fromSettings: false}}
         options={{
           headerStyle: {
-            backgroundColor: '#470736',
+            backgroundColor: '#1c2b59',
+          },
+          headerTitle: '',
+          headerTintColor: '#fff',
+        }}
+      /> */}
+      <RootStack.Screen
+        name="AuthNavigation"
+        component={AuthNavigation}
+        initialParams={{fromSettings: false}}
+        options={{
+          headerStyle: {
+            backgroundColor: '#1c2b59',
           },
           headerTitle: '',
           headerTintColor: '#fff',

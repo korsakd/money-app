@@ -91,7 +91,7 @@ const CustomMonthCalendar = ({
                 <Text
                   style={{
                     backgroundColor:
-                      month !== element.monthNumber ? '#e8e8e8' : '#470736',
+                      month !== element.monthNumber ? '#e8e8e8' : '#1c2b59',
                     color: month !== element.monthNumber ? '#000' : '#fff',
                     width: 40,
                     height: 40,

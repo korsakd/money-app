@@ -75,7 +75,7 @@ const NewCategory = ({add, categoriesIcon, replace, income, costs}) => {
 
   return (
     <View style={{backgroundColor: 'white'}}>
-      <FocusAwareStatusBar backgroundColor="#694fad" barStyle="light-content" />
+      <FocusAwareStatusBar backgroundColor="#1c2b59" barStyle="light-content" />
       <View>
         <Text
           style={{
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   textContainer: {
-    backgroundColor: '#694fad',
+    backgroundColor: '#1c2b59',
     marginVertical: 3,
   },
 });
