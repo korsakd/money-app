@@ -1,10 +1,10 @@
-import {createStore, applyMiddleware, compose} from 'redux';
-import categoriesReducer from './reducers/categoriesReducer';
+import { createStore, applyMiddleware, compose } from 'redux';
+import { categoriesReducer } from './reducers/categoriesReducer';
 import balanceReducer from './reducers/balanceReducer';
 import userReducer from './reducers/userReducer';
 import currencyReducer from './reducers/currencyReducer';
 import Reactotron from '../config/ReactotronConfig';
-import {persistStore, persistCombineReducers} from 'redux-persist';
+import { persistStore, persistCombineReducers } from 'redux-persist';
 import AsyncStorage from '@react-native-community/async-storage';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import thunk from 'redux-thunk';
@@ -29,5 +29,5 @@ const store = createStore(
 
 export default () => {
   let persistor = persistStore(store);
-  return {store, persistor};
+  return { store, persistor };
 };

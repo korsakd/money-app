@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import React from 'react';
 import {AppRegistry} from 'react-native';
-import TabNavigator from './src/navigation/TabNavigation';
+import TabNavigator from './src/aNew/Navigation';
 import {name as appName} from './app.json';
 import {Provider} from 'react-redux';
 import createStore from './src/redux';
