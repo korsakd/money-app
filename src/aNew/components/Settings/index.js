@@ -1,5 +1,5 @@
-import React, {useState, useRef, useEffect} from 'react';
-import {View, Text, TouchableOpacity, Animated} from 'react-native';
+import React, { useState, useRef, useEffect } from 'react';
+import { View, Text, TouchableOpacity, Animated } from 'react-native';
 
 const SettingsScreen = () => {
   return (

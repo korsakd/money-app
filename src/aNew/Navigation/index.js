@@ -5,8 +5,7 @@ import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import HomeScreenNavigator from './HomeNavigation';
 import CategoriesScreenNavigator from './CategoriesNavigation';
 import GraphsScreenNavigator from './GraphsNavigation';
-import SettingsScreenNavigator from './SettingsNavigation';
-import translate from '../../translate/Translate';
+import SettingsNavigator from './SettingsNavigation';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -17,7 +16,7 @@ const TabNavigator = () => {
         <Tab.Screen
           options={{
             tabBarColor: '#1c2b59',
-            tabBarLabel: translate('home'),
+            tabBarLabel: 'home',
             tabBarIcon: ({ color }) => (
               <Icon name="home-outline" color={color} size={26} />
             ),
@@ -30,7 +29,7 @@ const TabNavigator = () => {
           component={CategoriesScreenNavigator}
           options={{
             tabBarColor: '#1c2b59',
-            tabBarLabel: translate('categories'),
+            tabBarLabel: 'categories',
             tabBarIcon: ({ color }) => (
               <Icon name="playlist-edit" color={color} size={26} />
             ),
@@ -41,7 +40,7 @@ const TabNavigator = () => {
           component={GraphsScreenNavigator}
           options={{
             tabBarColor: '#1c2b59',
-            tabBarLabel: translate('graphs'),
+            tabBarLabel: 'graphs',
             tabBarIcon: ({ color }) => (
               <Icon name="chart-arc" color={color} size={26} />
             ),
@@ -49,10 +48,10 @@ const TabNavigator = () => {
         />
         <Tab.Screen
           name="Settings"
-          component={SettingsScreenNavigator}
+          component={SettingsNavigator}
           options={{
             tabBarColor: '#1c2b59',
-            tabBarLabel: translate('settings'),
+            tabBarLabel: 'settings',
             tabBarIcon: ({ color }) => (
               <Icon name="settings-outline" color={color} size={26} />
             ),
