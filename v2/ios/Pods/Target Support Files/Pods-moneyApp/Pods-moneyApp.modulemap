@@ -1,0 +1,6 @@
+module Pods_moneyApp {
+  umbrella header "Pods-moneyApp-umbrella.h"
+
+  export *
+  module * { export * }
+}
