@@ -8,7 +8,7 @@ export const getCurrentTheme = (scheme: string) => {
       background: WHITE,
       card: WHITE,
       text: BLUE,
-      border: GREY,
+      border: BLACK,
       notification: 'rgb(255, 69, 58)',
     },
   };
@@ -18,9 +18,9 @@ export const getCurrentTheme = (scheme: string) => {
     colors: {
       primary: GOLD,
       background: BLACK,
-      card: '#000',
+      card: '#1e1e1e',
       text: WHITE,
-      border: GREY,
+      border: WHITE,
       notification: 'rgb(255, 69, 58)',
     },
   };

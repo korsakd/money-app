@@ -4,12 +4,18 @@ import {
   applyMiddleware,
   createStore,
   compose,
+  CombinedState,
+  Reducer,
+  AnyAction,
 } from 'redux';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
+import { userReducer, UserReducerType } from './user';
 import Reactotron from './ReactotronConfig';
 import thunk from 'redux-thunk';
 
-export type RootState = {};
+export type RootState = {
+  user: UserReducerType;
+};
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
   RootState,
@@ -18,7 +24,10 @@ export type AppThunk<ReturnType = void> = ThunkAction<
 >;
 export type MyThunkDispatch = ThunkDispatch<RootState, unknown, Action>;
 
-const appReducer = combineReducers({});
+// TODO: types for combineReducers
+const appReducer = combineReducers({
+  user: userReducer,
+});
 
 export default function configureStore() {
   let store;

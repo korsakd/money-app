@@ -4,16 +4,25 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icons from 'react-native-vector-icons/MaterialIcons';
 import { useColorScheme } from 'react-native-appearance';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, RouteProp } from '@react-navigation/native';
 import { getCurrentTheme } from '../Theme';
 import HomeScreen from '../Home';
 import SettingsScreen from '../Settings';
 import LoginScreen from '../Settings/Login';
+import { connect, ConnectedProps } from 'react-redux';
+import { RootState } from '../store';
+import { UserReducerType } from '../store/user';
 
 export type RootStackParamList = {
   Home: undefined;
   Settings: undefined;
   Login: undefined;
+  SettingsScreenStack: UserReducerType;
+};
+
+type TabNavigatorType = ConnectedProps<typeof connector>;
+type SettingsScreenStack = {
+  route: RouteProp<RootStackParamList, 'SettingsScreenStack'>;
 };
 
 const Tab = createBottomTabNavigator();
@@ -28,16 +37,17 @@ const HomeScreenStack = () => {
   );
 };
 
-const SettingsScreenStack = () => {
+const SettingsScreenStack = ({ route }: SettingsScreenStack) => {
   return (
-    <SettingStack.Navigator>
+    <SettingStack.Navigator
+      initialRouteName={route.params.user ? 'Settings' : 'Login'}>
       <SettingStack.Screen name="Settings" component={SettingsScreen} />
       <SettingStack.Screen name="Login" component={LoginScreen} />
     </SettingStack.Navigator>
   );
 };
 
-const TabNavigator = () => {
+const TabNavigator = ({ user }: TabNavigatorType) => {
   const scheme = useColorScheme();
   const { colors } = getCurrentTheme(scheme);
   return (
@@ -68,10 +78,17 @@ const TabNavigator = () => {
           }}
           name="settings"
           component={SettingsScreenStack}
+          initialParams={user}
         />
       </Tab.Navigator>
     </NavigationContainer>
   );
 };
 
-export default TabNavigator;
+const mapStateToProps = (state: RootState) => ({
+  user: state.user,
+});
+
+const connector = connect(mapStateToProps);
+
+export default connector(TabNavigator);
