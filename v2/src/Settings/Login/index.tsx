@@ -46,12 +46,12 @@ const LoginScreen = () => {
         <View style={styles.buttonContainer}>
           <Pressable style={styles.button}>
             <Text style={[styles.buttonText, { color: colors.text }]}>
-              LOGIN
+              SIGN IN
             </Text>
           </Pressable>
           <Pressable style={styles.button} onPress={() => {}}>
             <Text style={[styles.buttonText, { color: colors.text }]}>
-              SIGN IN
+              SIGN UP
             </Text>
           </Pressable>
         </View>
