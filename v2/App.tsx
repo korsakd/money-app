@@ -23,9 +23,9 @@ const App = () => {
     }
   };
 
-  useEffect(() => {
-    getUserId();
-  }, []);
+  // useEffect(() => {
+  //   getUserId();
+  // }, []);
   return (
     <AppearanceProvider>
       <Provider store={store}>

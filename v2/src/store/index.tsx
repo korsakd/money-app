@@ -4,17 +4,16 @@ import {
   applyMiddleware,
   createStore,
   compose,
-  CombinedState,
-  Reducer,
-  AnyAction,
 } from 'redux';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { userReducer, UserReducerType } from './user';
 import Reactotron from './ReactotronConfig';
 import thunk from 'redux-thunk';
+import { categoryReducer, CategoryReducerType } from './category';
 
 export type RootState = {
   user: UserReducerType;
+  category: CategoryReducerType;
 };
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
@@ -27,6 +26,7 @@ export type MyThunkDispatch = ThunkDispatch<RootState, unknown, Action>;
 // TODO: types for combineReducers
 const appReducer = combineReducers({
   user: userReducer,
+  category: categoryReducer,
 });
 
 export default function configureStore() {

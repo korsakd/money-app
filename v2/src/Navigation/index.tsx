@@ -12,9 +12,14 @@ import LoginScreen from '../Settings/Login';
 import { connect, ConnectedProps } from 'react-redux';
 import { RootState } from '../store';
 import { UserReducerType } from '../store/user';
+import Income from '../Category/Income';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import Costs from '../Category/Costs';
+import { Dimensions, Pressable, Text, View } from 'react-native';
 
 export type RootStackParamList = {
   Home: undefined;
+  Category: undefined;
   Settings: undefined;
   Login: undefined;
   SettingsScreenStack: UserReducerType;
@@ -26,7 +31,9 @@ type SettingsScreenStack = {
 };
 
 const Tab = createBottomTabNavigator();
+const TopTab = createMaterialTopTabNavigator();
 const HomeStack = createStackNavigator<RootStackParamList>();
+const CategoryStack = createStackNavigator<RootStackParamList>();
 const SettingStack = createStackNavigator<RootStackParamList>();
 
 const HomeScreenStack = () => {
@@ -34,6 +41,15 @@ const HomeScreenStack = () => {
     <HomeStack.Navigator>
       <HomeStack.Screen name="Home" component={HomeScreen} />
     </HomeStack.Navigator>
+  );
+};
+
+const CategoryScreenStack = () => {
+  return (
+    <TopTab.Navigator>
+      <TopTab.Screen name="Income" component={Income} />
+      <TopTab.Screen name="Costs" component={Costs} />
+    </TopTab.Navigator>
   );
 };
 
@@ -51,37 +67,74 @@ const TabNavigator = ({ user }: TabNavigatorType) => {
   const scheme = useColorScheme();
   const { colors } = getCurrentTheme(scheme);
   return (
-    <NavigationContainer theme={getCurrentTheme(scheme)}>
-      <Tab.Navigator
-        tabBarOptions={{
-          activeTintColor: colors.primary,
-          inactiveTintColor: colors.border,
-          labelStyle: {
-            fontSize: 12,
-          },
-          showLabel: false,
+    <>
+      <NavigationContainer theme={getCurrentTheme(scheme)}>
+        <Tab.Navigator
+          tabBarOptions={{
+            activeTintColor: colors.primary,
+            inactiveTintColor: colors.border,
+            labelStyle: {
+              fontSize: 12,
+            },
+            showLabel: false,
+          }}>
+          <Tab.Screen
+            options={{
+              tabBarIcon: ({ color }) => (
+                <Icon name="home" color={color} size={26} />
+              ),
+            }}
+            name="Home"
+            component={HomeScreenStack}
+          />
+          <Tab.Screen
+            options={{
+              tabBarIcon: ({ color }) => (
+                <Icon name="playlist-plus" color={color} size={26} />
+              ),
+            }}
+            name="Category"
+            component={CategoryScreenStack}
+          />
+          <Tab.Screen
+            options={{
+              tabBarIcon: ({ color }) => (
+                <Icons name="settings" color={color} size={26} />
+              ),
+            }}
+            name="Settings"
+            component={SettingsScreenStack}
+            initialParams={user}
+          />
+        </Tab.Navigator>
+      </NavigationContainer>
+      <View
+        style={{
+          position: 'absolute',
+          bottom: 50,
+          left: Dimensions.get('window').width / 2 - 35,
+          backgroundColor: colors.background,
+          width: 70,
+          height: 70,
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderRadius: 35,
         }}>
-        <Tab.Screen
-          options={{
-            tabBarIcon: ({ color }) => (
-              <Icon name="home" color={color} size={26} />
-            ),
-          }}
-          name="Home"
-          component={HomeScreenStack}
-        />
-        <Tab.Screen
-          options={{
-            tabBarIcon: ({ color }) => (
-              <Icons name="settings" color={color} size={26} />
-            ),
-          }}
-          name="settings"
-          component={SettingsScreenStack}
-          initialParams={user}
-        />
-      </Tab.Navigator>
-    </NavigationContainer>
+        <Pressable
+          style={{
+            width: 60,
+            height: 60,
+
+            backgroundColor: 'tomato',
+            borderRadius: 30,
+
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Text style={{ fontSize: 30 }}>+</Text>
+        </Pressable>
+      </View>
+    </>
   );
 };
 
