@@ -16,10 +16,8 @@
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* moneyAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* moneyAppTests.m */; };
 		4CF52D1F2AB85963796D1492 /* libPods-moneyApp-moneyAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 977FC553316F6AA5D91F9C7F /* libPods-moneyApp-moneyAppTests.a */; };
-		51A1A69A256A7F1F00893351 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51A1A699256A7F1F00893351 /* GoogleService-Info.plist */; };
+		5107E5A5271992CA006AC75E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5107E5A4271992CA006AC75E /* GoogleService-Info.plist */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		8F65F5AFF2D23BF94348BED8 /* libPods-moneyApp-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A98D3B4A5AFF8C09284341A /* libPods-moneyApp-tvOS.a */; };
-		CF382F1B69A3ED18085170B3 /* libPods-moneyApp-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2116A88A3A5A6AE7C94AEE5B /* libPods-moneyApp-tvOSTests.a */; };
 		D22B14E6C04E96E0E56321B4 /* libPods-moneyApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 29629552C5C33FDC10346198 /* libPods-moneyApp.a */; };
 /* End PBXBuildFile section */
 
@@ -52,20 +50,14 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = moneyApp/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = moneyApp/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = moneyApp/main.m; sourceTree = "<group>"; };
-		2116A88A3A5A6AE7C94AEE5B /* libPods-moneyApp-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-moneyApp-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		29629552C5C33FDC10346198 /* libPods-moneyApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-moneyApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E47B1E0B4A5D006451C7 /* moneyApp-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "moneyApp-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* moneyApp-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "moneyApp-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		50CAFBCD472429134EE6BDF2 /* Pods-moneyApp-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-moneyApp-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-moneyApp-tvOSTests/Pods-moneyApp-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
-		51A1A699256A7F1F00893351 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		6A98D3B4A5AFF8C09284341A /* libPods-moneyApp-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-moneyApp-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5107E5A4271992CA006AC75E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = moneyApp/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		830F05E5F960F639B77CF69D /* Pods-moneyApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-moneyApp.release.xcconfig"; path = "Target Support Files/Pods-moneyApp/Pods-moneyApp.release.xcconfig"; sourceTree = "<group>"; };
 		977FC553316F6AA5D91F9C7F /* libPods-moneyApp-moneyAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-moneyApp-moneyAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A5B59392878F977A0C26F4F6 /* Pods-moneyApp-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-moneyApp-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-moneyApp-tvOS/Pods-moneyApp-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
-		AA315D5E89D384C47BB03D09 /* Pods-moneyApp-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-moneyApp-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-moneyApp-tvOSTests/Pods-moneyApp-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B5BF609D43F110E189C902E8 /* Pods-moneyApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-moneyApp.debug.xcconfig"; path = "Target Support Files/Pods-moneyApp/Pods-moneyApp.debug.xcconfig"; sourceTree = "<group>"; };
-		E23CF87FD9407854ECC8AC96 /* Pods-moneyApp-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-moneyApp-tvOS.release.xcconfig"; path = "Target Support Files/Pods-moneyApp-tvOS/Pods-moneyApp-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		E76615E90931720485CA56AF /* Pods-moneyApp-moneyAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-moneyApp-moneyAppTests.release.xcconfig"; path = "Target Support Files/Pods-moneyApp-moneyAppTests/Pods-moneyApp-moneyAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
@@ -92,7 +84,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F65F5AFF2D23BF94348BED8 /* libPods-moneyApp-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,7 +91,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CF382F1B69A3ED18085170B3 /* libPods-moneyApp-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,8 +135,6 @@
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				29629552C5C33FDC10346198 /* libPods-moneyApp.a */,
 				977FC553316F6AA5D91F9C7F /* libPods-moneyApp-moneyAppTests.a */,
-				6A98D3B4A5AFF8C09284341A /* libPods-moneyApp-tvOS.a */,
-				2116A88A3A5A6AE7C94AEE5B /* libPods-moneyApp-tvOSTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -158,10 +146,6 @@
 				830F05E5F960F639B77CF69D /* Pods-moneyApp.release.xcconfig */,
 				032C79E2EAE475A78C8CFACC /* Pods-moneyApp-moneyAppTests.debug.xcconfig */,
 				E76615E90931720485CA56AF /* Pods-moneyApp-moneyAppTests.release.xcconfig */,
-				A5B59392878F977A0C26F4F6 /* Pods-moneyApp-tvOS.debug.xcconfig */,
-				E23CF87FD9407854ECC8AC96 /* Pods-moneyApp-tvOS.release.xcconfig */,
-				AA315D5E89D384C47BB03D09 /* Pods-moneyApp-tvOSTests.debug.xcconfig */,
-				50CAFBCD472429134EE6BDF2 /* Pods-moneyApp-tvOSTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -176,7 +160,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				51A1A699256A7F1F00893351 /* GoogleService-Info.plist */,
+				5107E5A4271992CA006AC75E /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* moneyApp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* moneyAppTests */,
@@ -212,6 +196,7 @@
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
 				4BAC5DDCC03A2F660855AB80 /* [CP] Copy Pods Resources */,
+				A43E481A15F9571436678FB7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -235,6 +220,7 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				8DC8E64FD7A2B4FAE2FBDFB9 /* [CP] Copy Pods Resources */,
 				3DC0B0E94B6237F6D819AFA8 /* [CP-User] [RNFB] Core Configuration */,
+				C71763917F0D12A48D1149EC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -249,7 +235,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "moneyApp-tvOS" */;
 			buildPhases = (
-				5C88A44208F1C67960867BCD /* [CP] Check Pods Manifest.lock */,
 				FD10A7F122414F3F0027D42C /* Start Packager */,
 				2D02E4771E0B4A5D006451C7 /* Sources */,
 				2D02E4781E0B4A5D006451C7 /* Frameworks */,
@@ -269,7 +254,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "moneyApp-tvOSTests" */;
 			buildPhases = (
-				35E5A5E6A9D85F8802D851E2 /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
 				2D02E48D1E0B4A5D006451C7 /* Frameworks */,
 				2D02E48E1E0B4A5D006451C7 /* Resources */,
@@ -346,7 +330,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
-				51A1A69A256A7F1F00893351 /* GoogleService-Info.plist in Resources */,
+				5107E5A5271992CA006AC75E /* GoogleService-Info.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -396,28 +380,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
-		};
-		35E5A5E6A9D85F8802D851E2 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-moneyApp-tvOSTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
 		};
 		3DC0B0E94B6237F6D819AFA8 /* [CP-User] [RNFB] Core Configuration */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -501,28 +463,6 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-moneyApp-moneyAppTests/Pods-moneyApp-moneyAppTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5C88A44208F1C67960867BCD /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-moneyApp-tvOS-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		8DC8E64FD7A2B4FAE2FBDFB9 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -571,6 +511,50 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-moneyApp/Pods-moneyApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A43E481A15F9571436678FB7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-moneyApp-moneyAppTests/Pods-moneyApp-moneyAppTests-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/Flipper-DoubleConversion/double-conversion.framework/double-conversion",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL-Universal/OpenSSL.framework/OpenSSL",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/hermes.framework/hermes",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/double-conversion.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpenSSL.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-moneyApp-moneyAppTests/Pods-moneyApp-moneyAppTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C71763917F0D12A48D1149EC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-moneyApp/Pods-moneyApp-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/Flipper-DoubleConversion/double-conversion.framework/double-conversion",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL-Universal/OpenSSL.framework/OpenSSL",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/hermes.framework/hermes",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/double-conversion.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpenSSL.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-moneyApp/Pods-moneyApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F896B7281BF9C84D0AB7D83D /* [CP] Check Pods Manifest.lock */ = {
@@ -780,7 +764,6 @@
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A5B59392878F977A0C26F4F6 /* Pods-moneyApp-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -808,7 +791,6 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E23CF87FD9407854ECC8AC96 /* Pods-moneyApp-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -836,7 +818,6 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AA315D5E89D384C47BB03D09 /* Pods-moneyApp-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -863,7 +844,6 @@
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 50CAFBCD472429134EE6BDF2 /* Pods-moneyApp-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -920,6 +900,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 i386";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -980,6 +961,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 i386";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
