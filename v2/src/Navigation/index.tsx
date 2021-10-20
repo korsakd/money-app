@@ -16,46 +16,77 @@ import Income from '../Category/Income';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Costs from '../Category/Costs';
 import { Dimensions, Pressable, Text, View } from 'react-native';
+import NewCategory from '../Screens/NewCategory';
 
 export type RootStackParamList = {
+  HomeStack: undefined;
+  CategoryStack: undefined;
+  SettingsStack: UserReducerType;
+};
+
+export type HomeStackParamList = {
   Home: undefined;
+};
+
+export type CategoryTopTabParamList = {
+  Income: undefined;
+  Costs: undefined;
+};
+
+export type CategoryStackParamList = {
   Category: undefined;
+  NewCategory: { from: string };
+};
+
+export type SettingsStackParamList = {
   Settings: undefined;
   Login: undefined;
-  SettingsScreenStack: UserReducerType;
 };
 
 type TabNavigatorType = ConnectedProps<typeof connector>;
 type SettingsScreenStack = {
-  route: RouteProp<RootStackParamList, 'SettingsScreenStack'>;
+  route: RouteProp<RootStackParamList, 'SettingsStack'>;
 };
 
-const Tab = createBottomTabNavigator();
-const TopTab = createMaterialTopTabNavigator();
-const HomeStack = createStackNavigator<RootStackParamList>();
-const CategoryStack = createStackNavigator<RootStackParamList>();
-const SettingStack = createStackNavigator<RootStackParamList>();
+const Tab = createBottomTabNavigator<RootStackParamList>();
+const CategoryTopTab = createMaterialTopTabNavigator<CategoryTopTabParamList>();
+const HomeStack = createStackNavigator<HomeStackParamList>();
+const CategoryStack = createStackNavigator<CategoryStackParamList>();
+const SettingStack = createStackNavigator<SettingsStackParamList>();
 
 const HomeScreenStack = () => {
   return (
-    <HomeStack.Navigator>
+    <HomeStack.Navigator screenOptions={{ headerShown: false }}>
       <HomeStack.Screen name="Home" component={HomeScreen} />
     </HomeStack.Navigator>
   );
 };
 
+const CategoryTopTabScreen = () => {
+  return (
+    <CategoryTopTab.Navigator
+      screenOptions={{ tabBarLabelStyle: { fontSize: 14, fontWeight: '600' } }}>
+      <CategoryTopTab.Screen name="Income" component={Income} />
+      <CategoryTopTab.Screen name="Costs" component={Costs} />
+    </CategoryTopTab.Navigator>
+  );
+};
+
 const CategoryScreenStack = () => {
   return (
-    <TopTab.Navigator>
-      <TopTab.Screen name="Income" component={Income} />
-      <TopTab.Screen name="Costs" component={Costs} />
-    </TopTab.Navigator>
+    <CategoryStack.Navigator screenOptions={{ headerShown: false }}>
+      <CategoryStack.Screen name="Category" component={CategoryTopTabScreen} />
+      <CategoryStack.Group screenOptions={{ presentation: 'modal' }}>
+        <CategoryStack.Screen name="NewCategory" component={NewCategory} />
+      </CategoryStack.Group>
+    </CategoryStack.Navigator>
   );
 };
 
 const SettingsScreenStack = ({ route }: SettingsScreenStack) => {
   return (
     <SettingStack.Navigator
+      screenOptions={{ headerShown: false }}
       initialRouteName={route.params.user ? 'Settings' : 'Login'}>
       <SettingStack.Screen name="Settings" component={SettingsScreen} />
       <SettingStack.Screen name="Login" component={LoginScreen} />
@@ -70,13 +101,11 @@ const TabNavigator = ({ user }: TabNavigatorType) => {
     <>
       <NavigationContainer theme={getCurrentTheme(scheme)}>
         <Tab.Navigator
-          tabBarOptions={{
-            activeTintColor: colors.primary,
-            inactiveTintColor: colors.border,
-            labelStyle: {
-              fontSize: 12,
-            },
-            showLabel: false,
+          screenOptions={{
+            tabBarActiveTintColor: colors.primary,
+            tabBarInactiveTintColor: colors.border,
+            tabBarShowLabel: false,
+            headerShown: false,
           }}>
           <Tab.Screen
             options={{
@@ -84,7 +113,7 @@ const TabNavigator = ({ user }: TabNavigatorType) => {
                 <Icon name="home" color={color} size={26} />
               ),
             }}
-            name="Home"
+            name="HomeStack"
             component={HomeScreenStack}
           />
           <Tab.Screen
@@ -93,7 +122,7 @@ const TabNavigator = ({ user }: TabNavigatorType) => {
                 <Icon name="playlist-plus" color={color} size={26} />
               ),
             }}
-            name="Category"
+            name="CategoryStack"
             component={CategoryScreenStack}
           />
           <Tab.Screen
@@ -102,13 +131,13 @@ const TabNavigator = ({ user }: TabNavigatorType) => {
                 <Icons name="settings" color={color} size={26} />
               ),
             }}
-            name="Settings"
+            name="SettingsStack"
             component={SettingsScreenStack}
             initialParams={user}
           />
         </Tab.Navigator>
       </NavigationContainer>
-      <View
+      {/* <View
         style={{
           position: 'absolute',
           bottom: 50,
@@ -133,7 +162,7 @@ const TabNavigator = ({ user }: TabNavigatorType) => {
           }}>
           <Text style={{ fontSize: 30 }}>+</Text>
         </Pressable>
-      </View>
+      </View> */}
     </>
   );
 };
