@@ -12,7 +12,7 @@ export type CategoryType = {
 type CategoriesIconType = {
   Food: string[];
   Transport: string[];
-  Shoping: string[];
+  Shopping: string[];
   Entertainment: string[];
   Fitness: string[];
   Medicine: string[];
@@ -130,7 +130,6 @@ const initialState: CategoryReducerType = {
       'gas-station',
       'ferry',
       'taxi',
-      'towing',
       'tractor',
       'train',
       'truck',
@@ -140,7 +139,7 @@ const initialState: CategoryReducerType = {
       'parking',
       'road-variant',
     ],
-    Shoping: [
+    Shopping: [
       'cart',
       'gift-outline',
       'ring',
@@ -156,7 +155,6 @@ const initialState: CategoryReducerType = {
       'format-paint',
       'hanger',
       'hat-fedora',
-      'shopify',
       'wall',
     ],
     Entertainment: [
@@ -207,7 +205,6 @@ const initialState: CategoryReducerType = {
     Personal: [
       'human-male-female',
       'account',
-      'internet-explorer',
       'script-text-outline',
       'glass-mug',
       'glass-cocktail',
@@ -223,7 +220,6 @@ const initialState: CategoryReducerType = {
       'sale',
       'cash-refund',
       'chart-line',
-      'coin',
       'finance',
       'credit-card',
     ],
@@ -241,14 +237,12 @@ const initialState: CategoryReducerType = {
       'sprout',
       'cow',
       'guitar-electric',
-      'itunes',
       'pig',
       'video',
       'video-vintage',
       'water',
       'water-pump',
       'wrench',
-      'worker',
     ],
   },
 };
