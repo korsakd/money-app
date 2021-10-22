@@ -4,13 +4,15 @@ import DraggableFlatList, {
   RenderItemParams,
 } from 'react-native-draggable-flatlist';
 import { CategoryType } from '../store/category';
+import AddCategory from './AddCategory';
 import RenderItem from './RenderItem';
 
 type CategoryListType = {
   categoryList: CategoryType[];
+  type: string;
 };
 
-const CategoryList = ({ categoryList }: CategoryListType) => {
+const CategoryList = ({ categoryList, type }: CategoryListType) => {
   const itemRefs = new Map();
   const renderSeparator = () => {
     return (
@@ -45,6 +47,7 @@ const CategoryList = ({ categoryList }: CategoryListType) => {
         keyExtractor={(item, index) => `draggable-item-${item.id}`}
         // onDragEnd={({ data }) => this.setState({ data })}
       />
+      <AddCategory from={type} />
     </View>
   );
 };

@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, Text, Pressable, Dimensions } from 'react-native';
+import { Text, Pressable, TouchableOpacity, StyleSheet } from 'react-native';
 import { useColorScheme } from 'react-native-appearance';
 import Animated, { multiply, sub } from 'react-native-reanimated';
 import SwipeableItem from 'react-native-swipeable-item';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import IconItem from '../Components/IconItem';
 import { CategoryType } from '../store/category';
 import { getCurrentTheme } from '../Theme';
 
@@ -19,36 +20,22 @@ const RenderItem = ({ categoryItem, drag, isActive, itemRefs }: RenderItem) => {
   const { colors } = getCurrentTheme(scheme);
   const renderOverlay = (params, { categoryItem, drag, isActive }) => {
     return (
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: colors.background,
-          alignItems: 'center',
-          flexDirection: 'row',
-          paddingVertical: 10,
-          paddingLeft: 15,
-        }}>
-        <View
-          style={{
-            borderColor: 'tomato',
-            borderWidth: 3,
-            borderRadius: 12,
-            width: 45,
-            height: 45,
-            overflow: 'hidden',
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginRight: 15,
-          }}>
-          <Icon name={categoryItem.iconName} size={25} color="#fff" />
-        </View>
-        <Text
-          style={{
-            color: '#fff',
-          }}>
-          {categoryItem.name}
-        </Text>
-      </View>
+      <TouchableOpacity
+        onLongPress={drag}
+        activeOpacity={1}
+        style={[
+          {
+            backgroundColor: colors.background,
+          },
+          styles.itemWrap,
+        ]}>
+        <>
+          <IconItem name={categoryItem.iconName} />
+          <Text style={[styles.text, { color: colors.text }]}>
+            {categoryItem.name}
+          </Text>
+        </>
+      </TouchableOpacity>
     );
   };
 
@@ -56,7 +43,7 @@ const RenderItem = ({ categoryItem, drag, isActive, itemRefs }: RenderItem) => {
     <SwipeableItem
       key={categoryItem.id}
       item={{ categoryItem, drag }}
-      ref={(ref) => {
+      ref={ref => {
         if (ref && !itemRefs.get(categoryItem.id)) {
           itemRefs.set(categoryItem.id, ref);
         }
@@ -70,51 +57,23 @@ const RenderItem = ({ categoryItem, drag, isActive, itemRefs }: RenderItem) => {
         }
       }}
       swipeEnabled={!isActive ? true : false}
-      overSwipe={50}
       renderUnderlayLeft={({ percentOpen }) => {
         return (
           <Animated.View
-            style={{
-              flex: 1,
-              backgroundColor: 'red',
-              paddingRight: multiply(sub(1, percentOpen), 100),
-            }}>
-            <Pressable
-              style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'flex-end',
-                marginRight: '7%',
-              }}>
-              <Text style={{ color: '#fff' }}>Delete</Text>
+            style={[
+              {
+                paddingRight: multiply(sub(1, percentOpen), 100),
+              },
+              styles.animatedView,
+            ]}>
+            <Pressable style={styles.deleteButton}>
+              <Text style={styles.deleteText}>{'Delete'}</Text>
             </Pressable>
           </Animated.View>
         );
       }}
       snapPointsLeft={[100]}
-      renderUnderlayRight={({ percentOpen }) => {
-        return (
-          <Animated.View
-            style={{
-              flex: 1,
-              backgroundColor: 'green',
-              paddingLeft: multiply(sub(1, percentOpen), 100),
-            }}>
-            <Pressable
-              style={{
-                backgroundColor: 'green',
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'flex-start',
-                marginLeft: '7%',
-              }}>
-              <Text style={{ color: '#fff' }}>Red</Text>
-            </Pressable>
-          </Animated.View>
-        );
-      }}
-      snapPointsRight={[100]}
-      renderOverlay={(props) =>
+      renderOverlay={props =>
         renderOverlay(props, { categoryItem, drag, isActive })
       }
     />
@@ -122,3 +81,25 @@ const RenderItem = ({ categoryItem, drag, isActive, itemRefs }: RenderItem) => {
 };
 
 export default RenderItem;
+
+const styles = StyleSheet.create({
+  animatedView: { flex: 1, backgroundColor: 'red' },
+  deleteButton: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+    marginRight: '7%',
+  },
+  deleteText: { color: '#fff', fontWeight: '700' },
+  itemWrap: {
+    flex: 1,
+    alignItems: 'center',
+    flexDirection: 'row',
+    paddingVertical: 10,
+    paddingLeft: 15,
+  },
+  text: {
+    fontWeight: '700',
+    marginLeft: 10,
+  },
+});
