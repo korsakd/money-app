@@ -9,19 +9,24 @@ import { getCurrentTheme } from '../Theme';
 import HomeScreen from '../Home';
 import SettingsScreen from '../Settings';
 import LoginScreen from '../Settings/Login';
-import { connect, ConnectedProps } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../store';
 import { UserReducerType } from '../store/user';
 import Income from '../Category/Income';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Costs from '../Category/Costs';
-import { Dimensions, Pressable, Text, View } from 'react-native';
 import NewCategory from '../Screens/NewCategory';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export type RootStackParamList = {
   HomeStack: undefined;
   CategoryStack: undefined;
   SettingsStack: UserReducerType;
+};
+
+export type MainStackParamList = {
+  Tab: undefined;
+  NewCategory: { from: string };
 };
 
 export type HomeStackParamList = {
@@ -35,7 +40,6 @@ export type CategoryTopTabParamList = {
 
 export type CategoryStackParamList = {
   Category: undefined;
-  NewCategory: { from: string };
 };
 
 export type SettingsStackParamList = {
@@ -43,16 +47,60 @@ export type SettingsStackParamList = {
   Login: undefined;
 };
 
-type TabNavigatorType = ConnectedProps<typeof connector>;
 type SettingsScreenStack = {
   route: RouteProp<RootStackParamList, 'SettingsStack'>;
 };
 
+const MainStack = createStackNavigator<MainStackParamList>();
 const Tab = createBottomTabNavigator<RootStackParamList>();
 const CategoryTopTab = createMaterialTopTabNavigator<CategoryTopTabParamList>();
 const HomeStack = createStackNavigator<HomeStackParamList>();
 const CategoryStack = createStackNavigator<CategoryStackParamList>();
 const SettingStack = createStackNavigator<SettingsStackParamList>();
+
+const TabNavigator = () => {
+  const scheme = useColorScheme();
+  const { colors } = getCurrentTheme(scheme);
+  const { user } = useSelector((state: RootState) => state);
+  return (
+    <Tab.Navigator
+      screenOptions={{
+        tabBarActiveTintColor: colors.primary,
+        tabBarInactiveTintColor: colors.border,
+        tabBarShowLabel: false,
+        headerShown: false,
+      }}>
+      <Tab.Screen
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Icon name="home" color={color} size={26} />
+          ),
+        }}
+        name="HomeStack"
+        component={HomeScreenStack}
+      />
+      <Tab.Screen
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Icon name="playlist-plus" color={color} size={26} />
+          ),
+        }}
+        name="CategoryStack"
+        component={CategoryScreenStack}
+      />
+      <Tab.Screen
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Icons name="settings" color={color} size={26} />
+          ),
+        }}
+        name="SettingsStack"
+        component={SettingsScreenStack}
+        initialParams={user}
+      />
+    </Tab.Navigator>
+  );
+};
 
 const HomeScreenStack = () => {
   return (
@@ -63,12 +111,20 @@ const HomeScreenStack = () => {
 };
 
 const CategoryTopTabScreen = () => {
+  const scheme = useColorScheme();
+  const { colors } = getCurrentTheme(scheme);
   return (
-    <CategoryTopTab.Navigator
-      screenOptions={{ tabBarLabelStyle: { fontSize: 14, fontWeight: '600' } }}>
-      <CategoryTopTab.Screen name="Income" component={Income} />
-      <CategoryTopTab.Screen name="Costs" component={Costs} />
-    </CategoryTopTab.Navigator>
+    <SafeAreaView
+      edges={['top']}
+      style={{ flex: 1, backgroundColor: colors.card }}>
+      <CategoryTopTab.Navigator
+        screenOptions={{
+          tabBarLabelStyle: { fontSize: 14, fontWeight: '600' },
+        }}>
+        <CategoryTopTab.Screen name="Income" component={Income} />
+        <CategoryTopTab.Screen name="Costs" component={Costs} />
+      </CategoryTopTab.Navigator>
+    </SafeAreaView>
   );
 };
 
@@ -76,9 +132,6 @@ const CategoryScreenStack = () => {
   return (
     <CategoryStack.Navigator screenOptions={{ headerShown: false }}>
       <CategoryStack.Screen name="Category" component={CategoryTopTabScreen} />
-      <CategoryStack.Group screenOptions={{ presentation: 'modal' }}>
-        <CategoryStack.Screen name="NewCategory" component={NewCategory} />
-      </CategoryStack.Group>
     </CategoryStack.Navigator>
   );
 };
@@ -94,83 +147,18 @@ const SettingsScreenStack = ({ route }: SettingsScreenStack) => {
   );
 };
 
-const TabNavigator = ({ user }: TabNavigatorType) => {
+const Navigator = () => {
   const scheme = useColorScheme();
-  const { colors } = getCurrentTheme(scheme);
   return (
-    <>
-      <NavigationContainer theme={getCurrentTheme(scheme)}>
-        <Tab.Navigator
-          screenOptions={{
-            tabBarActiveTintColor: colors.primary,
-            tabBarInactiveTintColor: colors.border,
-            tabBarShowLabel: false,
-            headerShown: false,
-          }}>
-          <Tab.Screen
-            options={{
-              tabBarIcon: ({ color }) => (
-                <Icon name="home" color={color} size={26} />
-              ),
-            }}
-            name="HomeStack"
-            component={HomeScreenStack}
-          />
-          <Tab.Screen
-            options={{
-              tabBarIcon: ({ color }) => (
-                <Icon name="playlist-plus" color={color} size={26} />
-              ),
-            }}
-            name="CategoryStack"
-            component={CategoryScreenStack}
-          />
-          <Tab.Screen
-            options={{
-              tabBarIcon: ({ color }) => (
-                <Icons name="settings" color={color} size={26} />
-              ),
-            }}
-            name="SettingsStack"
-            component={SettingsScreenStack}
-            initialParams={user}
-          />
-        </Tab.Navigator>
-      </NavigationContainer>
-      {/* <View
-        style={{
-          position: 'absolute',
-          bottom: 50,
-          left: Dimensions.get('window').width / 2 - 35,
-          backgroundColor: colors.background,
-          width: 70,
-          height: 70,
-          alignItems: 'center',
-          justifyContent: 'center',
-          borderRadius: 35,
-        }}>
-        <Pressable
-          style={{
-            width: 60,
-            height: 60,
-
-            backgroundColor: 'tomato',
-            borderRadius: 30,
-
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <Text style={{ fontSize: 30 }}>+</Text>
-        </Pressable>
-      </View> */}
-    </>
+    <NavigationContainer theme={getCurrentTheme(scheme)}>
+      <MainStack.Navigator screenOptions={{ headerShown: false }}>
+        <MainStack.Screen name="Tab" component={TabNavigator} />
+        <MainStack.Group screenOptions={{ presentation: 'modal' }}>
+          <MainStack.Screen name="NewCategory" component={NewCategory} />
+        </MainStack.Group>
+      </MainStack.Navigator>
+    </NavigationContainer>
   );
 };
 
-const mapStateToProps = (state: RootState) => ({
-  user: state.user,
-});
-
-const connector = connect(mapStateToProps);
-
-export default connector(TabNavigator);
+export default Navigator;
