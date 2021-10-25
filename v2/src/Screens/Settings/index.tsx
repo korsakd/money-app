@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Pressable } from 'react-native';
 import { useColorScheme } from 'react-native-appearance';
 import { useNavigation } from '@react-navigation/native';
-import { getCurrentTheme } from '../Theme';
+import { getCurrentTheme } from '../../Theme';
 
 const SettingsScreen = () => {
   const navigation = useNavigation();

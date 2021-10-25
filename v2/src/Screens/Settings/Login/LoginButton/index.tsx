@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { WHITE } from '../../../Constants';
+import { WHITE } from '../../../../Constants';
 import styles from './styles';
 
 type ButtonType = {

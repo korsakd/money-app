@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, Pressable } from 'react-native';
 import LoginInput from './LoginInput';
 import { useColorScheme } from 'react-native-appearance';
-import { FACEBOOK, GOOGLE, TWITTER } from '../../Constants';
-import { getCurrentTheme } from '../../Theme';
+import { FACEBOOK, GOOGLE, TWITTER } from '../../../Constants';
+import { getCurrentTheme } from '../../../Theme';
 import LoginButton from './LoginButton';
 import styles from './styles';
 
@@ -56,20 +56,20 @@ const LoginScreen = () => {
           </Pressable>
         </View>
       </View>
-      <View
+      {/* <View
         style={{
           width: '80%',
           flexDirection: 'row',
           justifyContent: 'space-between',
         }}>
-        {buttonArray.map((button) => {
+        {buttonArray.map(button => {
           return (
             <View key={button.color}>
               <LoginButton button={button} />
             </View>
           );
         })}
-      </View>
+      </View> */}
     </View>
   );
 };
