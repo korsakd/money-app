@@ -8,7 +8,7 @@ import { NavigationContainer, RouteProp } from '@react-navigation/native';
 import { getCurrentTheme } from '../Theme';
 import HomeScreen from '../Screens/Home';
 import SettingsScreen from '../Screens/Settings';
-import LoginScreen from '../Screens/Settings/Login';
+import LoginScreen from '../Screens/Login';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
 import { UserReducerType } from '../store/user';
@@ -18,6 +18,7 @@ import Costs from '../Category/Costs';
 import NewCategory from '../Screens/NewCategory';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CategoryType } from '../store/category';
+import SignUp from '../Screens/SignUp';
 
 export type RootStackParamList = {
   HomeStack: undefined;
@@ -28,6 +29,7 @@ export type RootStackParamList = {
 export type MainStackParamList = {
   Tab: undefined;
   NewCategory: { from: string; item?: CategoryType };
+  SignUp: undefined;
 };
 
 export type HomeStackParamList = {
@@ -156,6 +158,7 @@ const Navigator = () => {
         <MainStack.Screen name="Tab" component={TabNavigator} />
         <MainStack.Group screenOptions={{ presentation: 'modal' }}>
           <MainStack.Screen name="NewCategory" component={NewCategory} />
+          <MainStack.Screen name="SignUp" component={SignUp} />
         </MainStack.Group>
       </MainStack.Navigator>
     </NavigationContainer>

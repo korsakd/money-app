@@ -10,8 +10,8 @@ import Animated, {
   useCode,
 } from 'react-native-reanimated';
 import { timing, useClock, useValue } from 'react-native-redash';
-import { getCurrentTheme } from '../../../../Theme';
-import { regexpEmail } from '../../../../utils/regExp';
+import { getCurrentTheme } from '../../Theme';
+import { regexpEmail } from '../../utils/regExp';
 import styles from './styles';
 
 type LoginInputType = {
