@@ -1,26 +1,46 @@
+import { NavigationProp, useNavigation } from '@react-navigation/core';
 import React from 'react';
 import { Text, Pressable, TouchableOpacity, StyleSheet } from 'react-native';
 import { useColorScheme } from 'react-native-appearance';
 import Animated, { multiply, sub } from 'react-native-reanimated';
 import SwipeableItem from 'react-native-swipeable-item';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useDispatch } from 'react-redux';
 import IconItem from '../Components/IconItem';
+import { MainStackParamList } from '../Navigation';
 import { CategoryType } from '../store/category';
+import { deleteCategoryThunk } from '../store/Thunks/categoryThunk';
 import { getCurrentTheme } from '../Theme';
 
 type RenderItem = {
   categoryItem: CategoryType;
+  type: string;
   drag: () => void;
   isActive: boolean;
   itemRefs: any;
 };
 
-const RenderItem = ({ categoryItem, drag, isActive, itemRefs }: RenderItem) => {
+const RenderItem = ({
+  categoryItem,
+  type,
+  drag,
+  isActive,
+  itemRefs,
+}: RenderItem) => {
   const scheme = useColorScheme();
   const { colors } = getCurrentTheme(scheme);
+  const { navigate } = useNavigation<NavigationProp<MainStackParamList>>();
+  const dispatch = useDispatch();
+
+  const onDeletePress = () => {
+    dispatch(deleteCategoryThunk(categoryItem.id, type));
+  };
+
   const renderOverlay = (params, { categoryItem, drag, isActive }) => {
     return (
       <TouchableOpacity
+        onPress={() => {
+          navigate('NewCategory', { from: type, item: categoryItem });
+        }}
         onLongPress={drag}
         activeOpacity={1}
         style={[
@@ -66,7 +86,7 @@ const RenderItem = ({ categoryItem, drag, isActive, itemRefs }: RenderItem) => {
               },
               styles.animatedView,
             ]}>
-            <Pressable style={styles.deleteButton}>
+            <Pressable style={styles.deleteButton} onPress={onDeletePress}>
               <Text style={styles.deleteText}>{'Delete'}</Text>
             </Pressable>
           </Animated.View>

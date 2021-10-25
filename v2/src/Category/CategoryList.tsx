@@ -39,6 +39,7 @@ const CategoryList = ({ categoryList, type }: CategoryListType) => {
         }: RenderItemParams<CategoryType>) => (
           <RenderItem
             categoryItem={item}
+            type={type}
             drag={drag}
             isActive={isActive}
             itemRefs={itemRefs}
