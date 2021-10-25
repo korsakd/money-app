@@ -17,6 +17,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import Costs from '../Category/Costs';
 import NewCategory from '../Screens/NewCategory';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { CategoryType } from '../store/category';
 
 export type RootStackParamList = {
   HomeStack: undefined;
@@ -26,7 +27,7 @@ export type RootStackParamList = {
 
 export type MainStackParamList = {
   Tab: undefined;
-  NewCategory: { from: string };
+  NewCategory: { from: string; item?: CategoryType };
 };
 
 export type HomeStackParamList = {

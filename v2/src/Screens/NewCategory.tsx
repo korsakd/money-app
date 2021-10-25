@@ -1,11 +1,17 @@
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/core';
 import React, { useState } from 'react';
 import { View, Text, ScrollView, StyleSheet, Pressable } from 'react-native';
 import { useColorScheme } from 'react-native-appearance';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import IconItem from '../Components/IconItem';
 import NewCategoryInput from '../Components/NewCategoryInput';
+import { MainStackParamList } from '../Navigation';
 import { RootState } from '../store';
+import {
+  addCategoryThunk,
+  editCategoryThunk,
+} from '../store/Thunks/categoryThunk';
 import { getCurrentTheme } from '../Theme';
 
 const NewCategory = () => {
@@ -14,13 +20,37 @@ const NewCategory = () => {
   } = useSelector((state: RootState) => state);
   const scheme = useColorScheme();
   const { colors } = getCurrentTheme(scheme);
-  const [chosenIcon, setChoseIcon] = useState(categoriesIcon.Food[0]);
-  const [text, setText] = useState('');
+  const {
+    params: { from, item },
+  } = useRoute<RouteProp<MainStackParamList, 'NewCategory'>>();
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const [chosenIcon, setChoseIcon] = useState(
+    item?.iconName || categoriesIcon.Food[0],
+  );
+  const [text, setText] = useState(item?.name || '');
   const { bottom } = useSafeAreaInsets();
+
+  const onDonePress = () => {
+    if (item?.id) {
+      dispatch(editCategoryThunk(item.id, from, text, chosenIcon));
+    } else {
+      dispatch(addCategoryThunk(from, text, chosenIcon));
+    }
+    navigation.pop();
+  };
 
   return (
     <View style={styles.mainContainer}>
-      <NewCategoryInput text={text} chosenIcon={chosenIcon} setText={setText} />
+      <View style={styles.plankWrap}>
+        <View style={[styles.plank, { backgroundColor: colors.text }]} />
+      </View>
+      <NewCategoryInput
+        text={text}
+        chosenIcon={chosenIcon}
+        setText={setText}
+        onDonePress={onDonePress}
+      />
       <ScrollView contentContainerStyle={{ paddingBottom: bottom }}>
         {Object.entries(categoriesIcon).map(([key, value]) => {
           return (
@@ -55,6 +85,17 @@ export default NewCategory;
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
+  },
+  plankWrap: {
+    width: '100%',
+    height: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  plank: {
+    width: '10%',
+    height: 5,
+    borderRadius: 3,
   },
   textWrap: {
     fontSize: 15,

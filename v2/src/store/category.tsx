@@ -249,6 +249,35 @@ const initialState: CategoryReducerType = {
 
 class CategoryReducer extends ImmerReducer<CategoryReducerType> {
   state = this.draftState;
+  addNewCategory(type: string, data: CategoryType) {
+    if (type === 'income') {
+      this.state.income.push(data);
+    } else {
+      this.state.costs.push(data);
+    }
+  }
+
+  editCategory(type: string, index: number, data: CategoryType) {
+    if (type === 'income') {
+      this.state.income[index] = data;
+    } else {
+      this.state.costs[index] = data;
+    }
+  }
+
+  deleteCategory(id: string, type: string) {
+    if (type === 'income') {
+      const index = this.state.income.findIndex(i => i.id === id);
+      if (index !== -1) {
+        this.state.income.splice(index, 1);
+      }
+    } else {
+      const index = this.state.costs.findIndex(i => i.id === id);
+      if (index !== -1) {
+        this.state.costs.splice(index, 1);
+      }
+    }
+  }
 }
 
 export const categoryActions = createActionCreators(CategoryReducer);
