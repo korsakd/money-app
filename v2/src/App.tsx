@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
-import { SafeAreaView, StatusBar } from 'react-native';
+import { StatusBar } from 'react-native';
 import { Provider } from 'react-redux';
 import { AppearanceProvider, useColorScheme } from 'react-native-appearance';
-import TabNavigator from './Navigation';
 import configureStore from './store';
 import { getCurrentTheme } from './Theme';
-import Amplify, { Auth } from 'aws-amplify';
+import Amplify, { Auth, API, graphqlOperation } from 'aws-amplify';
 import awsconfig from './aws-exports';
 import Navigator from './Navigation';
 import { Hub, Logger } from 'aws-amplify';
+import { getUser } from './graphql/queries';
+import { createUser } from './graphql/mutations';
 
 Amplify.configure(awsconfig);
 Auth.configure(awsconfig);
@@ -17,27 +18,32 @@ export const { store } = configureStore();
 
 const App = () => {
   const scheme = useColorScheme();
-  const { colors } = getCurrentTheme(scheme);
 
-  // const listener = data => {
-  //   console.tron({ data });
-  // };
-
-  // useEffect(() => {
-  //   Auth.signOut();
-  // }, []);
-
-  // useEffect(() => {
-  //   Hub.listen('auth', listener);
-  //   Auth.currentAuthenticatedUser({
-  //     bypassCache: true, // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
-  //   })
-  //     .then(user => console.tron({ cred: user }))
-  //     .catch(err => console.tron({ err }));
-  //   return () => {
-  //     Hub.remove('auth', listener);
-  //   };
-  // }, []);
+  useEffect(() => {
+    // const fetchUser = async () => {
+    //   try {
+    //     const userInfo = await Auth.currentAuthenticatedUser({
+    //       bypassCache: true,
+    //     });
+    //     if (userInfo) {
+    //       const userData = await API.graphql(
+    //         graphqlOperation(getUser, { id: userInfo.attributes.sub }),
+    //       );
+    //       if (userData.data.getUser) {
+    //         return;
+    //       }
+    //       const newUser = {
+    //         id: userInfo.attributes.sub,
+    //         name: 'Dima',
+    //       };
+    //       await API.graphql(graphqlOperation(createUser, { input: newUser }));
+    //     }
+    //   } catch (error) {
+    //     console.tron({ error });
+    //   }
+    // };
+    // fetchUser();
+  }, []);
 
   return (
     <AppearanceProvider>
