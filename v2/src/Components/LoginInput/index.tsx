@@ -32,7 +32,7 @@ const LoginInput = ({ title, value, setValue }: LoginInputType) => {
   };
   const handleBlur = () => {
     if (value) {
-      if (title === 'email' && !regexpEmail.test(value)) {
+      if (title === 'Email' && !regexpEmail.test(value)) {
         // setError('incorrectly-email');
       }
     } else if (!value) {
@@ -109,6 +109,9 @@ const LoginInput = ({ title, value, setValue }: LoginInputType) => {
         onFocus={handleFocus}
         onBlur={handleBlur}
         blurOnSubmit
+        autoCapitalize={'none'}
+        keyboardType={title === 'Email' ? 'email-address' : 'default'}
+        secureTextEntry={title === 'Password'}
       />
     </View>
   );

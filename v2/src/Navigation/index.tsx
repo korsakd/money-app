@@ -139,13 +139,17 @@ const CategoryScreenStack = () => {
   );
 };
 
-const SettingsScreenStack = ({ route }: SettingsScreenStack) => {
+const SettingsScreenStack = () => {
+  const {
+    user: { userId },
+  } = useSelector((state: RootState) => state);
   return (
-    <SettingStack.Navigator
-      screenOptions={{ headerShown: false }}
-      initialRouteName={route.params.user ? 'Settings' : 'Login'}>
-      <SettingStack.Screen name="Settings" component={SettingsScreen} />
-      <SettingStack.Screen name="Login" component={LoginScreen} />
+    <SettingStack.Navigator screenOptions={{ headerShown: false }}>
+      {userId ? (
+        <SettingStack.Screen name="Settings" component={SettingsScreen} />
+      ) : (
+        <SettingStack.Screen name="Login" component={LoginScreen} />
+      )}
     </SettingStack.Navigator>
   );
 };

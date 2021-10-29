@@ -7,6 +7,9 @@ import { getCurrentTheme } from '../Theme';
 import LoginButton from '../Components/LoginButton';
 import { NavigationProp, useNavigation } from '@react-navigation/core';
 import { MainStackParamList } from '../Navigation';
+import { Auth } from 'aws-amplify';
+import { useDispatch } from 'react-redux';
+import { signInWithEmailAndPassword } from '../store/Thunks/loginThunks';
 
 const LoginScreen = () => {
   const scheme = useColorScheme();
@@ -14,6 +17,7 @@ const LoginScreen = () => {
   const { navigate } = useNavigation<NavigationProp<MainStackParamList>>();
   const [text, setText] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
 
   const buttonArray = [
     {
@@ -36,17 +40,21 @@ const LoginScreen = () => {
     },
   ];
 
+  const signIn = async () => {
+    dispatch(signInWithEmailAndPassword(text, password));
+  };
+
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <View style={styles.textInputContainer}>
-        <LoginInput title={'Login'} value={text} setValue={setText} />
+        <LoginInput title={'Email'} value={text} setValue={setText} />
         <LoginInput
           title={'Password'}
           value={password}
           setValue={setPassword}
         />
         <View style={styles.buttonContainer}>
-          <Pressable style={styles.button}>
+          <Pressable style={styles.button} onPress={signIn}>
             <Text style={[styles.buttonText, { color: colors.text }]}>
               SIGN IN
             </Text>

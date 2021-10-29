@@ -5,17 +5,19 @@ import {
 } from 'immer-reducer';
 
 export type UserReducerType = {
-  user: any;
   userId: string | null;
 };
 
 const initialState: UserReducerType = {
-  user: null,
   userId: null,
 };
 
 class UserReducer extends ImmerReducer<UserReducerType> {
   state = this.draftState;
+
+  setUser(userId: string | null) {
+    this.state.userId = userId;
+  }
 }
 
 export const userActions = createActionCreators(UserReducer);

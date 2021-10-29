@@ -19,38 +19,25 @@ const App = () => {
   const scheme = useColorScheme();
   const { colors } = getCurrentTheme(scheme);
 
-  const listener = data => {
-    console.tron({ data });
-    // switch (data.payload.event) {
-    //   case 'signIn':
-    //     logger.info('user signed in');
-    //     break;
-    //   case 'signUp':
-    //     logger.info('user signed up');
-    //     break;
-    //   case 'signOut':
-    //     logger.info('user signed out');
-    //     break;
-    //   case 'signIn_failure':
-    //     logger.error('user sign in failed');
-    //     break;
-    //   case 'tokenRefresh':
-    //     logger.info('token refresh succeeded');
-    //     break;
-    //   case 'tokenRefresh_failure':
-    //     logger.error('token refresh failed');
-    //     break;
-    //   case 'configured':
-    //     logger.info('the Auth module is configured');
-    // }
-  };
+  // const listener = data => {
+  //   console.tron({ data });
+  // };
 
-  useEffect(() => {
-    Hub.listen('auth', listener);
-    return () => {
-      Hub.remove('auth', listener);
-    };
-  }, []);
+  // useEffect(() => {
+  //   Auth.signOut();
+  // }, []);
+
+  // useEffect(() => {
+  //   Hub.listen('auth', listener);
+  //   Auth.currentAuthenticatedUser({
+  //     bypassCache: true, // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
+  //   })
+  //     .then(user => console.tron({ cred: user }))
+  //     .catch(err => console.tron({ err }));
+  //   return () => {
+  //     Hub.remove('auth', listener);
+  //   };
+  // }, []);
 
   return (
     <AppearanceProvider>

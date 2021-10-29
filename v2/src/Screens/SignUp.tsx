@@ -9,27 +9,34 @@ const SignUp = () => {
   const { width } = useWindowDimensions();
   const flatListRef = useRef<FlatList | null>(null);
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const renderItem = ({ item }: { item: number }) => {
     if (item === 1) {
       return (
         <FirstStep
           email={email}
+          password={password}
           width={width}
           flatListRef={flatListRef}
           setEmail={setEmail}
+          setPassword={setPassword}
         />
       );
     } else if (item === 2) {
       return (
-        <SecondStep email={email} width={width} flatListRef={flatListRef} />
+        <SecondStep
+          email={email}
+          password={password}
+          width={width}
+          flatListRef={flatListRef}
+        />
       );
     }
     return <ThirdStep width={width} flatListRef={flatListRef} />;
   };
   return (
     <FlatList
-      initialScrollIndex={1}
       ref={ref => (flatListRef.current = ref)}
       data={steps}
       renderItem={renderItem}
