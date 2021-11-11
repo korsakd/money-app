@@ -21,8 +21,8 @@ const initialState: UserReducerType = {
 class UserReducer extends ImmerReducer<UserReducerType> {
   state = this.draftState;
 
-  setUser(user: UserReducerType) {
-    this.state = user;
+  setUserID(user: string | null) {
+    this.state.userId = user;
   }
 }
 

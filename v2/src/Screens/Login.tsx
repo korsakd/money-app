@@ -2,12 +2,9 @@ import React, { useState } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 import LoginInput from '../Components/LoginInput';
 import { useColorScheme } from 'react-native-appearance';
-import { FACEBOOK, GOOGLE, TWITTER } from '../Constants';
 import { getCurrentTheme } from '../Theme';
-import LoginButton from '../Components/LoginButton';
 import { NavigationProp, useNavigation } from '@react-navigation/core';
 import { MainStackParamList } from '../Navigation';
-import { Auth } from 'aws-amplify';
 import { useDispatch } from 'react-redux';
 import { signInWithEmailAndPassword } from '../store/Thunks/loginThunks';
 
@@ -18,27 +15,6 @@ const LoginScreen = () => {
   const [text, setText] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
-
-  const buttonArray = [
-    {
-      // label: 'Facebook',
-      iconName: 'facebook',
-      color: FACEBOOK,
-      onPress: () => {},
-    },
-    {
-      // label: 'Google',
-      iconName: 'google',
-      color: GOOGLE,
-      onPress: () => {},
-    },
-    {
-      // label: 'Twitter',
-      iconName: 'twitter',
-      color: TWITTER,
-      onPress: () => {},
-    },
-  ];
 
   const signIn = async () => {
     dispatch(signInWithEmailAndPassword(text, password));
@@ -70,20 +46,6 @@ const LoginScreen = () => {
           </Pressable>
         </View>
       </View>
-      {/* <View
-        style={{
-          width: '80%',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-        }}>
-        {buttonArray.map(button => {
-          return (
-            <View key={button.color}>
-              <LoginButton button={button} />
-            </View>
-          );
-        })}
-      </View> */}
     </View>
   );
 };
