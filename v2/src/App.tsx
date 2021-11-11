@@ -43,6 +43,7 @@ const App = () => {
     //   }
     // };
     // fetchUser();
+    // Auth.signOut();
   }, []);
 
   return (

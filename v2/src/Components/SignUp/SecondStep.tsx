@@ -6,13 +6,13 @@ import {
   FlatList,
   TextInput,
   StyleSheet,
-  ActivityIndicator,
 } from 'react-native';
 import { useColorScheme } from 'react-native-appearance';
 import { getCurrentTheme } from '../../Theme';
 import { Auth } from 'aws-amplify';
 import { useDispatch } from 'react-redux';
 import { signInWithEmailAndPassword } from '../../store/Thunks/loginThunks';
+import NextButtonWithLoader from './NextButtonWithLoader';
 
 type FirstStepType = {
   email: string;
@@ -106,15 +106,11 @@ const SecondStep = ({ email, password, width, flatListRef }: FirstStepType) => {
           </View>
         )}
       </Pressable>
-      {isLoading ? (
-        <View style={styles.btnWrap}>
-          <ActivityIndicator color={'#fff'} />
-        </View>
-      ) : (
-        <Pressable onPress={confirmSignUp} style={styles.btnWrap}>
-          <Text style={styles.btnText}>{'Next'}</Text>
-        </Pressable>
-      )}
+      <NextButtonWithLoader
+        title={'Next'}
+        onPress={confirmSignUp}
+        isLoading={isLoading}
+      />
     </View>
   );
 };

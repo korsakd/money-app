@@ -10,7 +10,7 @@ export const signInWithEmailAndPassword = (
   try {
     const user = await Auth.signIn(email, password);
     // const userID = await AsyncStorage.setItem('userID');
-    dispatch(userActions.setUser(user.attributes.sub));
+    // dispatch(userActions.setUser(user.attributes.sub));
   } catch (err) {
     throw err;
   }

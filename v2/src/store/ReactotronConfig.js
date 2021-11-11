@@ -1,9 +1,9 @@
-import AsyncStorage from '@react-native-community/async-storage';
 import Reactotron, { trackGlobalErrors } from 'reactotron-react-native';
 import { reactotronRedux } from 'reactotron-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 console.tron = Reactotron.logImportant;
-//AsyncStorage.clear();
+
 const reactotron = Reactotron.setAsyncStorageHandler(AsyncStorage)
   .configure({ name: 'MoneyApp' })
   .useReactNative()

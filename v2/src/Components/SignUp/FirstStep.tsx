@@ -1,17 +1,10 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  Pressable,
-  FlatList,
-  TextInput,
-  StyleSheet,
-  ActivityIndicator,
-} from 'react-native';
+import { View, Text, FlatList, TextInput, StyleSheet } from 'react-native';
 import { useColorScheme } from 'react-native-appearance';
 import { getCurrentTheme } from '../../Theme';
 import { Auth } from 'aws-amplify';
 import { validation } from '../../utils/validation';
+import NextButtonWithLoader from './NextButtonWithLoader';
 
 type FirstStepType = {
   email: string;
@@ -100,15 +93,11 @@ const FirstStep = ({
           autoCapitalize={'none'}
         />
       </View>
-      {isLoading ? (
-        <View style={styles.btnWrap}>
-          <ActivityIndicator color={'#fff'} />
-        </View>
-      ) : (
-        <Pressable onPress={onNextPress} style={styles.btnWrap}>
-          <Text style={styles.btnText}>{'Next'}</Text>
-        </Pressable>
-      )}
+      <NextButtonWithLoader
+        title={'Next'}
+        onPress={signUp}
+        isLoading={isLoading}
+      />
     </View>
   );
 };

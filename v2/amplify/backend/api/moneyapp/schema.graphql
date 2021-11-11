@@ -1,6 +1,22 @@
-type User @model @auth(rules: [{allow: public}]) {
+type User @model @auth(rules: [{ allow: public }]) {
   id: ID!
-  name: String!
+  firstName: String!
+  secondName: String!
   imageUri: String
+  income: [Income] @connection(keyName: "byUser", fields: ["id"])
+  costs: [Costs] @connection(keyName: "byUser", fields: ["id"])
 }
- 
+
+type Income @model(queries: null) @key(name: "byUser", fields: ["userID"]) {
+  iconName: String!
+  name: String!
+  id: ID!
+  userID: ID!
+}
+
+type Costs @model(queries: null) @key(name: "byUser", fields: ["userID"]) {
+  iconName: String!
+  name: String!
+  id: ID!
+  userID: ID!
+}

@@ -2,12 +2,101 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const syncIncomes = /* GraphQL */ `
+  query SyncIncomes(
+    $filter: ModelIncomeFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncIncomes(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        iconName
+        name
+        id
+        userID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncCosts = /* GraphQL */ `
+  query SyncCosts(
+    $filter: ModelCostsFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncCosts(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        iconName
+        name
+        id
+        userID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
 export const getUser = /* GraphQL */ `
   query GetUser($id: ID!) {
     getUser(id: $id) {
       id
-      name
+      firstName
+      secondName
       imageUri
+      income {
+        items {
+          iconName
+          name
+          id
+          userID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+      costs {
+        items {
+          iconName
+          name
+          id
+          userID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
       _version
       _deleted
       _lastChangedAt
@@ -25,8 +114,17 @@ export const listUsers = /* GraphQL */ `
     listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        name
+        firstName
+        secondName
         imageUri
+        income {
+          nextToken
+          startedAt
+        }
+        costs {
+          nextToken
+          startedAt
+        }
         _version
         _deleted
         _lastChangedAt
@@ -53,8 +151,17 @@ export const syncUsers = /* GraphQL */ `
     ) {
       items {
         id
-        name
+        firstName
+        secondName
         imageUri
+        income {
+          nextToken
+          startedAt
+        }
+        costs {
+          nextToken
+          startedAt
+        }
         _version
         _deleted
         _lastChangedAt

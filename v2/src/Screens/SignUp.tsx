@@ -33,7 +33,7 @@ const SignUp = () => {
         />
       );
     }
-    return <ThirdStep width={width} flatListRef={flatListRef} />;
+    return <ThirdStep width={width} />;
   };
   return (
     <FlatList

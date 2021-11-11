@@ -6,17 +6,23 @@ import {
 
 export type UserReducerType = {
   userId: string | null;
+  firstName: string;
+  secondName: string;
+  imageUri: string | null;
 };
 
 const initialState: UserReducerType = {
   userId: null,
+  firstName: '',
+  secondName: '',
+  imageUri: null,
 };
 
 class UserReducer extends ImmerReducer<UserReducerType> {
   state = this.draftState;
 
-  setUser(userId: string | null) {
-    this.state.userId = userId;
+  setUser(user: UserReducerType) {
+    this.state = user;
   }
 }
 
