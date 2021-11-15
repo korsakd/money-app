@@ -1,22 +1,28 @@
-type User @model @auth(rules: [{ allow: public }]) {
+type User @model {
   id: ID!
   firstName: String!
   secondName: String!
   imageUri: String
-  income: [Income] @connection(keyName: "byUser", fields: ["id"])
-  costs: [Costs] @connection(keyName: "byUser", fields: ["id"])
+  categories: [Categories] @connection(keyName: "byUser", fields: ["id"])
 }
 
-type Income @model(queries: null) @key(name: "byUser", fields: ["userID"]) {
+type Categories @model @key(name: "byUser", fields: ["userID", "type"]) {
   iconName: String!
   name: String!
   id: ID!
+  type: String!
   userID: ID!
 }
 
-type Costs @model(queries: null) @key(name: "byUser", fields: ["userID"]) {
+input createCategoriesInput {
   iconName: String!
   name: String!
   id: ID!
+  type: String!
   userID: ID!
+}
+
+type Mutation {
+  # createCategories(input: createCategoriesInput!): Categories
+  batchCreateCategories(categories: [createCategoriesInput]!): [Categories]
 }
