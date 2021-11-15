@@ -6,7 +6,10 @@ export const addCategoryThunk = (
   type: string,
   name: string,
   iconName: string,
-): AppThunk => async (dispatch, _) => {
+): AppThunk => async (dispatch, getState) => {
+  const {
+    user: { userID },
+  } = getState();
   const data = { name, iconName, id: uuid4() };
   dispatch(categoryActions.addNewCategory(type, data));
 };

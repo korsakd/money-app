@@ -141,11 +141,11 @@ const CategoryScreenStack = () => {
 
 const SettingsScreenStack = () => {
   const {
-    user: { userId },
+    user: { userID },
   } = useSelector((state: RootState) => state);
   return (
     <SettingStack.Navigator screenOptions={{ headerShown: false }}>
-      {userId ? (
+      {userID ? (
         <SettingStack.Screen name="Settings" component={SettingsScreen} />
       ) : (
         <SettingStack.Screen name="Login" component={LoginScreen} />

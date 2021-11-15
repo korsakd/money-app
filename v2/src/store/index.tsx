@@ -12,7 +12,6 @@ import Reactotron from './ReactotronConfig';
 import thunk from 'redux-thunk';
 import { categoryReducer, CategoryReducerType } from './category';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 
 export type RootState = {
   user: UserReducerType;
@@ -34,6 +33,7 @@ const userPersistConfig = {
 const categoryPersistConfig = {
   key: 'category',
   storage: AsyncStorage,
+  blackList: ['categoriesIcon'],
 };
 
 // TODO: types for combineReducers

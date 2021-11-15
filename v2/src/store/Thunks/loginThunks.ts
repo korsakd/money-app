@@ -1,24 +1,32 @@
 import { AppThunk } from '..';
-import { Auth } from 'aws-amplify';
 import { userActions } from '../user';
+import { batch } from 'react-redux';
+import { categoryActions } from '../category';
 
 export const signInWithEmailAndPassword = (
   email: string,
   password: string,
+  signIn: boolean = true,
 ): AppThunk => async (dispatch, _) => {
   try {
-    const user = await Auth.signIn(email, password);
-    dispatch(userActions.setUserID(user.attributes.sub));
   } catch (err) {
     throw err;
   }
 };
 
-export const signOut = (): AppThunk => async (dispatch, _) => {
+export const signOut = (): AppThunk => async dispatch => {
   try {
-    await Auth.signOut();
-    dispatch(userActions.setUserID(null));
+    batch(() => {
+      dispatch(userActions.resetUser());
+      dispatch(categoryActions.resetCategory());
+    });
   } catch (err) {
     throw err;
   }
+};
+
+export const initDB = (userID: string): AppThunk => async (_, getState) => {
+  const {
+    category: { income, costs },
+  } = getState();
 };

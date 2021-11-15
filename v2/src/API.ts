@@ -2,21 +2,39 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreateIncomeInput = {
+export type createCategoriesInput = {
   iconName: string,
   name: string,
-  id?: string | null,
+  id: string,
+  type: string,
   userID: string,
-  _version?: number | null,
 };
 
-export type ModelIncomeConditionInput = {
-  iconName?: ModelStringInput | null,
-  name?: ModelStringInput | null,
-  userID?: ModelIDInput | null,
-  and?: Array< ModelIncomeConditionInput | null > | null,
-  or?: Array< ModelIncomeConditionInput | null > | null,
-  not?: ModelIncomeConditionInput | null,
+export type Categories = {
+  __typename: "Categories",
+  iconName: string,
+  name: string,
+  id: string,
+  type: string,
+  userID: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type CreateUserInput = {
+  id?: string | null,
+  firstName: string,
+  secondName: string,
+  imageUri?: string | null,
+};
+
+export type ModelUserConditionInput = {
+  firstName?: ModelStringInput | null,
+  secondName?: ModelStringInput | null,
+  imageUri?: ModelStringInput | null,
+  and?: Array< ModelUserConditionInput | null > | null,
+  or?: Array< ModelUserConditionInput | null > | null,
+  not?: ModelUserConditionInput | null,
 };
 
 export type ModelStringInput = {
@@ -59,6 +77,52 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
+export type User = {
+  __typename: "User",
+  id: string,
+  firstName: string,
+  secondName: string,
+  imageUri?: string | null,
+  categories?: ModelCategoriesConnection | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type ModelCategoriesConnection = {
+  __typename: "ModelCategoriesConnection",
+  items:  Array<Categories >,
+  nextToken?: string | null,
+};
+
+export type UpdateUserInput = {
+  id: string,
+  firstName?: string | null,
+  secondName?: string | null,
+  imageUri?: string | null,
+};
+
+export type DeleteUserInput = {
+  id: string,
+};
+
+export type CreateCategoriesInput = {
+  iconName: string,
+  name: string,
+  id?: string | null,
+  type: string,
+  userID: string,
+};
+
+export type ModelCategoriesConditionInput = {
+  iconName?: ModelStringInput | null,
+  name?: ModelStringInput | null,
+  type?: ModelStringInput | null,
+  userID?: ModelIDInput | null,
+  and?: Array< ModelCategoriesConditionInput | null > | null,
+  or?: Array< ModelCategoriesConditionInput | null > | null,
+  not?: ModelCategoriesConditionInput | null,
+};
+
 export type ModelIDInput = {
   ne?: string | null,
   eq?: string | null,
@@ -75,152 +139,16 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
-export type Income = {
-  __typename: "Income",
-  iconName: string,
-  name: string,
-  id: string,
-  userID: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type UpdateIncomeInput = {
+export type UpdateCategoriesInput = {
   iconName?: string | null,
   name?: string | null,
   id: string,
+  type?: string | null,
   userID?: string | null,
-  _version?: number | null,
 };
 
-export type DeleteIncomeInput = {
+export type DeleteCategoriesInput = {
   id: string,
-  _version?: number | null,
-};
-
-export type CreateCostsInput = {
-  iconName: string,
-  name: string,
-  id?: string | null,
-  userID: string,
-  _version?: number | null,
-};
-
-export type ModelCostsConditionInput = {
-  iconName?: ModelStringInput | null,
-  name?: ModelStringInput | null,
-  userID?: ModelIDInput | null,
-  and?: Array< ModelCostsConditionInput | null > | null,
-  or?: Array< ModelCostsConditionInput | null > | null,
-  not?: ModelCostsConditionInput | null,
-};
-
-export type Costs = {
-  __typename: "Costs",
-  iconName: string,
-  name: string,
-  id: string,
-  userID: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type UpdateCostsInput = {
-  iconName?: string | null,
-  name?: string | null,
-  id: string,
-  userID?: string | null,
-  _version?: number | null,
-};
-
-export type DeleteCostsInput = {
-  id: string,
-  _version?: number | null,
-};
-
-export type CreateUserInput = {
-  id?: string | null,
-  firstName: string,
-  secondName: string,
-  imageUri?: string | null,
-  _version?: number | null,
-};
-
-export type ModelUserConditionInput = {
-  firstName?: ModelStringInput | null,
-  secondName?: ModelStringInput | null,
-  imageUri?: ModelStringInput | null,
-  and?: Array< ModelUserConditionInput | null > | null,
-  or?: Array< ModelUserConditionInput | null > | null,
-  not?: ModelUserConditionInput | null,
-};
-
-export type User = {
-  __typename: "User",
-  id: string,
-  firstName: string,
-  secondName: string,
-  imageUri?: string | null,
-  income?: ModelIncomeConnection | null,
-  costs?: ModelCostsConnection | null,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type ModelIncomeConnection = {
-  __typename: "ModelIncomeConnection",
-  items:  Array<Income >,
-  nextToken?: string | null,
-  startedAt?: number | null,
-};
-
-export type ModelCostsConnection = {
-  __typename: "ModelCostsConnection",
-  items:  Array<Costs >,
-  nextToken?: string | null,
-  startedAt?: number | null,
-};
-
-export type UpdateUserInput = {
-  id: string,
-  firstName?: string | null,
-  secondName?: string | null,
-  imageUri?: string | null,
-  _version?: number | null,
-};
-
-export type DeleteUserInput = {
-  id: string,
-  _version?: number | null,
-};
-
-export type ModelIncomeFilterInput = {
-  iconName?: ModelStringInput | null,
-  name?: ModelStringInput | null,
-  id?: ModelIDInput | null,
-  userID?: ModelIDInput | null,
-  and?: Array< ModelIncomeFilterInput | null > | null,
-  or?: Array< ModelIncomeFilterInput | null > | null,
-  not?: ModelIncomeFilterInput | null,
-};
-
-export type ModelCostsFilterInput = {
-  iconName?: ModelStringInput | null,
-  name?: ModelStringInput | null,
-  id?: ModelIDInput | null,
-  userID?: ModelIDInput | null,
-  and?: Array< ModelCostsFilterInput | null > | null,
-  or?: Array< ModelCostsFilterInput | null > | null,
-  not?: ModelCostsFilterInput | null,
 };
 
 export type ModelUserFilterInput = {
@@ -237,127 +165,34 @@ export type ModelUserConnection = {
   __typename: "ModelUserConnection",
   items:  Array<User >,
   nextToken?: string | null,
-  startedAt?: number | null,
 };
 
-export type CreateIncomeMutationVariables = {
-  input: CreateIncomeInput,
-  condition?: ModelIncomeConditionInput | null,
+export type ModelCategoriesFilterInput = {
+  iconName?: ModelStringInput | null,
+  name?: ModelStringInput | null,
+  id?: ModelIDInput | null,
+  type?: ModelStringInput | null,
+  userID?: ModelIDInput | null,
+  and?: Array< ModelCategoriesFilterInput | null > | null,
+  or?: Array< ModelCategoriesFilterInput | null > | null,
+  not?: ModelCategoriesFilterInput | null,
 };
 
-export type CreateIncomeMutation = {
-  createIncome?:  {
-    __typename: "Income",
+export type BatchCreateCategoriesMutationVariables = {
+  categories: Array< createCategoriesInput | null >,
+};
+
+export type BatchCreateCategoriesMutation = {
+  batchCreateCategories?:  Array< {
+    __typename: "Categories",
     iconName: string,
     name: string,
     id: string,
+    type: string,
     userID: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
-  } | null,
-};
-
-export type UpdateIncomeMutationVariables = {
-  input: UpdateIncomeInput,
-  condition?: ModelIncomeConditionInput | null,
-};
-
-export type UpdateIncomeMutation = {
-  updateIncome?:  {
-    __typename: "Income",
-    iconName: string,
-    name: string,
-    id: string,
-    userID: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type DeleteIncomeMutationVariables = {
-  input: DeleteIncomeInput,
-  condition?: ModelIncomeConditionInput | null,
-};
-
-export type DeleteIncomeMutation = {
-  deleteIncome?:  {
-    __typename: "Income",
-    iconName: string,
-    name: string,
-    id: string,
-    userID: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type CreateCostsMutationVariables = {
-  input: CreateCostsInput,
-  condition?: ModelCostsConditionInput | null,
-};
-
-export type CreateCostsMutation = {
-  createCosts?:  {
-    __typename: "Costs",
-    iconName: string,
-    name: string,
-    id: string,
-    userID: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type UpdateCostsMutationVariables = {
-  input: UpdateCostsInput,
-  condition?: ModelCostsConditionInput | null,
-};
-
-export type UpdateCostsMutation = {
-  updateCosts?:  {
-    __typename: "Costs",
-    iconName: string,
-    name: string,
-    id: string,
-    userID: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type DeleteCostsMutationVariables = {
-  input: DeleteCostsInput,
-  condition?: ModelCostsConditionInput | null,
-};
-
-export type DeleteCostsMutation = {
-  deleteCosts?:  {
-    __typename: "Costs",
-    iconName: string,
-    name: string,
-    id: string,
-    userID: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
+  } | null > | null,
 };
 
 export type CreateUserMutationVariables = {
@@ -372,43 +207,20 @@ export type CreateUserMutation = {
     firstName: string,
     secondName: string,
     imageUri?: string | null,
-    income?:  {
-      __typename: "ModelIncomeConnection",
+    categories?:  {
+      __typename: "ModelCategoriesConnection",
       items:  Array< {
-        __typename: "Income",
+        __typename: "Categories",
         iconName: string,
         name: string,
         id: string,
+        type: string,
         userID: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
       } >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
-    costs?:  {
-      __typename: "ModelCostsConnection",
-      items:  Array< {
-        __typename: "Costs",
-        iconName: string,
-        name: string,
-        id: string,
-        userID: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
-        createdAt: string,
-        updatedAt: string,
-      } >,
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -426,43 +238,20 @@ export type UpdateUserMutation = {
     firstName: string,
     secondName: string,
     imageUri?: string | null,
-    income?:  {
-      __typename: "ModelIncomeConnection",
+    categories?:  {
+      __typename: "ModelCategoriesConnection",
       items:  Array< {
-        __typename: "Income",
+        __typename: "Categories",
         iconName: string,
         name: string,
         id: string,
+        type: string,
         userID: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
       } >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
-    costs?:  {
-      __typename: "ModelCostsConnection",
-      items:  Array< {
-        __typename: "Costs",
-        iconName: string,
-        name: string,
-        id: string,
-        userID: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
-        createdAt: string,
-        updatedAt: string,
-      } >,
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -480,99 +269,76 @@ export type DeleteUserMutation = {
     firstName: string,
     secondName: string,
     imageUri?: string | null,
-    income?:  {
-      __typename: "ModelIncomeConnection",
+    categories?:  {
+      __typename: "ModelCategoriesConnection",
       items:  Array< {
-        __typename: "Income",
+        __typename: "Categories",
         iconName: string,
         name: string,
         id: string,
+        type: string,
         userID: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
       } >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
-    costs?:  {
-      __typename: "ModelCostsConnection",
-      items:  Array< {
-        __typename: "Costs",
-        iconName: string,
-        name: string,
-        id: string,
-        userID: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
-        createdAt: string,
-        updatedAt: string,
-      } >,
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type SyncIncomesQueryVariables = {
-  filter?: ModelIncomeFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
+export type CreateCategoriesMutationVariables = {
+  input: CreateCategoriesInput,
+  condition?: ModelCategoriesConditionInput | null,
 };
 
-export type SyncIncomesQuery = {
-  syncIncomes?:  {
-    __typename: "ModelIncomeConnection",
-    items:  Array< {
-      __typename: "Income",
-      iconName: string,
-      name: string,
-      id: string,
-      userID: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      createdAt: string,
-      updatedAt: string,
-    } >,
-    nextToken?: string | null,
-    startedAt?: number | null,
+export type CreateCategoriesMutation = {
+  createCategories?:  {
+    __typename: "Categories",
+    iconName: string,
+    name: string,
+    id: string,
+    type: string,
+    userID: string,
+    createdAt: string,
+    updatedAt: string,
   } | null,
 };
 
-export type SyncCostsQueryVariables = {
-  filter?: ModelCostsFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
+export type UpdateCategoriesMutationVariables = {
+  input: UpdateCategoriesInput,
+  condition?: ModelCategoriesConditionInput | null,
 };
 
-export type SyncCostsQuery = {
-  syncCosts?:  {
-    __typename: "ModelCostsConnection",
-    items:  Array< {
-      __typename: "Costs",
-      iconName: string,
-      name: string,
-      id: string,
-      userID: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      createdAt: string,
-      updatedAt: string,
-    } >,
-    nextToken?: string | null,
-    startedAt?: number | null,
+export type UpdateCategoriesMutation = {
+  updateCategories?:  {
+    __typename: "Categories",
+    iconName: string,
+    name: string,
+    id: string,
+    type: string,
+    userID: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteCategoriesMutationVariables = {
+  input: DeleteCategoriesInput,
+  condition?: ModelCategoriesConditionInput | null,
+};
+
+export type DeleteCategoriesMutation = {
+  deleteCategories?:  {
+    __typename: "Categories",
+    iconName: string,
+    name: string,
+    id: string,
+    type: string,
+    userID: string,
+    createdAt: string,
+    updatedAt: string,
   } | null,
 };
 
@@ -587,43 +353,20 @@ export type GetUserQuery = {
     firstName: string,
     secondName: string,
     imageUri?: string | null,
-    income?:  {
-      __typename: "ModelIncomeConnection",
+    categories?:  {
+      __typename: "ModelCategoriesConnection",
       items:  Array< {
-        __typename: "Income",
+        __typename: "Categories",
         iconName: string,
         name: string,
         id: string,
+        type: string,
         userID: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
       } >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
-    costs?:  {
-      __typename: "ModelCostsConnection",
-      items:  Array< {
-        __typename: "Costs",
-        iconName: string,
-        name: string,
-        id: string,
-        userID: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
-        createdAt: string,
-        updatedAt: string,
-      } >,
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -644,151 +387,54 @@ export type ListUsersQuery = {
       firstName: string,
       secondName: string,
       imageUri?: string | null,
-      income?:  {
-        __typename: "ModelIncomeConnection",
+      categories?:  {
+        __typename: "ModelCategoriesConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
-      costs?:  {
-        __typename: "ModelCostsConnection",
-        nextToken?: string | null,
-        startedAt?: number | null,
-      } | null,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
     } >,
     nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
-export type SyncUsersQueryVariables = {
-  filter?: ModelUserFilterInput | null,
+export type GetCategoriesQueryVariables = {
+  id: string,
+};
+
+export type GetCategoriesQuery = {
+  getCategories?:  {
+    __typename: "Categories",
+    iconName: string,
+    name: string,
+    id: string,
+    type: string,
+    userID: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListCategoriessQueryVariables = {
+  filter?: ModelCategoriesFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
-  lastSync?: number | null,
 };
 
-export type SyncUsersQuery = {
-  syncUsers?:  {
-    __typename: "ModelUserConnection",
+export type ListCategoriessQuery = {
+  listCategoriess?:  {
+    __typename: "ModelCategoriesConnection",
     items:  Array< {
-      __typename: "User",
+      __typename: "Categories",
+      iconName: string,
+      name: string,
       id: string,
-      firstName: string,
-      secondName: string,
-      imageUri?: string | null,
-      income?:  {
-        __typename: "ModelIncomeConnection",
-        nextToken?: string | null,
-        startedAt?: number | null,
-      } | null,
-      costs?:  {
-        __typename: "ModelCostsConnection",
-        nextToken?: string | null,
-        startedAt?: number | null,
-      } | null,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
+      type: string,
+      userID: string,
       createdAt: string,
       updatedAt: string,
     } >,
     nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type OnCreateIncomeSubscription = {
-  onCreateIncome?:  {
-    __typename: "Income",
-    iconName: string,
-    name: string,
-    id: string,
-    userID: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnUpdateIncomeSubscription = {
-  onUpdateIncome?:  {
-    __typename: "Income",
-    iconName: string,
-    name: string,
-    id: string,
-    userID: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnDeleteIncomeSubscription = {
-  onDeleteIncome?:  {
-    __typename: "Income",
-    iconName: string,
-    name: string,
-    id: string,
-    userID: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnCreateCostsSubscription = {
-  onCreateCosts?:  {
-    __typename: "Costs",
-    iconName: string,
-    name: string,
-    id: string,
-    userID: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnUpdateCostsSubscription = {
-  onUpdateCosts?:  {
-    __typename: "Costs",
-    iconName: string,
-    name: string,
-    id: string,
-    userID: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnDeleteCostsSubscription = {
-  onDeleteCosts?:  {
-    __typename: "Costs",
-    iconName: string,
-    name: string,
-    id: string,
-    userID: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    createdAt: string,
-    updatedAt: string,
   } | null,
 };
 
@@ -799,43 +445,20 @@ export type OnCreateUserSubscription = {
     firstName: string,
     secondName: string,
     imageUri?: string | null,
-    income?:  {
-      __typename: "ModelIncomeConnection",
+    categories?:  {
+      __typename: "ModelCategoriesConnection",
       items:  Array< {
-        __typename: "Income",
+        __typename: "Categories",
         iconName: string,
         name: string,
         id: string,
+        type: string,
         userID: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
       } >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
-    costs?:  {
-      __typename: "ModelCostsConnection",
-      items:  Array< {
-        __typename: "Costs",
-        iconName: string,
-        name: string,
-        id: string,
-        userID: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
-        createdAt: string,
-        updatedAt: string,
-      } >,
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -848,43 +471,20 @@ export type OnUpdateUserSubscription = {
     firstName: string,
     secondName: string,
     imageUri?: string | null,
-    income?:  {
-      __typename: "ModelIncomeConnection",
+    categories?:  {
+      __typename: "ModelCategoriesConnection",
       items:  Array< {
-        __typename: "Income",
+        __typename: "Categories",
         iconName: string,
         name: string,
         id: string,
+        type: string,
         userID: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
       } >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
-    costs?:  {
-      __typename: "ModelCostsConnection",
-      items:  Array< {
-        __typename: "Costs",
-        iconName: string,
-        name: string,
-        id: string,
-        userID: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
-        createdAt: string,
-        updatedAt: string,
-      } >,
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -897,43 +497,59 @@ export type OnDeleteUserSubscription = {
     firstName: string,
     secondName: string,
     imageUri?: string | null,
-    income?:  {
-      __typename: "ModelIncomeConnection",
+    categories?:  {
+      __typename: "ModelCategoriesConnection",
       items:  Array< {
-        __typename: "Income",
+        __typename: "Categories",
         iconName: string,
         name: string,
         id: string,
+        type: string,
         userID: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
       } >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
-    costs?:  {
-      __typename: "ModelCostsConnection",
-      items:  Array< {
-        __typename: "Costs",
-        iconName: string,
-        name: string,
-        id: string,
-        userID: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
-        createdAt: string,
-        updatedAt: string,
-      } >,
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateCategoriesSubscription = {
+  onCreateCategories?:  {
+    __typename: "Categories",
+    iconName: string,
+    name: string,
+    id: string,
+    type: string,
+    userID: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateCategoriesSubscription = {
+  onUpdateCategories?:  {
+    __typename: "Categories",
+    iconName: string,
+    name: string,
+    id: string,
+    type: string,
+    userID: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteCategoriesSubscription = {
+  onDeleteCategories?:  {
+    __typename: "Categories",
+    iconName: string,
+    name: string,
+    id: string,
+    type: string,
+    userID: string,
     createdAt: string,
     updatedAt: string,
   } | null,

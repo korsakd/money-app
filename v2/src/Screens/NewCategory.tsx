@@ -28,16 +28,18 @@ const NewCategory = () => {
   const [chosenIcon, setChoseIcon] = useState(
     item?.iconName || categoriesIcon.Food[0],
   );
-  const [text, setText] = useState(item?.name || '');
+  const [categoryName, setCategoryName] = useState(item?.name || '');
+
   const { bottom } = useSafeAreaInsets();
 
   const onDonePress = () => {
     if (item?.id) {
-      dispatch(editCategoryThunk(item.id, from, text, chosenIcon));
+      dispatch(editCategoryThunk(item.id, from, categoryName, chosenIcon));
     } else {
-      dispatch(addCategoryThunk(from, text, chosenIcon));
+      dispatch(addCategoryThunk(from, categoryName, chosenIcon));
+      setCategoryName('');
     }
-    navigation.pop();
+    // navigation.pop();
   };
 
   return (
@@ -46,9 +48,9 @@ const NewCategory = () => {
         <View style={[styles.plank, { backgroundColor: colors.text }]} />
       </View>
       <NewCategoryInput
-        text={text}
+        categoryName={categoryName}
         chosenIcon={chosenIcon}
-        setText={setText}
+        setCategoryName={setCategoryName}
         onDonePress={onDonePress}
       />
       <ScrollView contentContainerStyle={{ paddingBottom: bottom }}>

@@ -9,9 +9,7 @@ import {
 } from 'react-native';
 import { useColorScheme } from 'react-native-appearance';
 import { getCurrentTheme } from '../../Theme';
-import { Auth } from 'aws-amplify';
 import { useDispatch } from 'react-redux';
-import { signInWithEmailAndPassword } from '../../store/Thunks/loginThunks';
 import NextButtonWithLoader from './NextButtonWithLoader';
 
 type FirstStepType = {
@@ -46,10 +44,6 @@ const SecondStep = ({ email, password, width, flatListRef }: FirstStepType) => {
   const confirmSignUp = async () => {
     try {
       setIsLoading(true);
-      const response = await Auth.confirmSignUp('dkorsak@elinext.com', code);
-      if (response === 'SUCCESS') {
-        dispatch(signInWithEmailAndPassword(email, password));
-      }
       if (flatListRef.current) {
         flatListRef.current.scrollToIndex({ index: 2, animated: true });
       }
@@ -64,7 +58,6 @@ const SecondStep = ({ email, password, width, flatListRef }: FirstStepType) => {
     if (isResendAvailable) {
       setIsResendAvailable(false);
       try {
-        await Auth.resendSignUp(email);
         setIsResendAvailable(false);
         console.log('code resent successfully');
       } catch (err) {

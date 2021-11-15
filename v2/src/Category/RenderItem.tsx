@@ -10,6 +10,7 @@ import { MainStackParamList } from '../Navigation';
 import { CategoryType } from '../store/category';
 import { deleteCategoryThunk } from '../store/Thunks/categoryThunk';
 import { getCurrentTheme } from '../Theme';
+import { confirmAlert } from '../utils/confirmAlert';
 
 type RenderItem = {
   categoryItem: CategoryType;
@@ -31,8 +32,14 @@ const RenderItem = ({
   const { navigate } = useNavigation<NavigationProp<MainStackParamList>>();
   const dispatch = useDispatch();
 
-  const onDeletePress = () => {
-    dispatch(deleteCategoryThunk(categoryItem.id, type));
+  const onDeletePress = (categoryName: string) => {
+    confirmAlert(
+      'Are you sure?',
+      `Category ${categoryName} will be deleted`,
+      () => {
+        dispatch(deleteCategoryThunk(categoryItem.id, type));
+      },
+    );
   };
 
   const renderOverlay = (params, { categoryItem, drag, isActive }) => {
@@ -86,7 +93,9 @@ const RenderItem = ({
               },
               styles.animatedView,
             ]}>
-            <Pressable style={styles.deleteButton} onPress={onDeletePress}>
+            <Pressable
+              style={styles.deleteButton}
+              onPress={() => onDeletePress(categoryItem.name)}>
               <Text style={styles.deleteText}>{'Delete'}</Text>
             </Pressable>
           </Animated.View>

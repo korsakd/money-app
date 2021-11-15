@@ -4,10 +4,8 @@ import UserImage from '../UserImage';
 import NextButtonWithLoader from './NextButtonWithLoader';
 import UserInfoInput from './UserInfoInput';
 import ImagePicker from 'react-native-image-crop-picker';
-import { Auth, API, graphqlOperation } from 'aws-amplify';
-import { createUser } from '../../graphql/mutations';
 import { useDispatch } from 'react-redux';
-import { userActions } from '../../store/user';
+import { useNavigation } from '@react-navigation/core';
 
 type ThirdStepType = {
   width: number;
@@ -17,31 +15,17 @@ const ThirdStep = ({ width }: ThirdStepType) => {
   const [firstName, setFirstName] = useState('');
   const [secondName, setSecondName] = useState('');
   const [imageUri, setImageUri] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   const onFinishPress = async () => {
     try {
-      const userInfo = await Auth.currentAuthenticatedUser({
-        bypassCache: true,
-      });
-      if (userInfo) {
-        const newUser = {
-          id: userInfo.attributes.sub,
-          firstName,
-          secondName,
-          imageUri,
-        };
-        await API.graphql(graphqlOperation(createUser, { input: newUser }));
-        dispatch(
-          userActions.setUser({
-            userId: userInfo.attributes.sub,
-            firstName,
-            secondName,
-            imageUri,
-          }),
-        );
-      }
+      setIsLoading(true);
+      setIsLoading(false);
+      navigation.pop();
     } catch (error) {
+      setIsLoading(false);
       console.tron({ error });
     }
   };
@@ -76,7 +60,11 @@ const ThirdStep = ({ width }: ThirdStepType) => {
           setValue={setSecondName}
         />
       </View>
-      <NextButtonWithLoader title={'Finish'} onPress={onFinishPress} />
+      <NextButtonWithLoader
+        title={'Finish'}
+        onPress={onFinishPress}
+        isLoading={isLoading}
+      />
     </View>
   );
 };

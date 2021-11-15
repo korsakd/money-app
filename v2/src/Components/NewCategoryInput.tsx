@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, Pressable } from 'react-native';
 import { useColorScheme } from 'react-native-appearance';
 import { getCurrentTheme } from '../Theme';
@@ -6,20 +6,29 @@ import IconItem from './IconItem';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 type NewCategoryInputType = {
-  text: string;
+  categoryName: string;
   chosenIcon: string;
-  setText: (value: string) => void;
+  setCategoryName: (value: string) => void;
   onDonePress: () => void;
 };
 
 const NewCategoryInput = ({
-  text,
+  categoryName,
   chosenIcon,
-  setText,
+  setCategoryName,
   onDonePress,
 }: NewCategoryInputType) => {
   const scheme = useColorScheme();
   const { colors } = getCurrentTheme(scheme);
+  const [error, setError] = useState('');
+
+  const onChangeText = (text: string) => {
+    if (error) {
+      setError('');
+    }
+    setCategoryName(text);
+  };
+
   return (
     <View style={styles.inputContainer}>
       <Text style={[styles.title, { color: colors.text }]}>
@@ -33,14 +42,25 @@ const NewCategoryInput = ({
         <TextInput
           style={[styles.input, { color: colors.text }]}
           placeholder={'Category name'}
-          placeholderTextColor={colors.text}
-          onChangeText={setText}
-          value={text}
+          placeholderTextColor={error ? 'red' : colors.text}
+          onChangeText={onChangeText}
+          value={categoryName}
           maxLength={20}
         />
-        <Pressable onPress={onDonePress} style={styles.doneBtn}>
+        <Pressable
+          onPress={() => {
+            if (categoryName) {
+              onDonePress();
+            } else {
+              setError('Enter category name');
+            }
+          }}
+          style={styles.doneBtn}>
           <Icon name={'check'} size={25} color={colors.text} />
         </Pressable>
+      </View>
+      <View style={styles.errorContainer}>
+        <Text style={styles.errorText}>{error}</Text>
       </View>
     </View>
   );
@@ -76,4 +96,10 @@ const styles = StyleSheet.create({
   doneBtn: {
     marginLeft: 10,
   },
+  errorContainer: {
+    alignItems: 'center',
+    height: 15,
+    justifyContent: 'center',
+  },
+  errorText: { color: 'red' },
 });

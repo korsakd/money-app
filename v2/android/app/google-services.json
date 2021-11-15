@@ -1,43 +1,41 @@
 {
   "project_info": {
-    "project_number": "837029674653",
-    "firebase_url": "https://moneyapp-d88f3.firebaseio.com",
-    "project_id": "moneyapp-d88f3",
-    "storage_bucket": "moneyapp-d88f3.appspot.com"
+    "project_number": "1048538648597",
+    "project_id": "money-app-765da",
+    "storage_bucket": "money-app-765da.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:837029674653:android:4193bc442992a465875e74",
+        "mobilesdk_app_id": "1:1048538648597:android:6d47d0900fbaa8d110be1c",
         "android_client_info": {
           "package_name": "com.moneyapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "837029674653-svkcjk583483f7qfp1o6eoj6te76fk68.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.moneyapp",
-            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
-          }
-        },
-        {
-          "client_id": "837029674653-bao41219mm1v6bghpdavemchjscc4ipq.apps.googleusercontent.com",
+          "client_id": "1048538648597-4crpkoj9gc3ulc8nifo8k3pjgj17s1a0.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDdjQjH6JD_dbYCUAVXIJbteIQUoEPzRPM"
+          "current_key": "AIzaSyAp-dlXNxl3-pSGkH2BFCm0MuJ8PHlb9WU"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "837029674653-bao41219mm1v6bghpdavemchjscc4ipq.apps.googleusercontent.com",
+              "client_id": "1048538648597-4crpkoj9gc3ulc8nifo8k3pjgj17s1a0.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "1048538648597-s5g50h3eim3anp9a5q278tpqqh0r27j0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.dev.moneyapp"
+              }
             }
           ]
         }

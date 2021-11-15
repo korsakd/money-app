@@ -8,11 +8,7 @@ type UserMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
-type IncomeMetaData = {
-  readOnlyFields: 'createdAt' | 'updatedAt';
-}
-
-type CostsMetaData = {
+type CategoriesMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
@@ -21,32 +17,21 @@ export declare class User {
   readonly firstName: string;
   readonly secondName: string;
   readonly imageUri?: string;
-  readonly income?: (Income | null)[];
-  readonly costs?: (Costs | null)[];
+  readonly categories?: (Categories | null)[];
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<User, UserMetaData>);
   static copyOf(source: User, mutator: (draft: MutableModel<User, UserMetaData>) => MutableModel<User, UserMetaData> | void): User;
 }
 
-export declare class Income {
+export declare class Categories {
   readonly id: string;
   readonly iconName: string;
   readonly name: string;
+  readonly type: string;
   readonly userID: string;
   readonly createdAt?: string;
   readonly updatedAt?: string;
-  constructor(init: ModelInit<Income, IncomeMetaData>);
-  static copyOf(source: Income, mutator: (draft: MutableModel<Income, IncomeMetaData>) => MutableModel<Income, IncomeMetaData> | void): Income;
-}
-
-export declare class Costs {
-  readonly id: string;
-  readonly iconName: string;
-  readonly name: string;
-  readonly userID: string;
-  readonly createdAt?: string;
-  readonly updatedAt?: string;
-  constructor(init: ModelInit<Costs, CostsMetaData>);
-  static copyOf(source: Costs, mutator: (draft: MutableModel<Costs, CostsMetaData>) => MutableModel<Costs, CostsMetaData> | void): Costs;
+  constructor(init: ModelInit<Categories, CategoriesMetaData>);
+  static copyOf(source: Categories, mutator: (draft: MutableModel<Categories, CategoriesMetaData>) => MutableModel<Categories, CategoriesMetaData> | void): Categories;
 }

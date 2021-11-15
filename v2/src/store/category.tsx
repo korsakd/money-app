@@ -249,6 +249,11 @@ const initialState: CategoryReducerType = {
 
 class CategoryReducer extends ImmerReducer<CategoryReducerType> {
   state = this.draftState;
+
+  setCategoryFromDB(income: CategoryType[], costs: CategoryType[]) {
+    this.draftState = { ...this.draftState, income, costs };
+  }
+
   addNewCategory(type: string, data: CategoryType) {
     if (type === 'income') {
       this.state.income.push(data);
@@ -277,6 +282,10 @@ class CategoryReducer extends ImmerReducer<CategoryReducerType> {
         this.state.costs.splice(index, 1);
       }
     }
+  }
+
+  resetCategory() {
+    this.draftState = initialState;
   }
 }
 

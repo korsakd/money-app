@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { View, Text, FlatList, TextInput, StyleSheet } from 'react-native';
 import { useColorScheme } from 'react-native-appearance';
 import { getCurrentTheme } from '../../Theme';
-import { Auth } from 'aws-amplify';
 import { validation } from '../../utils/validation';
 import NextButtonWithLoader from './NextButtonWithLoader';
 
@@ -32,9 +31,8 @@ const FirstStep = ({
   const signUp = async () => {
     try {
       setIsLoading(true);
-      await Auth.signUp(email, password);
       if (flatListRef.current) {
-        flatListRef.current.scrollToIndex({ index: 1, animated: true });
+        flatListRef.current.scrollToIndex({ index: 2, animated: true });
       }
       setIsLoading(false);
     } catch (error: any) {
@@ -95,7 +93,7 @@ const FirstStep = ({
       </View>
       <NextButtonWithLoader
         title={'Next'}
-        onPress={signUp}
+        onPress={onNextPress}
         isLoading={isLoading}
       />
     </View>

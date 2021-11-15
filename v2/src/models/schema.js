@@ -31,25 +31,11 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "income": {
-                    "name": "income",
+                "categories": {
+                    "name": "categories",
                     "isArray": true,
                     "type": {
-                        "model": "Income"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": "userID"
-                    }
-                },
-                "costs": {
-                    "name": "costs",
-                    "isArray": true,
-                    "type": {
-                        "model": "Costs"
+                        "model": "Categories"
                     },
                     "isRequired": false,
                     "attributes": [],
@@ -82,27 +68,11 @@ export const schema = {
                 {
                     "type": "model",
                     "properties": {}
-                },
-                {
-                    "type": "auth",
-                    "properties": {
-                        "rules": [
-                            {
-                                "allow": "public",
-                                "operations": [
-                                    "create",
-                                    "update",
-                                    "delete",
-                                    "read"
-                                ]
-                            }
-                        ]
-                    }
                 }
             ]
         },
-        "Income": {
-            "name": "Income",
+        "Categories": {
+            "name": "Categories",
             "fields": {
                 "id": {
                     "name": "id",
@@ -120,6 +90,13 @@ export const schema = {
                 },
                 "name": {
                     "name": "name",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "type": {
+                    "name": "type",
                     "isArray": false,
                     "type": "String",
                     "isRequired": true,
@@ -150,88 +127,19 @@ export const schema = {
                 }
             },
             "syncable": true,
-            "pluralName": "Incomes",
+            "pluralName": "Categories",
             "attributes": [
                 {
                     "type": "model",
-                    "properties": {
-                        "queries": null
-                    }
+                    "properties": {}
                 },
                 {
                     "type": "key",
                     "properties": {
                         "name": "byUser",
                         "fields": [
-                            "userID"
-                        ]
-                    }
-                }
-            ]
-        },
-        "Costs": {
-            "name": "Costs",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "iconName": {
-                    "name": "iconName",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "name": {
-                    "name": "name",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "userID": {
-                    "name": "userID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "createdAt": {
-                    "name": "createdAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                },
-                "updatedAt": {
-                    "name": "updatedAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                }
-            },
-            "syncable": true,
-            "pluralName": "Costs",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {
-                        "queries": null
-                    }
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byUser",
-                        "fields": [
-                            "userID"
+                            "userID",
+                            "type"
                         ]
                     }
                 }
@@ -240,5 +148,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "948f3c68c0a7fdf9d81852367370920a"
+    "version": "cb080a893cea877060b770802c680e51"
 };

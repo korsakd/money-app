@@ -4,12 +4,7 @@ import { Provider } from 'react-redux';
 import { AppearanceProvider, useColorScheme } from 'react-native-appearance';
 import configureStore from './store';
 import { PersistGate } from 'redux-persist/integration/react';
-import Amplify, { Auth } from 'aws-amplify';
-import awsconfig from './aws-exports';
 import Navigator from './Navigation';
-
-Amplify.configure(awsconfig);
-Auth.configure(awsconfig);
 
 export const { store, persistor } = configureStore();
 
