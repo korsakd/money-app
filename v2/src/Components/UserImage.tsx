@@ -1,23 +1,33 @@
 import React from 'react';
-import { View, Text, Image } from 'react-native';
+import { Text, Image } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 type UserImageType = {
   imageUri: string | null;
+  width: number | string;
+  height: number | string;
+  radius: number;
   firstName: string;
-  secondName: string;
+  lastName: string;
 };
 
-const UserImage = ({ imageUri, firstName, secondName }: UserImageType) => {
+const UserImage = ({
+  imageUri,
+  width,
+  height,
+  radius,
+  firstName,
+  lastName,
+}: UserImageType) => {
   return (
     <>
       {imageUri ? (
         <Image
           source={{ uri: imageUri }}
           style={{
-            width: 70,
-            height: 70,
-            borderRadius: 35,
+            width,
+            height,
+            borderRadius: radius,
           }}
         />
       ) : (
@@ -26,9 +36,9 @@ const UserImage = ({ imageUri, firstName, secondName }: UserImageType) => {
           start={{ x: 0.5, y: 0 }}
           end={{ x: 1, y: 1 }}
           style={{
-            width: 70,
-            height: 70,
-            borderRadius: 35,
+            width,
+            height,
+            borderRadius: radius,
             alignItems: 'center',
             justifyContent: 'center',
           }}>
@@ -37,7 +47,7 @@ const UserImage = ({ imageUri, firstName, secondName }: UserImageType) => {
               color: '#fff',
               fontSize: 20,
               fontWeight: '700',
-            }}>{`${firstName[0].toUpperCase()}${secondName[0].toUpperCase()}`}</Text>
+            }}>{`${firstName[0].toUpperCase()}${lastName[0].toUpperCase()}`}</Text>
         </LinearGradient>
       )}
     </>

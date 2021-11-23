@@ -2,10 +2,15 @@ import React, { useState } from 'react';
 import { View, StyleSheet, Pressable, Text } from 'react-native';
 import UserImage from '../UserImage';
 import NextButtonWithLoader from './NextButtonWithLoader';
-import UserInfoInput from './UserInfoInput';
-import ImagePicker from 'react-native-image-crop-picker';
+import ImagePicker, { Image } from 'react-native-image-crop-picker';
 import { useDispatch } from 'react-redux';
-import { useNavigation } from '@react-navigation/core';
+import { StackActions, useNavigation } from '@react-navigation/core';
+import { finishRegistration } from '../../store/Thunks/loginThunks';
+import UserInput from './UserInput';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { BLACK } from '../../Constants';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import ErrorInfo from '../ErrorInfo';
 
 type ThirdStepType = {
   width: number;
@@ -13,51 +18,73 @@ type ThirdStepType = {
 
 const ThirdStep = ({ width }: ThirdStepType) => {
   const [firstName, setFirstName] = useState('');
-  const [secondName, setSecondName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [imageUri, setImageUri] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
   const onFinishPress = async () => {
+    if (!firstName || !lastName) {
+      setError(!firstName ? 'Enter first name' : 'Enter last name');
+      return;
+    }
     try {
       setIsLoading(true);
+      dispatch(finishRegistration(firstName, lastName, imageUri));
       setIsLoading(false);
-      navigation.pop();
+      navigation.dispatch(StackActions.pop());
     } catch (error) {
       setIsLoading(false);
-      console.tron({ error });
+      console.log({ error });
     }
   };
 
+  const onAddPhotoPress = () => {
+    ImagePicker.openPicker({
+      width: 400,
+      height: 400,
+      cropping: true,
+      includeBase64: true,
+    }).then((image: Image) => {
+      setImageUri(`data:image/png;base64,${image.data}`);
+    });
+  };
+
   return (
-    <View style={[styles.mainContainer, { width }]}>
+    <KeyboardAwareScrollView
+      bounces={false}
+      showsVerticalScrollIndicator={false}
+      keyboardShouldPersistTaps={'handled'}
+      extraHeight={30}
+      contentContainerStyle={[styles.mainContainer, { width }]}>
       <View style={styles.photoContainer}>
-        <UserImage imageUri={imageUri} firstName={'new'} secondName={'user'} />
-        <Pressable
-          onPress={() => {
-            ImagePicker.openPicker({
-              width: 400,
-              height: 400,
-              cropping: true,
-              includeBase64: true,
-            }).then(image => {
-              setImageUri(`data:image/png;base64,${image.data}`);
-            });
-          }}>
-          <Text style={styles.photoText}>{'Add photo'}</Text>
+        <UserImage
+          imageUri={imageUri}
+          width={100}
+          height={100}
+          radius={50}
+          firstName={'new'}
+          lastName={'user'}
+        />
+        <Pressable style={styles.addButton} onPress={onAddPhotoPress}>
+          <Icon name={'plus-thick'} size={20} color={'tomato'} />
         </Pressable>
       </View>
+      <ErrorInfo error={error} />
       <View style={styles.inputWrap}>
-        <UserInfoInput
+        <UserInput
           title={'First name'}
           value={firstName}
           setValue={setFirstName}
+          isRequiredField={true}
         />
-        <UserInfoInput
-          title={'Second name'}
-          value={secondName}
-          setValue={setSecondName}
+        <UserInput
+          title={'Last name'}
+          value={lastName}
+          setValue={setLastName}
+          isRequiredField={true}
         />
       </View>
       <NextButtonWithLoader
@@ -65,30 +92,35 @@ const ThirdStep = ({ width }: ThirdStepType) => {
         onPress={onFinishPress}
         isLoading={isLoading}
       />
-    </View>
+    </KeyboardAwareScrollView>
   );
 };
 
-export default ThirdStep;
+export default React.memo(ThirdStep);
 
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     paddingHorizontal: 20,
     alignItems: 'center',
-    justifyContent: 'center',
+    paddingTop: '20%',
   },
   photoContainer: {
     flexDirection: 'row',
-    width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 40,
   },
-  photoText: {
-    color: 'tomato',
-    textDecorationLine: 'underline',
-    marginLeft: 15,
+  addButton: {
+    backgroundColor: BLACK,
+    width: 30,
+    height: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 15,
+    position: 'absolute',
+    top: 0,
+    right: 0,
   },
   inputWrap: {
     width: '100%',

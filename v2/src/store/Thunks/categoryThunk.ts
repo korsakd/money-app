@@ -1,6 +1,7 @@
 import { AppThunk } from '..';
 import { v4 as uuid4 } from 'uuid';
-import { categoryActions } from '../category';
+import { categoryActions, CategoryType } from '../category';
+import firestore from '@react-native-firebase/firestore';
 
 export const addCategoryThunk = (
   type: string,
@@ -27,8 +28,19 @@ export const editCategoryThunk = (
 };
 
 export const deleteCategoryThunk = (
-  id: string,
+  item: CategoryType,
   type: string,
-): AppThunk => async (dispatch, _) => {
-  dispatch(categoryActions.deleteCategory(id, type));
+): AppThunk => async (dispatch, getState) => {
+  const {
+    user: { userID },
+  } = getState();
+  dispatch(categoryActions.deleteCategory(item.id, type));
+  if (userID) {
+    firestore()
+      .collection('usersData')
+      .doc(userID)
+      .update({
+        [type]: firestore.FieldValue.arrayRemove(item),
+      });
+  }
 };

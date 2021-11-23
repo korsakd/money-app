@@ -23,7 +23,7 @@ type LoginInputType = {
 const LoginInput = ({ title, value, setValue }: LoginInputType) => {
   const scheme = useColorScheme();
   const { colors } = getCurrentTheme(scheme);
-  const shouldAnimate = useValue(2);
+  const shouldAnimate = useValue<number>(2);
 
   const handleFocus = () => {
     if (!value) {
@@ -52,7 +52,7 @@ const LoginInput = ({ title, value, setValue }: LoginInputType) => {
   });
   const color = interpolateColors(animatedIsFocused, {
     inputRange: [0, 1],
-    outputColorRange: [colors.text, '#ff6347'],
+    outputColorRange: [colors.text, 'tomato'],
   });
 
   useCode(

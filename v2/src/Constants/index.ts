@@ -6,3 +6,4 @@ export const GOLD = 'tomato';
 export const FACEBOOK = '#4267B2';
 export const TWITTER = '#1DA1F2';
 export const GOOGLE = '#DB4437';
+export const RED = '#e50000';

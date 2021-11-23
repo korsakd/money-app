@@ -29,7 +29,7 @@ export type RootStackParamList = {
 export type MainStackParamList = {
   Tab: undefined;
   NewCategory: { from: string; item?: CategoryType };
-  SignUp: undefined;
+  SignUp: { emailVerification: boolean };
 };
 
 export type HomeStackParamList = {
@@ -162,7 +162,12 @@ const Navigator = () => {
         <MainStack.Screen name="Tab" component={TabNavigator} />
         <MainStack.Group screenOptions={{ presentation: 'modal' }}>
           <MainStack.Screen name="NewCategory" component={NewCategory} />
-          <MainStack.Screen name="SignUp" component={SignUp} />
+          <MainStack.Screen
+            name="SignUp"
+            component={SignUp}
+            initialParams={{ emailVerification: false }}
+            options={{ gestureEnabled: false }}
+          />
         </MainStack.Group>
       </MainStack.Navigator>
     </NavigationContainer>

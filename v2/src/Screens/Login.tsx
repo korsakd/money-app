@@ -11,13 +11,13 @@ import { signInWithEmailAndPassword } from '../store/Thunks/loginThunks';
 const LoginScreen = () => {
   const scheme = useColorScheme();
   const { colors } = getCurrentTheme(scheme);
-  const { navigate } = useNavigation<NavigationProp<MainStackParamList>>();
+  const navigation = useNavigation<NavigationProp<MainStackParamList>>();
   const [text, setText] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
 
   const signIn = async () => {
-    dispatch(signInWithEmailAndPassword(text, password));
+    dispatch(signInWithEmailAndPassword(text, password, navigation));
   };
 
   return (
@@ -38,7 +38,7 @@ const LoginScreen = () => {
           <Pressable
             style={styles.button}
             onPress={() => {
-              navigate('SignUp');
+              navigation.navigate('SignUp');
             }}>
             <Text style={[styles.buttonText, { color: colors.text }]}>
               SIGN UP

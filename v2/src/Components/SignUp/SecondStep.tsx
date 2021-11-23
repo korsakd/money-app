@@ -4,118 +4,159 @@ import {
   Text,
   Pressable,
   FlatList,
-  TextInput,
   StyleSheet,
+  LayoutAnimation,
+  ActivityIndicator,
 } from 'react-native';
 import { useColorScheme } from 'react-native-appearance';
 import { getCurrentTheme } from '../../Theme';
-import { useDispatch } from 'react-redux';
+import auth from '@react-native-firebase/auth';
 import NextButtonWithLoader from './NextButtonWithLoader';
+import UserInput from './UserInput';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { regexpEmail } from '../../utils/regExp';
+import ErrorInfo from '../ErrorInfo';
 
 type FirstStepType = {
-  email: string;
-  password: string;
   width: number;
   flatListRef: React.MutableRefObject<FlatList<any> | null>;
+  nextStep: (value: number) => void;
 };
 
-const SecondStep = ({ email, password, width, flatListRef }: FirstStepType) => {
+const SecondStep = ({ width, flatListRef, nextStep }: FirstStepType) => {
   const scheme = useColorScheme();
   const { colors } = getCurrentTheme(scheme);
-  const [code, setCode] = useState('');
-  const [isResendAvailable, setIsResendAvailable] = useState(true);
-  const [timer, setTimer] = useState(60);
-  const [isLoading, setIsLoading] = useState(false);
-  const dispatch = useDispatch();
+  const [email, setEmail] = useState('');
+  const [toggleChangeEmail, setToggleChangeEmail] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    if (!isResendAvailable) {
-      const interval = setInterval(() => {
-        setTimer(timer => timer - 1);
-      }, 1000);
-      setTimeout(() => {
-        setIsResendAvailable(true);
-        clearInterval(interval);
-        setTimer(60);
-      }, 60000);
-    }
-  }, [isResendAvailable]);
-
-  const confirmSignUp = async () => {
-    try {
-      setIsLoading(true);
-      if (flatListRef.current) {
-        flatListRef.current.scrollToIndex({ index: 2, animated: true });
+    const subscriber = auth().onAuthStateChanged(user => {
+      if (user && user.email) {
+        setEmail(user.email);
+        setIsLoading(false);
       }
-      setIsLoading(false);
-    } catch (error) {
-      setIsLoading(false);
-      console.tron({ 'error confirming sign up': error });
+    });
+    return subscriber; // unsubscribe on unmount
+  }, []);
+
+  useEffect(() => {
+    const unsubscribeSetInterval = setInterval(async () => {
+      auth().currentUser?.reload();
+    }, 5000);
+    const unsubscribeOnUserChanged = auth().onUserChanged(response => {
+      console.tron({ response });
+      if (response?.emailVerified) {
+        clearInterval(unsubscribeSetInterval);
+        nextStep(3);
+        if (flatListRef.current) {
+          flatListRef.current.scrollToIndex({
+            index: 2,
+            animated: true,
+          });
+        }
+
+        return unsubscribeOnUserChanged();
+      }
+    });
+    return () => unsubscribeOnUserChanged();
+  }, []);
+
+  const onChangeEmailPress = async () => {
+    if (!email || !regexpEmail.test(email)) {
+      setError(!email ? 'Enter email' : 'incorrectly-email');
+      return;
+    }
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    setToggleChangeEmail(false);
+    const user = await auth().currentUser;
+    if (user) {
+      await user?.updateEmail(email);
+      const updatedUser = await auth().currentUser;
+      await updatedUser?.sendEmailVerification();
     }
   };
 
-  const resendConfirmationCode = async () => {
-    if (isResendAvailable) {
-      setIsResendAvailable(false);
-      try {
-        setIsResendAvailable(false);
-        console.log('code resent successfully');
-      } catch (err) {
-        console.log('error resending code: ', err);
-      }
-    }
-  };
+  if (isLoading) {
+    return (
+      <View style={[styles.mainContainer, { width }]}>
+        <ActivityIndicator />
+      </View>
+    );
+  }
 
   return (
-    <View style={[styles.mainWrap, { width }]}>
-      <View style={styles.titleWrap}>
-        <Text
-          style={
-            styles.titleText
-          }>{`We sent a confirmation code to your email ${email}`}</Text>
-      </View>
-      <TextInput
-        style={[
-          styles.textInput,
-          { borderColor: colors.border, color: colors.text },
-        ]}
-        value={code}
-        onChangeText={setCode}
-        placeholder={'Enter code'}
-        blurOnSubmit
-        keyboardType={'email-address'}
-      />
-      <Pressable style={styles.resendBtn} onPress={resendConfirmationCode}>
-        <Text
-          style={{
-            color: isResendAvailable ? 'tomato' : 'grey',
-            textDecorationLine: 'underline',
-          }}>
-          {'Resend confirmation code'}
-        </Text>
-        {!isResendAvailable && (
-          <View style={styles.timer}>
-            <Text style={styles.timerText}>{timer}</Text>
+    <KeyboardAwareScrollView
+      bounces={false}
+      showsVerticalScrollIndicator={false}
+      keyboardShouldPersistTaps={'handled'}
+      contentContainerStyle={[styles.mainContainer, { width }]}>
+      {toggleChangeEmail ? (
+        <>
+          <ErrorInfo error={error} />
+          <UserInput
+            title={'Email'}
+            value={email}
+            setValue={setEmail}
+            containerStyle={styles.inputContainer}
+            keyboardType={'email-address'}
+            autoCapitalize={'none'}
+          />
+          <NextButtonWithLoader
+            title={'Change email'}
+            onPress={onChangeEmailPress}
+          />
+          <View style={styles.backButtonWrap}>
+            <Pressable
+              onPress={() => {
+                LayoutAnimation.configureNext(
+                  LayoutAnimation.Presets.easeInEaseOut,
+                );
+                setToggleChangeEmail(false);
+              }}
+              hitSlop={{ top: 10, right: 10, bottom: 10, left: 10 }}
+              style={styles.backButton}>
+              <Text style={styles.backButtonText}>{'Back'}</Text>
+            </Pressable>
           </View>
-        )}
-      </Pressable>
-      <NextButtonWithLoader
-        title={'Next'}
-        onPress={confirmSignUp}
-        isLoading={isLoading}
-      />
-    </View>
+        </>
+      ) : (
+        <>
+          <View style={styles.titleWrap}>
+            <Text style={[styles.titleText, { color: colors.text }]}>
+              {'Confirm email'}
+            </Text>
+            <Text style={[styles.titleText, { color: colors.text }]}>
+              {email}
+            </Text>
+          </View>
+          <View style={styles.textWrap}>
+            <Text style={styles.wrongText}>{'Wrong email?'}</Text>
+            <Pressable
+              onPress={() => {
+                LayoutAnimation.configureNext(
+                  LayoutAnimation.Presets.easeInEaseOut,
+                );
+                setToggleChangeEmail(true);
+              }}>
+              <Text style={styles.changeText}>{'Change it!'}</Text>
+            </Pressable>
+          </View>
+        </>
+      )}
+    </KeyboardAwareScrollView>
   );
 };
 
-export default SecondStep;
+export default React.memo(SecondStep);
 
 const styles = StyleSheet.create({
-  mainWrap: {
+  mainContainer: {
     flex: 1,
     paddingHorizontal: 20,
     alignItems: 'center',
-    justifyContent: 'center',
+    paddingTop: '20%',
   },
   titleWrap: {
     width: '100%',
@@ -124,33 +165,17 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   titleText: {
-    color: '#fff',
     textAlign: 'center',
     fontSize: 17,
   },
-  textInput: {
-    width: '100%',
-    borderBottomWidth: 1,
-    fontSize: 17,
-    padding: 0,
-    marginBottom: 25,
+  inputContainer: { marginBottom: 15 },
+  backButtonWrap: { width: '100%' },
+  backButton: { alignItems: 'flex-end', marginTop: 15 },
+  backButtonText: { color: 'tomato', textDecorationLine: 'underline' },
+  textWrap: { flexDirection: 'row' },
+  wrongText: { color: 'tomato', marginRight: 5 },
+  changeText: {
+    color: 'tomato',
+    textDecorationLine: 'underline',
   },
-  resendBtn: {
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 20,
-    flexDirection: 'row',
-  },
-  timer: { position: 'absolute', right: '18%' },
-  timerText: { color: 'grey' },
-  btnWrap: {
-    backgroundColor: 'tomato',
-    width: '100%',
-    height: 40,
-    borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  btnText: { color: '#fff', fontWeight: '700', fontSize: 17 },
 });

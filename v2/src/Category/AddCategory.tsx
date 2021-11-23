@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { StyleSheet, Pressable } from 'react-native';
 import { useColorScheme } from 'react-native-appearance';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { MainStackParamList } from '../Navigation';
@@ -15,27 +15,23 @@ const AddCategory = ({ from }: AddCategoryType) => {
   const { colors } = getCurrentTheme(scheme);
   const { navigate } = useNavigation<NavigationProp<MainStackParamList>>();
   return (
-    <TouchableOpacity
+    <Pressable
       style={{
-        borderTopColor: colors.text,
-        borderWidth: StyleSheet.hairlineWidth,
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+        position: 'absolute',
+        bottom: 20,
+        right: 20,
+        backgroundColor: 'tomato',
+        alignItems: 'center',
+        justifyContent: 'center',
       }}
       onPress={() => {
         navigate('NewCategory', { from });
       }}>
-      <View
-        style={[
-          {
-            backgroundColor: colors.background,
-          },
-          styles.wrap,
-        ]}>
-        <Icon name="plus" size={24} color={colors.text} />
-        <Text style={{ color: colors.text, marginLeft: 5 }}>
-          {'Add new category'}
-        </Text>
-      </View>
-    </TouchableOpacity>
+      <Icon name="plus" size={24} color={colors.text} />
+    </Pressable>
   );
 };
 

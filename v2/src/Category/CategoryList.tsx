@@ -1,8 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
-import DraggableFlatList, {
-  RenderItemParams,
-} from 'react-native-draggable-flatlist';
+import { FlatList, View } from 'react-native';
 import { CategoryType } from '../store/category';
 import AddCategory from './AddCategory';
 import RenderItem from './RenderItem';
@@ -13,43 +10,22 @@ type CategoryListType = {
 };
 
 const CategoryList = ({ categoryList, type }: CategoryListType) => {
-  const itemRefs = new Map();
-  const renderSeparator = () => {
-    return (
-      <View
-        style={{
-          height: 0.5,
-          backgroundColor: '#CED0CE',
-        }}
-      />
-    );
+  const renderItem = ({ item }: { item: CategoryType }) => {
+    return <RenderItem categoryItem={item} type={type} />;
   };
   return (
-    <View style={{ flex: 1 }}>
-      <DraggableFlatList
-        activationDistance={15}
+    <>
+      <FlatList
         keyboardShouldPersistTaps="handled"
-        ItemSeparatorComponent={renderSeparator}
+        style={{ marginBottom: 10 }}
+        bounces={false}
+        showsVerticalScrollIndicator={false}
         data={categoryList}
-        renderItem={({
-          item,
-          index,
-          drag,
-          isActive,
-        }: RenderItemParams<CategoryType>) => (
-          <RenderItem
-            categoryItem={item}
-            type={type}
-            drag={drag}
-            isActive={isActive}
-            itemRefs={itemRefs}
-          />
-        )}
-        keyExtractor={(item, index) => `draggable-item-${item.id}`}
-        // onDragEnd={({ data }) => this.setState({ data })}
+        renderItem={renderItem}
+        keyExtractor={item => `draggable-item-${item.id}`}
       />
       <AddCategory from={type} />
-    </View>
+    </>
   );
 };
 

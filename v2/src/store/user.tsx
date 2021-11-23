@@ -7,14 +7,14 @@ import {
 export type UserReducerType = {
   userID: string | null;
   firstName: string;
-  secondName: string;
+  lastName: string;
   imageUri: string | null;
 };
 
 const initialState: UserReducerType = {
   userID: null,
   firstName: '',
-  secondName: '',
+  lastName: '',
   imageUri: null,
 };
 
@@ -22,8 +22,11 @@ class UserReducer extends ImmerReducer<UserReducerType> {
   state = this.draftState;
 
   setUser(user: UserReducerType) {
-    console.tron({ user });
     this.draftState = user;
+  }
+
+  setFirstName(name: string) {
+    this.draftState.firstName = name;
   }
 
   resetUser() {

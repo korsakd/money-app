@@ -4,6 +4,7 @@ import { useColorScheme } from 'react-native-appearance';
 import { getCurrentTheme } from '../Theme';
 import IconItem from './IconItem';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { RED } from '../Constants';
 
 type NewCategoryInputType = {
   categoryName: string;
@@ -42,7 +43,7 @@ const NewCategoryInput = ({
         <TextInput
           style={[styles.input, { color: colors.text }]}
           placeholder={'Category name'}
-          placeholderTextColor={error ? 'red' : colors.text}
+          placeholderTextColor={error ? RED : colors.text}
           onChangeText={onChangeText}
           value={categoryName}
           maxLength={20}
@@ -101,5 +102,5 @@ const styles = StyleSheet.create({
     height: 15,
     justifyContent: 'center',
   },
-  errorText: { color: 'red' },
+  errorText: { color: RED },
 });
