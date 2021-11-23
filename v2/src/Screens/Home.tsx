@@ -31,13 +31,10 @@ const HomeScreen = () => {
   // }, []);
   // useEffect(() => {
   //   const search = async () => {
-  //     const client = algoliasearch(
-  //       'GL2UGLVWW6',
-  //       'ab7a3e433fe790de806161859c7729e2',
-  //     );
+  //     const client = algoliasearch('GL2UGLVWW6', Config.ALGOLIA_API_KEY);
   //     const index = client.initIndex('users');
   //     const result = (await index.search(state)).hits;
-  //     console.tron({ result });
+
   //   };
   //   if (state) {
   //     search();
